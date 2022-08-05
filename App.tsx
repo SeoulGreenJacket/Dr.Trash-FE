@@ -7,16 +7,18 @@
  *
  * @format
  */
-import {ThemeProvider} from '@emotion/react';
 import React from 'react';
+import {View} from 'react-native';
+import GlobalHeader from './src/components/common/header';
 import Navigator from './src/router';
-import theme from './src/themes/themes';
+import globalLayout from './src/styles/globalLayout';
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <View style={globalLayout.container}>
+      <GlobalHeader />
       <Navigator />
-    </ThemeProvider>
+    </View>
   );
 };
 

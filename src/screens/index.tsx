@@ -1,9 +1,7 @@
 import React from 'react';
-import {Container} from '../styles/home/index';
-
-//기열이형 코드박스
+import {View} from 'react-native';
 
 const Main = () => {
-  return <Container />;
+  return <View />;
 };
 export default Main;
