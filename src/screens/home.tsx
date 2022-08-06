@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Button, View} from 'react-native';
-import QrScanner from '../components/Home/qrScanner';
+import {Alert, Button} from 'react-native';
+import Body from '../components/common/content';
+import QrScanner from '../components/home/qrScanner';
+import CameraBox from '../styles/home/qrScanner';
 
 export interface IQrCodeDataType {
   codeSrtingValue: string;
@@ -16,19 +18,23 @@ const Home = () => {
   useEffect(() => {
     if (qrCodeData !== undefined) {
       Alert.alert('분리배출이 시작됩니다.');
+      console.log(qrCodeData);
     }
-  }, [qrCodeData]);
+  });
   return (
-    <View>
-      <Button title="camera" onPress={onPress} />
-      {qrCode && (
-        <QrScanner
-          qrCode={qrCode}
-          setQrCode={setQrCode}
-          setQrCodeData={setQrCodeData}
-        />
-      )}
-    </View>
+    <Body>
+      <CameraBox>
+        {qrCode ? (
+          <QrScanner
+            qrCode={qrCode}
+            setQrCode={setQrCode}
+            setQrCodeData={setQrCodeData}
+          />
+        ) : (
+          <Button title="분리배출 시작하기" onPress={onPress} />
+        )}
+      </CameraBox>
+    </Body>
   );
 };
 

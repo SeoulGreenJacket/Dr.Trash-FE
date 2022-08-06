@@ -7,18 +7,26 @@
  *
  * @format
  */
+
+// import {ThemeProvider} from '@emotion/react';
 import React from 'react';
-import {View} from 'react-native';
+import Body from './src/components/common/content';
 import GlobalHeader from './src/components/common/header';
+import NavigationBar from './src/components/common/nav';
 import Navigator from './src/router';
-import globalLayout from './src/styles/globalLayout';
+import {Container} from './src/styles/globalLayout';
 
 const App = () => {
   return (
-    <View style={globalLayout.container}>
+    // <ThemeProvider theme={}>
+    <Container>
       <GlobalHeader />
-      <Navigator />
-    </View>
+      <Body>
+        <Navigator />
+      </Body>
+      <NavigationBar />
+    </Container>
+    // </ThemeProvider>
   );
 };
 

@@ -1,9 +1,8 @@
 import React from 'react';
-import {View} from 'react-native';
-import globalContainerStyles from '../../styles/globalLayout';
+import {Header} from '../../styles/globalLayout';
 
 const GlobalHeader = () => {
-  return <View style={globalContainerStyles.header} />;
+  return <Header />;
 };
 
 export default GlobalHeader;
