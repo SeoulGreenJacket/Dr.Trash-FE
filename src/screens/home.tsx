@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, Button} from 'react-native';
-import Body from '../components/common/content';
-import QrScanner from '../components/home/qrScanner';
+import QrScanner from '../components/Home/qrScanner';
 import CameraBox from '../styles/home/qrScanner';
 
 export interface IQrCodeDataType {
@@ -22,19 +21,17 @@ const Home = () => {
     }
   });
   return (
-    <Body>
-      <CameraBox>
-        {qrCode ? (
-          <QrScanner
-            qrCode={qrCode}
-            setQrCode={setQrCode}
-            setQrCodeData={setQrCodeData}
-          />
-        ) : (
-          <Button title="분리배출 시작하기" onPress={onPress} />
-        )}
-      </CameraBox>
-    </Body>
+    <CameraBox>
+      {qrCode ? (
+        <QrScanner
+          qrCode={qrCode}
+          setQrCode={setQrCode}
+          setQrCodeData={setQrCodeData}
+        />
+      ) : (
+        <Button title="분리배출 시작하기" onPress={onPress} />
+      )}
+    </CameraBox>
   );
 };
 
