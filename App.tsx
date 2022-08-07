@@ -7,16 +7,26 @@
  *
  * @format
  */
-import {ThemeProvider} from '@emotion/react';
+
+// import {ThemeProvider} from '@emotion/react';
 import React from 'react';
+import Body from './src/components/common/content';
+import GlobalHeader from './src/components/common/header';
+import NavigationBar from './src/components/common/nav';
 import Navigator from './src/router';
-import theme from './src/themes/themes';
+import {Container} from './src/styles/globalLayout';
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Navigator />
-    </ThemeProvider>
+    // <ThemeProvider theme={}>
+    <Container>
+      <GlobalHeader />
+      <Body>
+        <Navigator />
+      </Body>
+      <NavigationBar />
+    </Container>
+    // </ThemeProvider>
   );
 };
 
