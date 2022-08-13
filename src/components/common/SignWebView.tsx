@@ -10,13 +10,14 @@ const SignWebView = () => {
     const code = e.nativeEvent.url;
     const accessCode = code.substring(code.indexOf('code=') + 5);
     setCode(accessCode);
+    console.log(e.nativeEvent);
   };
 
   return (
     <Modal animationType="slide">
       <WebView
         originWhitelist={['*']}
-        source={{uri: 'http://localhost:3000/auth/login/kakao/callback'}}
+        source={{uri: 'http://localhost:3000/auth/login/kakao/'}}
         onMessage={onSuccess}
         style={{marginTop: 80}}
       />

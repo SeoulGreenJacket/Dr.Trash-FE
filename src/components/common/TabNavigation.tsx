@@ -12,15 +12,15 @@ const TabNavigation = () => {
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: () => {
-          let iconName;
+          let iconName: string;
           if (route.name === 'HomePage') {
             iconName = 'home';
           } else if (route.name === 'Community') {
-            iconName = 'form';
+            iconName = 'message1';
           } else {
             iconName = 'user';
           }
-          return <Icon name={iconName} />;
+          return <Icon name={iconName} size={20} />;
         },
       })}>
       <Tab.Screen
