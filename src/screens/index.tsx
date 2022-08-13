@@ -10,7 +10,7 @@ export type MainScreenProps = NativeStackScreenProps<
   'Main'
 >;
 
-const Main = ({navigation, route}: MainScreenProps) => {
+const Main = ({navigation}: MainScreenProps) => {
   return (
     <Container>
       <Title>Dr.TRASH</Title>

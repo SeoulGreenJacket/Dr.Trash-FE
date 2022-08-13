@@ -7,10 +7,9 @@
  *
  * @format
  */
-import {ThemeProvider} from '@emotion/react';
+// import {ThemeProvider} from '@emotion/react';
 import React from 'react';
-import Navigator from './router';
-// import theme from './themes/themes';
+import Navigator from './navigator/router';
 
 const App = () => {
   return <Navigator />;
