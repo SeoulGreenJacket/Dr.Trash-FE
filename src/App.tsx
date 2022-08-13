@@ -7,12 +7,17 @@
  *
  * @format
  */
-// import {ThemeProvider} from '@emotion/react';
+import {ThemeProvider} from '@emotion/react';
+import theme from './themes/themes';
 import React from 'react';
 import Navigator from './navigator/router';
 
 const App = () => {
-  return <Navigator />;
+  return (
+    <ThemeProvider theme={theme}>
+      <Navigator />
+    </ThemeProvider>
+  );
 };
 
 export default App;
