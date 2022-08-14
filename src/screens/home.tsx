@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
 import {Alert, Button} from 'react-native';
 import QrScanner from '../components/Home/qrScanner';
@@ -20,6 +21,7 @@ const Home = () => {
       console.log(qrCodeData);
     }
   });
+
   return (
     <CameraBox>
       {qrCode ? (

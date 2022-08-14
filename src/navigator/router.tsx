@@ -1,11 +1,11 @@
 import React from 'react';
 import {Text} from 'react-native';
-import {NavigationContainer, TabActions} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Main from './screens';
+import Main from '../screens';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import TabNavigation from './components/common/TabNavigation';
+import TabNavigation from './TabNavigation';
 
 const Stack = createNativeStackNavigator();
 
