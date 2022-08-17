@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Container, KakaoLoginBtn, Title} from '../styles/home/index';
-import {Image, Text} from 'react-native';
+import {KakaoLoginBtn, Title} from '../styles/index';
+import {Image, Text, Button} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types/RootStackParamList';
 import SignWebView from '../components/common/SignWebView';
 import axios from 'axios';
 import AsyncStoarge from '@react-native-async-storage/async-storage';
+import GlobalLayout from '../styles/globalLayout';
 let kakaoLoginImg = require('../../assets/images/kakao_login_medium_wide.png');
 
 export type MainScreenProps = NativeStackScreenProps<
@@ -13,15 +14,10 @@ export type MainScreenProps = NativeStackScreenProps<
   'Main'
 >;
 
-const Loading = () => {
-  return <Text>Loading...</Text>;
-};
-
-const Main = ({navigation}: MainScreenProps) => {
+const Start = ({navigation}: MainScreenProps) => {
   const [open, setOpen] = useState(false);
   const [token, setToken] = useState({access_token: '', refresh_token: ''});
   const [initToken, setInitToken] = useState<string | null>('');
-  const [loading, setLoading] = useState(true);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const openLoginView = () => {
     setOpen(true);
@@ -37,14 +33,13 @@ const Main = ({navigation}: MainScreenProps) => {
   const init = async () => {
     let access: string | null = await AsyncStoarge.getItem('access_token');
     setInitToken(access);
-    console.log(access);
+    console.log(initToken);
+    if (initToken) {
+      setLoginSuccess(true);
+    } else setLoginSuccess(false);
   };
   useEffect(() => {
     init();
-    if (initToken !== null) {
-      setLoading(false);
-      setLoginSuccess(true);
-    } else setLoginSuccess(false);
   }, []);
 
   useEffect(() => {
@@ -69,21 +64,30 @@ const Main = ({navigation}: MainScreenProps) => {
   //     console.error(e);
   //   }
   // };
+  const tokenCheck = async () => {
+    let access = await AsyncStoarge.getItem('access_token');
+    let refresh = await AsyncStoarge.getItem('refresh_token');
+    console.log(access, refresh);
+  };
+  const tokenDelete = async () => {
+    await AsyncStoarge.removeItem('access_token');
+    await AsyncStoarge.removeItem('refresh_token');
+  };
+  const toMain = () => {
+    navigation.navigate('Main');
+  };
   return (
-    <Container>
+    <GlobalLayout>
       <Title>Dr.TRASH</Title>
       {open && <SignWebView getToken={getToken} />}
-      {loading ? (
-        <>
-          <KakaoLoginBtn onPress={openLoginView}>
-            <Image source={kakaoLoginImg} />
-          </KakaoLoginBtn>
-        </>
-      ) : (
-        <Loading />
-      )}
-    </Container>
+      <KakaoLoginBtn onPress={openLoginView}>
+        <Image source={kakaoLoginImg} />
+      </KakaoLoginBtn>
+      <Button title="메인페이지로" onPress={toMain} />
+      <Button title="토큰확인" onPress={tokenCheck} />
+      <Button title="토큰삭제" onPress={tokenDelete} />
+    </GlobalLayout>
   );
 };
 
-export default Main;
+export default Start;
