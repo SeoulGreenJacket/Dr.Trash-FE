@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text} from 'react-native';
+import GlobalLayout from '../../styles/globalLayout';
 const MyPage = () => {
-  return <Text>마이페이지</Text>;
+  return <GlobalLayout />;
 };
 
 export default MyPage;
