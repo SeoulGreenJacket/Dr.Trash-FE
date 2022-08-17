@@ -1,8 +1,9 @@
 import React from 'react';
-import {Container, KakaoLoginBtn, Title} from '../styles/home/index';
+import {KakaoLoginBtn, Title} from '../styles/index';
 import {Image, Button} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types/RootStackParamList';
+import GlobalLayout from '../styles/globalLayout';
 let kakaoLoginImg = require('../../assets/images/kakao_login_medium_wide.png');
 
 export type MainScreenProps = NativeStackScreenProps<
@@ -10,20 +11,19 @@ export type MainScreenProps = NativeStackScreenProps<
   'Main'
 >;
 
-const Main = ({navigation}: MainScreenProps) => {
+const Start = ({navigation}: MainScreenProps) => {
   return (
-    <Container>
+    <GlobalLayout>
       <Title>Dr.TRASH</Title>
-
       <KakaoLoginBtn>
         <Image source={kakaoLoginImg} />
       </KakaoLoginBtn>
       <Button
         title="메인페이지로"
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.navigate('Main')}
       />
-    </Container>
+    </GlobalLayout>
   );
 };
 
-export default Main;
+export default Start;
