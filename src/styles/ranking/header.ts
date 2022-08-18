@@ -1,5 +1,4 @@
 import styled from '@emotion/native';
-import {keyframes} from '@emotion/react';
 
 const RankHeader = styled.View`
   width: 100%;
