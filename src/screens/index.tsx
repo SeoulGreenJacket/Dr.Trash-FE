@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {KakaoLoginBtn, Title} from '../styles/index';
-import {Image, Text, Button} from 'react-native';
+import {Image, Button} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../types/RootStackParamList';
+import RootStackParamList from '../types/RootStackParamList';
 import SignWebView from '../components/common/SignWebView';
 import axios from 'axios';
 import AsyncStoarge from '@react-native-async-storage/async-storage';
@@ -22,7 +22,7 @@ const Start = ({navigation}: MainScreenProps) => {
   const openLoginView = () => {
     setOpen(true);
   };
-  const getToken = async (token: any) => {
+  const getToken = async (t: any) => {
     setToken(token);
     await AsyncStoarge.setItem('access_token', token.access_token);
     await AsyncStoarge.setItem('refresh_token', token.refresh_token);
@@ -36,17 +36,19 @@ const Start = ({navigation}: MainScreenProps) => {
     console.log(initToken);
     if (initToken) {
       setLoginSuccess(true);
-    } else setLoginSuccess(false);
+    } else {
+      setLoginSuccess(false);
+    }
   };
   useEffect(() => {
     init();
-  }, []);
+  });
 
   useEffect(() => {
     if (loginSuccess === true) {
-      navigation.navigate('Home');
+      navigation.navigate('Main');
     }
-  }, [loginSuccess]);
+  }, [loginSuccess, navigation]);
 
   // const logout = async () => {
   //   try {
