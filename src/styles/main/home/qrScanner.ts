@@ -1,12 +1,11 @@
 import styled from '@emotion/native';
 
 const CameraBox = styled.View`
-  flex: 0.5;
-  width: 80%;
+  width: 100%;
+  min-height: 330px;
   justify-content: center;
-  margin: 20px auto;
+  background-color: ${props => props.theme.colors.lightGray};
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
   overflow: hidden;
 `;
 

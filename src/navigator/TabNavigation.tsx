@@ -1,8 +1,8 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from '../../screens/home';
-import MyPage from '../../screens/mypage';
-import Community from '../../screens/community';
+import Home from '../screens/main/home';
+import MyPage from '../screens/main/mypage';
+import Community from '../screens/main/community';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const Tab = createBottomTabNavigator();
@@ -13,18 +13,18 @@ const TabNavigation = () => {
       screenOptions={({route}) => ({
         tabBarIcon: () => {
           let iconName;
-          if (route.name === 'HomePage') {
+          if (route.name === 'MainPage') {
             iconName = 'home';
-          } else if (route.name === 'Community') {
-            iconName = 'form';
-          } else {
+          } else if (route.name === 'MyPage') {
             iconName = 'user';
+          } else if (route.name === 'Community') {
+            iconName = 'message1';
           }
-          return <Icon name={iconName} />;
+          return <Icon name={iconName} size={20} />;
         },
       })}>
       <Tab.Screen
-        name="HomePage"
+        name="MainPage"
         component={Home}
         options={{headerShown: false}}
       />
