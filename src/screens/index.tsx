@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {KakaoLoginBtn, Title} from '../styles/index';
 import {Image, Button} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../types/RootStackParamList';
+import RootStackParamList from '../types/RootStackParamList';
 import SignWebView from '../components/common/SignWebView';
 import axios from 'axios';
 import AsyncStoarge from '@react-native-async-storage/async-storage';
