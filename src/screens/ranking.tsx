@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import RankBox from '../components/ranking/rankBox';
+import RankBox from '../components/ranking/RankBox';
 import GlobalLayout from '../styles/globalLayout';
 import {RankHeader, Reloader, Title} from '../styles/ranking/header';
 // import Icon from 'react-native-vector-icons/AntDesign';

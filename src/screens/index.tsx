@@ -36,13 +36,11 @@ const Start = ({navigation}: MainScreenProps) => {
     console.log(initToken);
     if (initToken) {
       setLoginSuccess(true);
-    } else {
-      setLoginSuccess(false);
-    }
+    } else setLoginSuccess(false);
   };
   useEffect(() => {
     init();
-  });
+  }, []);
 
   useEffect(() => {
     if (loginSuccess === true) {
@@ -69,7 +67,7 @@ const Start = ({navigation}: MainScreenProps) => {
   const tokenCheck = async () => {
     let access = await AsyncStoarge.getItem('access_token');
     let refresh = await AsyncStoarge.getItem('refresh_token');
-    console.log(access, refresh);
+    console.log('access', access, 'refresh', refresh);
   };
   const tokenDelete = async () => {
     await AsyncStoarge.removeItem('access_token');
