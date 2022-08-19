@@ -19,7 +19,6 @@ const App = () => {
       <SafeAreaView style={styles.safeAreaTop} />
       <StatusBar barStyle="dark-content" />
       <Navigator />
-      <SafeAreaView style={styles.safeAreaBottom} />
     </ThemeProvider>
   );
 };

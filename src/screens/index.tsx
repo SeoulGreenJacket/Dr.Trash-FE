@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {KakaoLoginBtn, Title} from '../styles/index';
-import {Image, Text, Button} from 'react-native';
+import {Image, Button} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types/RootStackParamList';
 import SignWebView from '../components/common/SignWebView';
@@ -22,11 +22,10 @@ const Start = ({navigation}: MainScreenProps) => {
   const openLoginView = () => {
     setOpen(true);
   };
-  const getToken = async (token: any) => {
+  const getToken = async (t: any) => {
     setToken(token);
-    console.log(token);
-    await AsyncStoarge.setItem('access_token', token.accessToken);
-    await AsyncStoarge.setItem('refresh_token', token.refreshToken);
+    await AsyncStoarge.setItem('access_token', token.access_token);
+    await AsyncStoarge.setItem('refresh_token', token.refresh_token);
     setOpen(false);
     setLoginSuccess(true);
   };
@@ -47,7 +46,7 @@ const Start = ({navigation}: MainScreenProps) => {
     if (loginSuccess === true) {
       navigation.navigate('Main');
     }
-  }, [loginSuccess]);
+  }, [loginSuccess, navigation]);
 
   // const logout = async () => {
   //   try {

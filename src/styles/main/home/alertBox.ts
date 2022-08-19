@@ -3,7 +3,7 @@ import styled from '@emotion/native';
 const AlertBox = styled.View`
   width: 100%;
   height: auto;
-  margin: 20px 0 20px 0;
+  margin: 0 0 20px 0;
 `;
 const TitleBox = styled.Text`
   width: 100%;
