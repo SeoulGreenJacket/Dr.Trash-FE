@@ -2,38 +2,29 @@ import React, {useEffect, useState} from 'react';
 import {KakaoLoginBtn, Title} from '../styles/index';
 import {Image, Button} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../types/RootStackParamList';
+import RootStackParamList from '../types/RootStackParamList';
 import SignWebView from '../components/common/SignWebView';
-import axios from 'axios';
-import AsyncStoarge from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import GlobalLayout from '../styles/globalLayout';
 let kakaoLoginImg = require('../../assets/images/kakao_login_medium_wide.png');
 
-export type MainScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  'Main'
->;
+type MainScreenProps = NativeStackScreenProps<RootStackParamList, 'Main'>;
 
 const Start = ({navigation}: MainScreenProps) => {
   const [open, setOpen] = useState(false);
-  const [token, setToken] = useState({access_token: '', refresh_token: ''});
   const [initToken, setInitToken] = useState<string | null>('');
   const [loginSuccess, setLoginSuccess] = useState(false);
   const openLoginView = () => {
     setOpen(true);
   };
-  const getToken = async (t: any) => {
-    setToken(token);
-    await AsyncStoarge.setItem('access_token', token.access_token);
-    await AsyncStoarge.setItem('refresh_token', token.refresh_token);
+  const onLoginSuccess = async () => {
     setOpen(false);
     setLoginSuccess(true);
   };
 
   const init = async () => {
-    let access: string | null = await AsyncStoarge.getItem('access_token');
+    let access: string | null = await AsyncStorage.getItem('access_token');
     setInitToken(access);
-    console.log(initToken);
     if (initToken) {
       setLoginSuccess(true);
     } else setLoginSuccess(false);
@@ -41,37 +32,20 @@ const Start = ({navigation}: MainScreenProps) => {
   useEffect(() => {
     init();
   }, []);
-
   useEffect(() => {
     if (loginSuccess === true) {
       navigation.navigate('Main');
     }
   }, [loginSuccess, navigation]);
 
-  // const logout = async () => {
-  //   try {
-  //     await axios.get(
-  //       'https://kauth.kakao.com/oauth/logout?client_id=bd640091d4a1413f6c3789022f3e8f8a&logout_redirect_uri=http://localhost:3000/auth/logout',
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token.refresh_token}`,
-  //         },
-  //       },
-  //     );
-  //     AsyncStoarge.removeItem('access_token');
-  //     AsyncStoarge.removeItem('refresh_token');
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
   const tokenCheck = async () => {
-    let access = await AsyncStoarge.getItem('access_token');
-    let refresh = await AsyncStoarge.getItem('refresh_token');
+    let access = await AsyncStorage.getItem('access_token');
+    let refresh = await AsyncStorage.getItem('refresh_token');
     console.log('access', access, 'refresh', refresh);
   };
   const tokenDelete = async () => {
-    await AsyncStoarge.removeItem('access_token');
-    await AsyncStoarge.removeItem('refresh_token');
+    await AsyncStorage.removeItem('access_token');
+    await AsyncStorage.removeItem('refresh_token');
   };
   const toMain = () => {
     navigation.navigate('Main');
@@ -79,7 +53,7 @@ const Start = ({navigation}: MainScreenProps) => {
   return (
     <GlobalLayout>
       <Title>Dr.TRASH</Title>
-      {open && <SignWebView getToken={getToken} />}
+      {open && <SignWebView onLoginSuccess={onLoginSuccess} />}
       <KakaoLoginBtn onPress={openLoginView}>
         <Image source={kakaoLoginImg} />
       </KakaoLoginBtn>
