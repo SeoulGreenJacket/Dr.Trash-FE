@@ -48,11 +48,15 @@ const Achievement = () => {
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
       <AchivementBox>
-        {achieveItem.map(item => (
+        {achieveItem.map((item, index) => (
           <>
             <AchivementItem>
               <TouchableOpacity onPress={toggleModal}>
-                <ItemImage done={item.done} source={{uri: `${item.imgUri}`}} />
+                <ItemImage
+                  key={index}
+                  done={item.done}
+                  source={{uri: `${item.imgUri}`}}
+                />
               </TouchableOpacity>
             </AchivementItem>
           </>

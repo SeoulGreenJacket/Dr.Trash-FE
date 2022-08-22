@@ -32,6 +32,7 @@ const Home = ({navigation}: NavProps) => {
   const [phase, setPhase] = useState<'before' | 'inProgress' | 'done'>(
     'before',
   );
+
   const [myRecord, setMyRecord] = useState(dummyPopUpData);
   const pressBtn = async () => {
     if (phase === 'inProgress') {
@@ -94,6 +95,12 @@ const Home = ({navigation}: NavProps) => {
         title="랭킹 페이지로"
         onPress={() => {
           navigation.navigate('Ranking');
+        }}
+      />
+      <Button
+        title="쓰레기통 위치찾기"
+        onPress={() => {
+          navigation.navigate('TrashCanLocation');
         }}
       />
     </GlobalLayout>

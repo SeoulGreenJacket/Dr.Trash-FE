@@ -5,6 +5,9 @@ import Start from '../screens';
 import Ranking from '../screens/ranking';
 import TabNavigation from './TabNavigation';
 import RootStackParamList from '../types/RootStackParamList';
+import TrashCanLocation from '../screens/trashcan/trashcanLocation';
+import TrashCanInfo from '../screens/trashcan/trashcanInfo';
+import TrashCanAdd from '../screens/trashcan/trashcanAdd';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -25,6 +28,21 @@ const Navigator = () => {
         <Stack.Screen
           name="Ranking"
           component={Ranking}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="TrashCanLocation"
+          component={TrashCanLocation}
+          options={{title: ''}}
+        />
+        <Stack.Screen
+          name="TrashCanInfo"
+          component={TrashCanInfo}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="TrashCanAdd"
+          component={TrashCanAdd}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
