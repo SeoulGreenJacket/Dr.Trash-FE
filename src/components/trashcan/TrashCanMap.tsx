@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import CustomMarker from '../common/CustomMarker';
@@ -20,6 +20,8 @@ const TrashCanMap = ({setLat, setLong, lat, long}: MapProps) => {
   const onChangeLocation = (e: any) => {
     setLat(e.latitude);
     setLong(e.longitude);
+    setLatDelta(e.latitudeDelta);
+    setLongDelta(e.longitudeDelta);
   };
   const onChangeDelta = () => {
     setLatDelta(0.003);
@@ -29,12 +31,6 @@ const TrashCanMap = ({setLat, setLong, lat, long}: MapProps) => {
     <View style={{flex: 1}}>
       <MapView
         style={{flex: 1}}
-        initialRegion={{
-          latitude: preCurLocation.latitude,
-          longitude: preCurLocation.longitude,
-          latitudeDelta: latDelta,
-          longitudeDelta: longDelta,
-        }}
         region={{
           latitude: lat,
           longitude: long,
