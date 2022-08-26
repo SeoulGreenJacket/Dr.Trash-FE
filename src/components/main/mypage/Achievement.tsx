@@ -4,7 +4,7 @@ import {
   AchivementBox,
   AchivementItem,
   ItemImage,
-} from '../../../styles/main/myPage/achievment';
+} from '../../../styles/main/mypage/achievment';
 
 const achieveItem = [
   {
@@ -50,13 +50,9 @@ const Achievement = () => {
       <AchivementBox>
         {achieveItem.map((item, index) => (
           <>
-            <AchivementItem>
+            <AchivementItem key={index}>
               <TouchableOpacity onPress={toggleModal}>
-                <ItemImage
-                  key={index}
-                  done={item.done}
-                  source={{uri: `${item.imgUri}`}}
-                />
+                <ItemImage done={item.done} source={{uri: `${item.imgUri}`}} />
               </TouchableOpacity>
             </AchivementItem>
           </>

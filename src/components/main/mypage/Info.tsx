@@ -9,7 +9,7 @@ import {
   Name,
   StatusContent,
   StatusTitle,
-} from '../../../styles/main/myPage/info';
+} from '../../../styles/main/mypage/info';
 
 const Info = () => {
   return (

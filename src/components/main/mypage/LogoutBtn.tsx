@@ -2,7 +2,8 @@ import React from 'react';
 import {Text} from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Logout} from '../../../styles/main/myPage/logout';
+import {Logout} from '../../../styles/main/mypage/logout';
+
 const LogoutBtn = () => {
   const logout = async () => {
     let refresh = await AsyncStorage.getItem('refresh_token');
