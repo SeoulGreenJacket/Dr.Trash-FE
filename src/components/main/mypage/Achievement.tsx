@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ScrollView, TouchableOpacity} from 'react-native';
+import {ScrollView, TouchableOpacity, View} from 'react-native';
 import {
   AchivementBox,
   AchivementItem,
@@ -49,13 +49,13 @@ const Achievement = () => {
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
       <AchivementBox>
         {achieveItem.map((item, index) => (
-          <>
-            <AchivementItem key={index}>
+          <View key={index}>
+            <AchivementItem>
               <TouchableOpacity onPress={toggleModal}>
                 <ItemImage done={item.done} source={{uri: `${item.imgUri}`}} />
               </TouchableOpacity>
             </AchivementItem>
-          </>
+          </View>
         ))}
       </AchivementBox>
     </ScrollView>

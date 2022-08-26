@@ -13,6 +13,7 @@ type TrashCanInfoProps = NativeStackScreenProps<
 const TrashCanInfo = ({navigation}: TrashCanInfoProps) => {
   return (
     <SecondaryGlobalLayout>
+      <SafeAreaView style={styles.safeAreaTopMinor} />
       <TrashCanInfoMain />
       <RegisterBtn
         onPress={() => {
