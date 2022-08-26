@@ -1,4 +1,3 @@
-import GlobalLayout from '../../../styles/globalLayout';
 import React from 'react';
 import {Text} from 'react-native';
 import {
@@ -6,11 +5,11 @@ import {
   MyPageInfoBox,
   MyPageInfoProfile,
   MyPageInfoText,
-  Name,
   MyPageStatus,
-  StatusTitle,
+  Name,
   StatusContent,
-} from '../../../styles/main/mypage/info';
+  StatusTitle,
+} from '../../../styles/main/myPage/info';
 
 const Info = () => {
   return (
@@ -24,7 +23,7 @@ const Info = () => {
             김기열님.
           </Name>
         </MyPageInfoText>
-        <MyPageInfoProfile></MyPageInfoProfile>
+        <MyPageInfoProfile />
       </MyPageInfoBox>
       <MyPageStatus>
         <StatusTitle>

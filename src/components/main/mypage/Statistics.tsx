@@ -5,7 +5,7 @@ import {
   StatisticsType,
   TypeAll,
   TypeDetail,
-} from '../../../styles/main/mypage/statistics';
+} from '../../../styles/main/myPage/statistics';
 
 const typeAll = {content: '전체', value: 'all'};
 const typeDetail = {

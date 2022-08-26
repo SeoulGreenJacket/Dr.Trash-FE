@@ -1,32 +1,30 @@
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Button, SafeAreaView, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import GlobalLayout from '../../styles/globalLayout';
+import {SecondaryGlobalLayout} from '../../styles/globalLayout';
 import RootStackParamList from '../../types/RootStackParamList';
 import TrashCanInfoMain from '../../components/trashcan/TrashCanInfoMain';
-import {RegisterBtn} from '../../styles/trashcan/trashcanInfo';
+import {AlertBox, TitleBox, Title} from '../../styles/main/home/alertBox';
+import {styles} from '../../App';
 type TrashCanInfoProps = NativeStackScreenProps<
   RootStackParamList,
   'TrashCanInfo'
 >;
 const TrashCanInfo = ({navigation}: TrashCanInfoProps) => {
   return (
-    <GlobalLayout>
+    <SecondaryGlobalLayout>
+      <SafeAreaView style={styles.safeAreaTopMinor} />
+      <AlertBox>
+        <TitleBox>
+          <Title>총 2건의 쓰레기 통이{'\n'}등록 되었습니다.</Title>
+        </TitleBox>
+      </AlertBox>
       <TrashCanInfoMain />
-      <RegisterBtn
-        onPress={() => {
-          navigation.navigate('TrashCanAdd');
-        }}>
-        <Text
-          style={{
-            color: 'white',
-            textAlign: 'center',
-            fontSize: 15,
-          }}>
-          등록하기
-        </Text>
-      </RegisterBtn>
-    </GlobalLayout>
+      <Button
+        title="등록하러 가기"
+        onPress={() => navigation.push('TrashCanAdd')}
+      />
+    </SecondaryGlobalLayout>
   );
 };
 

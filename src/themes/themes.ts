@@ -8,6 +8,11 @@ const theme: Theme = {
     darkGray: '#707070',
     lime: '#C6E803',
   },
+  secondary: {
+    lightGray: '#F5F5F5',
+    middleGray: '#C9C9C9',
+    darkGray: '#A3A3A3',
+  },
 };
 
 export default theme;

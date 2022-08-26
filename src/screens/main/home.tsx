@@ -1,9 +1,10 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {Button, Text} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text} from 'react-native';
+import {styles} from '../../App';
 import PopUpBox from '../../components/main/home/PopUp';
 import QrScanner from '../../components/main/home/QrScanner';
-import GlobalLayout from '../../styles/globalLayout';
+import {GlobalLayout} from '../../styles/globalLayout';
 import {
   AlertBox,
   HelpText,
@@ -48,6 +49,7 @@ const Home = ({navigation}: NavProps) => {
   };
   return (
     <GlobalLayout>
+      <SafeAreaView style={styles.safeAreaTop} />
       <AlertBox>
         <TitleBox>
           <Title>
