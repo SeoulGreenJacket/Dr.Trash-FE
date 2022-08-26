@@ -6,7 +6,7 @@ const RankScrollView = styled.ScrollView`
 
 const TopRank = styled.View`
   width: 100%;
-  height: 75px;
+  height: 65px;
   display: flex;
   flex-direction: row;
   align-items: center;
