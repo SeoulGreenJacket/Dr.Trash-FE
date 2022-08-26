@@ -4,7 +4,7 @@ import {
   AchivementBox,
   AchivementItem,
   ItemImage,
-} from '../../../styles/main/mypage/achievment';
+} from '../../../styles/main/myPage/achievment';
 
 const achieveItem = [
   {

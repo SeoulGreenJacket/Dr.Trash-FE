@@ -11,21 +11,26 @@ import {ThemeProvider} from '@emotion/react';
 import theme from './themes/themes';
 import React from 'react';
 import Navigator from './navigator/router';
-import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <SafeAreaView style={styles.safeAreaTop} />
       <StatusBar barStyle="dark-content" />
       <Navigator />
     </ThemeProvider>
   );
 };
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   safeAreaTop: {
     flex: 0,
     backgroundColor: '#FFFFFF',
+    marginBottom: 30,
+  },
+  safeAreaTopMinor: {
+    flex: 0,
+    backgroundColor: '#F5F5F5',
+    marginBottom: 30,
   },
   safeAreaBottom: {
     flex: 0,

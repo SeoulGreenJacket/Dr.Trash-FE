@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView} from 'react-native';
+import {styles} from '../App';
 import RankBox from '../components/ranking/RankBox';
-import GlobalLayout from '../styles/globalLayout';
+import {GlobalLayout} from '../styles/globalLayout';
 import {RankHeader, Reloader, Title} from '../styles/ranking/header';
-// import Icon from 'react-native-vector-icons/AntDesign';
 import {
   MyName,
   MyProfile,
@@ -25,6 +25,7 @@ const Ranking = () => {
   return (
     <>
       <GlobalLayout>
+        <SafeAreaView style={styles.safeAreaTop} />
         <RankHeader>
           <Title>실시간 TOP 10</Title>
           <Reloader reload={reload}>
@@ -46,12 +47,5 @@ const Ranking = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  safeAreaBottom: {
-    flex: 0,
-    backgroundColor: '#000000',
-  },
-});
 
 export default Ranking;
