@@ -17,12 +17,13 @@ const TrashCanMap = ({setLat, setLong, lat, long}: MapProps) => {
   const [latDelta, setLatDelta] = useState(0.0922);
   const [longDelta, setLongDelta] = useState(0.0922);
 
-  // const onChangeLocation = (e: any) => {
-  //   setLat(e.latitude);
-  //   setLong(e.longitude);
-  //   setLatDelta(e.latitudeDelta);
-  //   setLongDelta(e.longitudeDelta);
-  // };
+  const onChangeLocation = (e: any) => {
+    setLat(e.latitude);
+    setLong(e.longitude);
+    setLatDelta(e.latitudeDelta);
+    setLongDelta(e.longitudeDelta);
+  };
+
   const onChangeDelta = () => {
     setLatDelta(0.003);
     setLongDelta(0.003);
@@ -31,12 +32,6 @@ const TrashCanMap = ({setLat, setLong, lat, long}: MapProps) => {
     <View style={{flex: 1}}>
       <MapView
         style={{flex: 1}}
-        initialRegion={{
-          latitude: preCurLocation.latitude,
-          longitude: preCurLocation.longitude,
-          latitudeDelta: latDelta,
-          longitudeDelta: longDelta,
-        }}
         region={{
           latitude: lat,
           longitude: long,
