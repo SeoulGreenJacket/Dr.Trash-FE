@@ -1,59 +1,111 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {View} from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import MapView, {Circle, Marker} from 'react-native-maps';
 import CustomMarker from '../common/CustomMarker';
+import GPSIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {GPSBtn} from '../../styles/trashcan/trashcanLocation';
+import Geolocation from '@react-native-community/geolocation';
 
-export const preCurLocation = {
-  latitude: 37.629,
-  longitude: 127.081,
-};
-interface MapProps {
-  setLat: (s1: number) => void;
-  setLong: (s2: number) => void;
-  lat: number;
-  long: number;
-}
-const TrashCanMap = ({setLat, setLong, lat, long}: MapProps) => {
-  const [latDelta, setLatDelta] = useState(0.0922);
-  const [longDelta, setLongDelta] = useState(0.0922);
+const TrashCanMap = () => {
+  const [location, setLocation] = useState<any>();
+  const [moveLocation, setMoveLocation] = useState<any>();
+  const [curLocation, setCurLocation] = useState(0);
+  const [isCurLocation, setIsCurLocation] = useState(true);
+  const locRef = useRef<MapView>(null);
+
+  const [markerList, setMarkerList] = useState([
+    {
+      coordinate: {latitude: 37.629, longitude: 127.081},
+      title: 'Dr.trash 1호',
+      description: '서울과학기술대학교 미래관',
+      _id: 'first',
+    },
+    {
+      coordinate: {latitude: 36.62, longitude: 127.44},
+      title: 'Dr.trash 2호',
+      description: '청주시 흥덕구 가경동',
+      _id: 'second',
+    },
+  ]);
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(location => {
+      const curRegion = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.008,
+        longitudeDelta: 0.008,
+      };
+      setLocation(curRegion);
+      setMoveLocation(curRegion);
+      locRef.current?.animateToRegion(curRegion, 500);
+    });
+  }, [curLocation]);
+
+  useEffect(() => {
+    if (location !== undefined && moveLocation !== undefined) {
+      if (
+        location.latitude.toFixed(3) !== moveLocation.latitude.toFixed(3) ||
+        location.longitude.toFixed(3) !== moveLocation.longitude.toFixed(3)
+      ) {
+        setIsCurLocation(false);
+      } else if (
+        location.latitude.toFixed(3) === moveLocation.latitude.toFixed(3) &&
+        location.longitude.toFixed(3) === moveLocation.longitude.toFixed(3)
+      )
+        setIsCurLocation(true);
+    }
+  }, [moveLocation]);
 
   const onChangeLocation = (e: any) => {
-    setLat(e.latitude);
-    setLong(e.longitude);
-    setLatDelta(e.latitudeDelta);
-    setLongDelta(e.longitudeDelta);
+    setMoveLocation(e);
   };
 
-  const onChangeDelta = () => {
-    setLatDelta(0.003);
-    setLongDelta(0.003);
+  const onPressMarker = (id: string) => {
+    const pressedMarker = markerList.filter(item => {
+      return item._id === id;
+    });
+    const markerLocation = {
+      latitude: pressedMarker[0].coordinate.latitude,
+      longitude: pressedMarker[0].coordinate.longitude,
+      latitudeDelta: 0.001,
+      longitudeDelta: 0.001,
+    };
+    locRef.current?.animateToRegion(markerLocation, 500);
   };
+
   return (
     <View style={{flex: 1}}>
       <MapView
         style={{flex: 1}}
-        region={{
-          latitude: lat,
-          longitude: long,
-          latitudeDelta: latDelta,
-          longitudeDelta: longDelta,
-        }}
-        // onRegionChange={e => onChangeLocation(e)}
-      >
-        <Marker
-          coordinate={{latitude: 37.629, longitude: 127.081}}
-          title="Dr.Trash 1호"
-          description="서울과학기술대학교 미래관"
-          onPress={onChangeDelta}>
-          <CustomMarker />
-        </Marker>
-        <Marker
-          coordinate={{latitude: 36.62, longitude: 127.44}}
-          title="Dr.Trash 2호"
-          description="청주시 흥덕구 가경동">
-          <CustomMarker />
-        </Marker>
+        showsUserLocation={true}
+        userInterfaceStyle="light"
+        ref={locRef}
+        onRegionChange={e => onChangeLocation(e)}>
+        {markerList.map((item, index) => (
+          <Marker
+            key={index}
+            coordinate={item.coordinate}
+            title={item.title}
+            description={item.description}
+            identifier={item._id}
+            onPress={() => onPressMarker(item._id)}>
+            <CustomMarker />
+          </Marker>
+        ))}
       </MapView>
+      <GPSBtn
+        onPress={() => {
+          setCurLocation(prev => (prev += 1));
+          setIsCurLocation(true);
+        }}
+        isCurLocation={isCurLocation}>
+        <GPSIcon
+          name="crosshairs-gps"
+          size={20}
+          style={{textAlign: 'center', marginTop: 10}}
+        />
+      </GPSBtn>
     </View>
   );
 };
