@@ -13,7 +13,7 @@ export const TrashCanPlusBtn = styled.TouchableOpacity`
 export const GPSBtn = styled.TouchableOpacity<{isCurLocation: boolean}>`
   width: 41px;
   height: 41px;
-  background-color: ${props => (props.isCurLocation ? '#C6E803' : 'white')};
+  background-color: ${props => (props.isCurLocation ? '#c6e803' : 'white')};
   position: absolute;
   left: 29px;
   bottom: 82px;
