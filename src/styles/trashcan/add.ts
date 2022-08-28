@@ -70,7 +70,7 @@ const Btn = styled.TouchableOpacity`
 `;
 
 const BtnTxt = styled.Text`
-  color: ${props => props.theme.colors.black};
+  color: ${props => props.theme.colors.white};
   font-size: 20px;
 `;
 

@@ -3,7 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import GPSIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MapView from 'react-native-maps';
-import {IInputsType, IMapType} from '../../screens/trashcan/trashcanAdd';
+import {IInputsType} from '../../screens/trashcan/trashcanAdd';
 import {CurLocBtn, MapWrapper, Target} from '../../styles/trashcan/add';
 
 const Map = ({
@@ -24,6 +24,7 @@ const Map = ({
         latitudeDelta: 0.008,
         longitudeDelta: 0.008,
       };
+
       mapRef.current?.animateToRegion(userRegion, 500);
     });
   }, [curLocation]);
@@ -54,6 +55,7 @@ const Map = ({
         <GPSIcon
           name="crosshairs-gps"
           size={20}
+          color="white"
           style={{textAlign: 'center', marginTop: 10}}
         />
       </CurLocBtn>

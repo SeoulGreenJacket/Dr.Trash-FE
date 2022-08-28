@@ -5,7 +5,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import RootStackParamList from '../types/RootStackParamList';
 import SignWebView from '../components/common/SignWebView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {GlobalLayout} from '../styles/globalLayout';
+import GlobalLayout from '../styles/globalLayout';
 let kakaoLoginImg = require('../../assets/images/kakao_login_medium_wide.png');
 
 type MainScreenProps = NativeStackScreenProps<RootStackParamList, 'Main'>;

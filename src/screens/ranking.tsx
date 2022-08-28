@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import {styles} from '../App';
 import RankBox from '../components/ranking/RankBox';
-import {GlobalLayout} from '../styles/globalLayout';
+import GlobalLayout from '../styles/globalLayout';
 import {RankHeader, Reloader, Title} from '../styles/ranking/header';
 import {
   MyName,
@@ -43,7 +43,7 @@ const Ranking = () => {
         <MyName>{myDummyData.name}님</MyName>
         <MyScore>{myDummyData.point}P</MyScore>
       </MyRank>
-      <SafeAreaView style={styles.safeAreaBottom} />
+      <SafeAreaView style={styles.safeAreaBottomRank} />
     </>
   );
 };
