@@ -24,17 +24,16 @@ const App = () => {
 export const styles = StyleSheet.create({
   safeAreaTop: {
     flex: 0,
-    backgroundColor: '#FFFFFF',
-    marginBottom: 30,
-  },
-  safeAreaTopMinor: {
-    flex: 0,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#EDEDED',
     marginBottom: 30,
   },
   safeAreaBottom: {
     flex: 0,
     backgroundColor: '#FFFFFF',
+  },
+  safeAreaBottomRank: {
+    flex: 0,
+    backgroundColor: '#000000',
   },
 });
 

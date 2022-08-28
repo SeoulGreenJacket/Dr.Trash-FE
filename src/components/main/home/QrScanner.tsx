@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {Button} from 'react-native';
 import {CameraScreen} from 'react-native-camera-kit';
+import {BeforeBox, Camera} from '../../../styles/main/home/MidBox';
+const touch = require('../../../../assets/main/touch.png');
 
 const QrScanner = ({
   setPhase,
@@ -25,12 +26,12 @@ const QrScanner = ({
           laserColor={'white'}
         />
       ) : (
-        <Button
-          title="분리배출 시작하기"
+        <Camera
           onPress={() => {
             setQrCode(true);
-          }}
-        />
+          }}>
+          <BeforeBox source={touch} resizeMode="center" />
+        </Camera>
       )}
     </>
   );

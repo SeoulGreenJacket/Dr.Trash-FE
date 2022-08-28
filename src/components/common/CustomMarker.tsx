@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import TrashCanIcon from 'react-native-vector-icons/Ionicons';
+
 const CustomMarker = () => {
   return (
     <View style={styles.marker}>
@@ -11,7 +12,7 @@ const CustomMarker = () => {
           style={{textAlign: 'center', marginTop: 9}}
         />
       </View>
-      <View style={styles.markerTriangle}></View>
+      <View style={styles.markerTriangle} />
     </View>
   );
 };

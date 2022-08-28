@@ -6,16 +6,16 @@ const RankScrollView = styled.ScrollView`
 
 const TopRank = styled.View`
   width: 100%;
-  height: 75px;
+  height: 65px;
   display: flex;
   flex-direction: row;
   align-items: center;
   position: relative;
-  background-color: ${props => props.theme.colors.lime};
+  background-color: rgba(90, 196, 0, 0.38);
 `;
 
 const TopRanking = styled.Text`
-  width: 33px;
+  width: 40px;
   margin: 0 0 0 15px;
   font-size: 25px;
 `;
@@ -29,7 +29,7 @@ const TopProfile = styled.View`
 `;
 
 const TopName = styled.Text`
-  font-size: 25px;
+  font-size: 20px;
   margin: 0 0 0 10px;
 `;
 
@@ -50,15 +50,16 @@ const SubRankBox = styled.View`
 `;
 
 const SubRank = styled.View`
-  width: 320px;
+  width: 100%;
   height: 65px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  background-color: ${props => props.theme.colors.white};
 `;
 
 const SubRanking = styled.Text`
-  width: 29px;
+  width: 35px;
   margin: 0 0 0 10px;
   color: ${props => props.theme.colors.darkGray};
   font-size: 17px;
