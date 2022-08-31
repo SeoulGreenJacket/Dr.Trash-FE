@@ -2,7 +2,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
 import {Alert, SafeAreaView} from 'react-native';
 import {styles} from '../../App';
-import Map from '../../components/trashcan/addMap';
+import Map from '../../components/trashcan/AddMap';
 import GlobalLayout from '../../styles/globalLayout';
 import {
   AlertBox,
