@@ -53,7 +53,7 @@ const DetailBox = () => {
     setListMargin(margin);
     setLoading(false);
   }, []);
-  console.log(listMargin, loading);
+
   return (
     <StatisticsBox>
       {loading ? (

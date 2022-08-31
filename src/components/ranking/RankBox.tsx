@@ -49,6 +49,12 @@ const RankBox = ({
   setReload: (reload: boolean) => void;
 }) => {
   const {dummyRank} = dummyDataProducer();
+  const isClosedToBottom = (e: any) => {
+    const {layoutMeasurement, contentOffset, contentSize} = e.nativeEvent;
+    if (layoutMeasurement.height + contentOffset.y >= contentSize.height) {
+      console.log('refetch!');
+    }
+  };
   const onRefresh = () => {
     setReload(true);
     /*
@@ -60,6 +66,8 @@ const RankBox = ({
   };
   return (
     <RankScrollView
+      onScroll={isClosedToBottom}
+      scrollEventThrottle={400}
       showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl refreshing={reload} onRefresh={onRefresh} />

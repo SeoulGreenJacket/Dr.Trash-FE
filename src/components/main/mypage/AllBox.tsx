@@ -22,7 +22,7 @@ const AllBox = () => {
     });
     setMaxPoint(max.point);
   }, []);
-  console.log(maxPoint);
+
   return (
     <StatisticsBox>
       {trashData.map((item, index) => (

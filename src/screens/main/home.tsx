@@ -1,10 +1,10 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {Button, SafeAreaView, StyleSheet, Text} from 'react-native';
+import {Button, SafeAreaView, Text} from 'react-native';
 import {styles} from '../../App';
 import PopUpBox from '../../components/main/home/PopUp';
 import QrScanner from '../../components/main/home/QrScanner';
-import {GlobalLayout} from '../../styles/globalLayout';
+import GlobalLayout from '../../styles/globalLayout';
 import {
   AlertBox,
   HelpText,
@@ -15,10 +15,13 @@ import {
   BackBtn,
   BackBtnTxt,
   Btn,
+  BtnTxt,
   BtnWrapper,
+  IconBox,
 } from '../../styles/main/home/bottomBtn';
 import {MidBox, InProgressBox} from '../../styles/main/home/MidBox';
 import RootStackParamList from '../../types/RootStackParamList';
+import CustomMarker from '../../components/common/CustomMarker';
 
 type NavProps = NativeStackScreenProps<RootStackParamList, 'Ranking'>;
 
@@ -56,7 +59,7 @@ const Home = ({navigation}: NavProps) => {
             {phase === 'before'
               ? `${'CWCTBOY'}님,${'\n'}${12}번째 비움이에요!`
               : phase === 'inProgress'
-              ? '분리배출 중입니다...'
+              ? '배출 중 입니다...'
               : '분리배출이 완료되었습니다.'}
           </Title>
         </TitleBox>
@@ -64,7 +67,7 @@ const Home = ({navigation}: NavProps) => {
           {phase === 'before'
             ? '아래의 카메라를 이용해 QR코드를 스캔해주세요.'
             : phase === 'inProgress'
-            ? '지구가 아름다워지는 중입니다.'
+            ? '배출이 끝나면 종료하기를 눌러주새요.'
             : '포인트가 적립되었습니다.'}
         </HelpText>
       </AlertBox>
@@ -75,15 +78,28 @@ const Home = ({navigation}: NavProps) => {
           <InProgressBox>
             <Text>배출중</Text>
           </InProgressBox> // 배출중
-        ) : (
+        ) : phase === 'done' ? (
           <PopUpBox myRecord={myRecord} /> // 배출완료
-        )}
+        ) : null}
       </MidBox>
       <BtnWrapper phase={phase}>
         {phase === 'before' ? (
           <>
-            <Btn />
-            <Btn />
+            <Btn
+              onPress={() => {
+                navigation.navigate('TrashCanLocation');
+              }}>
+              <BtnTxt>쓰레기통{'\n'}위치 찾기</BtnTxt>
+              <IconBox>
+                <CustomMarker />
+              </IconBox>
+            </Btn>
+            <Btn>
+              <BtnTxt>자주 묻는{'\n'}질문</BtnTxt>
+              <IconBox>
+                <CustomMarker />
+              </IconBox>
+            </Btn>
           </>
         ) : (
           <BackBtn onPress={pressBtn}>
@@ -100,9 +116,15 @@ const Home = ({navigation}: NavProps) => {
         }}
       />
       <Button
-        title="쓰레기통 위치찾기"
+        title="mode change"
         onPress={() => {
-          navigation.navigate('TrashCanLocation');
+          setPhase(
+            phase === 'before'
+              ? 'inProgress'
+              : phase === 'inProgress'
+              ? 'done'
+              : 'before',
+          );
         }}
       />
     </GlobalLayout>

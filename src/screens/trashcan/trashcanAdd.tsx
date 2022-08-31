@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Alert, SafeAreaView} from 'react-native';
 import {styles} from '../../App';
 import Map from '../../components/trashcan/addMap';
-import {SecondaryGlobalLayout} from '../../styles/globalLayout';
+import GlobalLayout from '../../styles/globalLayout';
 import {
   AlertBox,
   HelpText,
@@ -136,8 +136,8 @@ const TrashCanInfo = ({navigation}: NavProps) => {
   }, [inputs]);
   return (
     <>
-      <SecondaryGlobalLayout>
-        <SafeAreaView style={styles.safeAreaTopMinor} />
+      <GlobalLayout>
+        <SafeAreaView style={styles.safeAreaTop} />
         <AlertBox>
           <TitleBox>
             <Title>{`새로운 쓰레기통을${'\n'}등록 해 보세요.`}</Title>
@@ -150,14 +150,17 @@ const TrashCanInfo = ({navigation}: NavProps) => {
         <Label>위치 등록</Label>
         <Map inputs={inputs} setInputs={setInputs} />
         <BtnWrapper>
-          <Btn>
+          <Btn
+            onPress={() => {
+              navigation.push('Main');
+            }}>
             <BtnTxt>홈으로</BtnTxt>
           </Btn>
           <Btn onPress={onRegister}>
             <BtnTxt>등록하기</BtnTxt>
           </Btn>
         </BtnWrapper>
-      </SecondaryGlobalLayout>
+      </GlobalLayout>
     </>
   );
 };

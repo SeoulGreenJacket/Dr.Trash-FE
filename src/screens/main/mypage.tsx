@@ -5,11 +5,11 @@ import Info from '../../components/main/mypage/Info';
 import LogoutBtn from '../../components/main/mypage/LogoutBtn';
 import Statistics from '../../components/main/mypage/Statistics';
 import {styles} from '../../App';
-import {SecondaryGlobalLayout} from '../../styles/globalLayout';
+
 const MyPage = () => {
   return (
-    <SecondaryGlobalLayout>
-      <SafeAreaView style={styles.mypageSafeAreaTop} />
+    <View style={{backgroundColor: '#f7f7f7'}}>
+      <SafeAreaView style={styles.safeAreaTop} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Info />
         <View
@@ -24,7 +24,7 @@ const MyPage = () => {
         <Achievement />
         <LogoutBtn />
       </ScrollView>
-    </SecondaryGlobalLayout>
+    </View>
   );
 };
 

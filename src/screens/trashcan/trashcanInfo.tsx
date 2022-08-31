@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button, SafeAreaView, StyleSheet, Text} from 'react-native';
+import {SafeAreaView, Text} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {SecondaryGlobalLayout} from '../../styles/globalLayout';
+import GlobalLayout from '../../styles/globalLayout';
 import RootStackParamList from '../../types/RootStackParamList';
 import TrashCanInfoMain from '../../components/trashcan/TrashCanInfoMain';
 import {styles} from '../../App';
@@ -12,8 +12,8 @@ type TrashCanInfoProps = NativeStackScreenProps<
 >;
 const TrashCanInfo = ({navigation}: TrashCanInfoProps) => {
   return (
-    <SecondaryGlobalLayout>
-      <SafeAreaView style={styles.safeAreaTopMinor} />
+    <GlobalLayout>
+      <SafeAreaView style={styles.safeAreaTop} />
       <TrashCanInfoMain />
       <RegisterBtn
         onPress={() => {
@@ -29,7 +29,7 @@ const TrashCanInfo = ({navigation}: TrashCanInfoProps) => {
           등록하기
         </Text>
       </RegisterBtn>
-    </SecondaryGlobalLayout>
+    </GlobalLayout>
   );
 };
 
