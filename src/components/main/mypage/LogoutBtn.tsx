@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Logout} from '../../../styles/main/mypage/logout';
@@ -20,9 +20,19 @@ const LogoutBtn = () => {
     }
   };
   return (
-    <Logout onPress={logout}>
-      <Text style={{textAlign: 'center'}}>로그아웃</Text>
-    </Logout>
+    <View style={{width: '100%', height: 64, position: 'relative'}}>
+      <Logout onPress={logout}>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 15,
+            color: '#707070',
+            marginTop: 7.5,
+          }}>
+          로그아웃
+        </Text>
+      </Logout>
+    </View>
   );
 };
 

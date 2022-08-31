@@ -9,6 +9,8 @@ import {
   Name,
   StatusContent,
   StatusTitle,
+  TitleText,
+  ContentText,
 } from '../../../styles/main/mypage/info';
 
 const Info = () => {
@@ -27,14 +29,14 @@ const Info = () => {
       </MyPageInfoBox>
       <MyPageStatus>
         <StatusTitle>
-          <Text style={{flexGrow: 1}}>랭킹</Text>
-          <Text style={{flexGrow: 1}}>포인트</Text>
-          <Text style={{flexGrow: 1}}>정확도</Text>
+          <TitleText style={{flexGrow: 1}}>랭킹</TitleText>
+          <TitleText style={{flexGrow: 1}}>포인트</TitleText>
+          <TitleText style={{flexGrow: 1}}>정확도</TitleText>
         </StatusTitle>
         <StatusContent>
-          <Text style={{flexGrow: 1}}>1등</Text>
-          <Text style={{flexGrow: 1}}>1080</Text>
-          <Text style={{flexGrow: 1}}>99%</Text>
+          <ContentText style={{flexGrow: 1}}>1등</ContentText>
+          <ContentText style={{flexGrow: 1}}>1080p</ContentText>
+          <ContentText style={{flexGrow: 1}}>99%</ContentText>
         </StatusContent>
       </MyPageStatus>
     </>
