@@ -15,18 +15,14 @@ const trashData = [
 ];
 
 const AllBox = () => {
-  //   const [maxPoint, setMaxPoint] = useState(0);
-  //   useEffect(() => {
-  //     const max = trashData.reduce(function (prev, cur) {
-  //       return prev.point > cur.point ? prev : cur;
-  //     });
-  //     setMaxPoint(max.point);
-  //   }, []);
-  const maxPoint = 1000;
-  //   console.log((trashData[0].point / maxPoint) * 100);
-  //   console.log((trashData[1].point / maxPoint) * 100);
-  //   console.log((trashData[2].point / maxPoint) * 100);
-
+  const [maxPoint, setMaxPoint] = useState(0);
+  useEffect(() => {
+    const max = trashData.reduce(function (prev, cur) {
+      return prev.point > cur.point ? prev : cur;
+    });
+    setMaxPoint(max.point);
+  }, []);
+  console.log(maxPoint);
   return (
     <StatisticsBox>
       {trashData.map((item, index) => (

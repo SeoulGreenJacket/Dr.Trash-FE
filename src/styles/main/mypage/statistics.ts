@@ -17,7 +17,7 @@ export const StatisticsBox = styled.View`
   margin: 0 23px;
   background: white;
   border: 1px solid #ededed;
-  padding: 30px 27px;
+  padding: 30px;
   margin-bottom: 55px;
   border-radius: 15px;
 `;
@@ -83,4 +83,52 @@ export const PointFillBar = styled.View<{maxPoint: number; point: number}>`
   height: 100%;
   background: ${props => props.theme.colors.lime};
   border-radius: 4px;
+`;
+
+export const DetailHeader = styled.View`
+  height: 30px;
+  margin: 0px -4px 30px;
+  flex-direction: row;
+`;
+export const DetailMain = styled.View``;
+export const DetailList = styled.View<{index: number; listMargin: number}>`
+  flex-direction: row;
+  align-items: center;
+  margin-top: ${props => props.index === 0 && 0};
+  margin-top: ${props => `${props.listMargin}`}px;
+`;
+
+export const DateCircle = styled.View`
+  width: 32px;
+  height: 32px;
+  margin-left: 12px;
+  border-radius: 32px;
+  margin-right: 26px;
+  background-color: ${props => props.theme.colors.lime};
+`;
+
+export const ThrowSummary = styled.View`
+  width: 215px;
+  height: 37px;
+  border-radius: 15px;
+  flex-direction: row;
+  align-items: center;
+  background-color: ${props => props.theme.colors.limeTp};
+`;
+
+export const ThrowType = styled.View`
+  width: 72px;
+  height: 100%;
+  border-radius: 15px;
+  background-color: ${props => props.theme.colors.lime};
+`;
+
+export const ThrowGetPoint = styled.View``;
+
+export const VerticalLine = styled.View`
+  border: 0.5px solid #707070;
+  height: 90%;
+  top: 10px;
+  position: absolute;
+  left: 28px;
 `;
