@@ -14,6 +14,7 @@ import {
   TopScore,
 } from '../../styles/ranking/rank';
 import {RefreshControl} from 'react-native';
+import axios from 'axios';
 
 const dummyDataProducer = () => {
   const dummyNames = [
@@ -49,10 +50,19 @@ const RankBox = ({
   setReload: (reload: boolean) => void;
 }) => {
   const {dummyRank} = dummyDataProducer();
-  const isClosedToBottom = (e: any) => {
+  const isClosedToBottom = async (e: any) => {
     const {layoutMeasurement, contentOffset, contentSize} = e.nativeEvent;
     if (layoutMeasurement.height + contentOffset.y >= contentSize.height) {
-      console.log('refetch!');
+      const {data, status} = await axios.get(
+        'http://localhost:3000/users/rank',
+        {
+          params: {
+            limit: 10,
+            offset: 0,
+          },
+        },
+      );
+      console.log(data, status);
     }
   };
   const onRefresh = () => {
