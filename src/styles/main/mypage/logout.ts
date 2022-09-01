@@ -1,10 +1,11 @@
 import styled from '@emotion/native';
 
 export const Logout = styled.TouchableOpacity`
-  width: 80%;
-  margin-left: 10%;
-  margin-bottom: 30px;
-  padding: 15px 0;
-  background: yellow;
-  border-radius: 15px;
+  width: 94px;
+  height: 34px;
+  background: white;
+  border: 2px solid #ededed;
+  border-radius: 10px;
+  position: absolute;
+  right: 23px;
 `;

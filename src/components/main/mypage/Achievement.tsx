@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
-import {ScrollView, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {TouchableOpacity, View} from 'react-native';
 import {
-  AchivementBox,
-  AchivementItem,
+  AchievementBox,
+  AchievementItem,
   ItemImage,
+  AchievementTitle,
+  BadgeDetail,
+  BadgeImage,
 } from '../../../styles/main/mypage/achievment';
 
 const achieveItem = [
@@ -40,25 +43,42 @@ const achieveItem = [
 ];
 
 const Achievement = () => {
-  const [openAchieveModal, setOpenAchieveModal] = useState(false);
-  console.log(openAchieveModal);
-  const toggleModal = () => {
-    setOpenAchieveModal(!openAchieveModal);
+  const [isBadgeClick, setIsBadgeClick] = useState(false);
+  const [badges, setBadges] = useState<any>();
+
+  useEffect(() => {
+    setIsBadgeClick(false);
+  }, []);
+  const onPressBadge = (content: any) => {
+    setBadges(
+      achieveItem.filter(item => {
+        return item.content === content;
+      }),
+    );
+    setIsBadgeClick(true);
   };
+
   return (
-    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-      <AchivementBox>
+    <>
+      <AchievementTitle>나의 뱃지함</AchievementTitle>
+      <AchievementBox style={{marginHorizontal: -11, marginVertical: -11}}>
         {achieveItem.map((item, index) => (
           <View key={index}>
-            <AchivementItem>
-              <TouchableOpacity onPress={toggleModal}>
+            <AchievementItem
+              style={{marginHorizontal: 5.5, marginVertical: 5.5}}>
+              <TouchableOpacity onPress={() => onPressBadge(item.content)}>
                 <ItemImage done={item.done} source={{uri: `${item.imgUri}`}} />
               </TouchableOpacity>
-            </AchivementItem>
+            </AchievementItem>
           </View>
         ))}
-      </AchivementBox>
-    </ScrollView>
+      </AchievementBox>
+      {isBadgeClick && (
+        <BadgeDetail>
+          <BadgeImage source={{uri: `${badges[0].imgUri}`}} />
+        </BadgeDetail>
+      )}
+    </>
   );
 };
 

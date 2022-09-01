@@ -8,6 +8,7 @@ const theme: Theme = {
     middleGray: '#EDEDED',
     darkGray: '#707070',
     lime: '#5AC400',
+    limeTp: 'rgba(90, 196, 0, .38)',
   },
   secondary: {
     lightGray: '#F5F5F5',

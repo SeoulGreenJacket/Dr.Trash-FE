@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
-import {Alert, Pressable, Text} from 'react-native';
 import {
-  StatisticsBox,
   StatisticsType,
   TypeAll,
   TypeDetail,
+  StatisticsTitle,
+  StatisticsInfoBox,
+  AllText,
+  DetailText,
 } from '../../../styles/main/mypage/statistics';
+import AllBox from './AllBox';
+import DetailBox from './DetailBox';
 
 const typeAll = {content: '전체', value: 'all'};
 const typeDetail = {
@@ -20,25 +24,28 @@ const Statistics = () => {
   };
   return (
     <>
-      <StatisticsType>
-        <TypeAll onPress={() => onPressType(typeAll.value)} typeValue={type}>
-          <Text style={{textAlign: 'center'}}>{typeAll.content}</Text>
-        </TypeAll>
-        <TypeDetail
-          onPress={() => onPressType(typeDetail.value)}
-          typeValue={type}>
-          <Text style={{textAlign: 'center'}}>{typeDetail.content}</Text>
-        </TypeDetail>
-      </StatisticsType>
-      {type === 'all' ? (
-        <StatisticsBox>
-          <Text>전체</Text>
-        </StatisticsBox>
-      ) : (
-        <StatisticsBox>
-          <Text>상세</Text>
-        </StatisticsBox>
-      )}
+      <StatisticsInfoBox>
+        <StatisticsTitle>나의 분리수거 통계</StatisticsTitle>
+        <StatisticsType>
+          <TypeAll onPress={() => onPressType(typeAll.value)} typeValue={type}>
+            <AllText
+              style={{textAlign: 'center', fontSize: 13}}
+              typeValue={type}>
+              {typeAll.content}
+            </AllText>
+          </TypeAll>
+          <TypeDetail
+            onPress={() => onPressType(typeDetail.value)}
+            typeValue={type}>
+            <DetailText
+              style={{textAlign: 'center', fontSize: 13}}
+              typeValue={type}>
+              {typeDetail.content}
+            </DetailText>
+          </TypeDetail>
+        </StatisticsType>
+      </StatisticsInfoBox>
+      {type === 'all' ? <AllBox /> : <DetailBox />}
     </>
   );
 };
