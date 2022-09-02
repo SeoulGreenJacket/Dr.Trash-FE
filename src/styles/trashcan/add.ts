@@ -9,7 +9,7 @@ const InputBox = styled.View`
 const Label = styled.Text`
   height: 17px;
   font-size: 17px;
-  margin: 0 0 5px 0;
+  margin: 0 0 8px 0;
 `;
 
 const Input = styled.TextInput<{isFocused: boolean}>`
