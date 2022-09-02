@@ -1,10 +1,11 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {Button, SafeAreaView, Text} from 'react-native';
+import {Button, Image, SafeAreaView, Text} from 'react-native';
 import {styles} from '../../App';
 import PopUpBox from '../../components/main/home/PopUp';
 import QrScanner from '../../components/main/home/QrScanner';
 import GlobalLayout from '../../styles/globalLayout';
+const loading = require('../../../assets/drtrash/main_load.gif');
 import {
   AlertBox,
   HelpText,
@@ -19,7 +20,7 @@ import {
   BtnWrapper,
   IconBox,
 } from '../../styles/main/home/bottomBtn';
-import {MidBox, InProgressBox} from '../../styles/main/home/MidBox';
+import {MidBox, InProgressBox, LoadingBox} from '../../styles/main/home/MidBox';
 import RootStackParamList from '../../types/RootStackParamList';
 import CustomMarker from '../../components/common/CustomMarker';
 
@@ -76,7 +77,7 @@ const Home = ({navigation}: NavProps) => {
           <QrScanner setPhase={setPhase} /> // 카메라 스크린
         ) : phase === 'inProgress' ? (
           <InProgressBox>
-            <Text>배출중</Text>
+            <LoadingBox source={loading} />
           </InProgressBox> // 배출중
         ) : phase === 'done' ? (
           <PopUpBox myRecord={myRecord} /> // 배출완료

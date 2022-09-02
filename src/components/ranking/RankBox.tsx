@@ -11,7 +11,6 @@ import {
   TopRanking,
   TopScore,
 } from '../../styles/ranking/rank';
-import {RefreshControl} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
@@ -20,7 +19,7 @@ interface IRankTypes {
   point: number;
 }
 
-const RankBox = ({reload}: {reload: boolean}) => {
+const RankBox = () => {
   const [rankData, setRankData] = useState<IRankTypes[]>([]);
   const [offset, setOffset] = useState(0);
   const isClosedToBottom = async (e: any) => {
@@ -49,9 +48,6 @@ const RankBox = ({reload}: {reload: boolean}) => {
         setRankData((prev: any) => [...prev, ...data]);
       }
     })();
-  }, [offset]);
-  useEffect(() => {
-    console.log(offset);
   }, [offset]);
   return (
     <RankScrollView

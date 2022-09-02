@@ -40,6 +40,7 @@ const BackBtn = styled.Pressable`
   height: 50px;
   background-color: ${props => props.theme.colors.black};
   border-radius: 10px;
+  margin: 0 0 90px 0;
   color: ${props => props.theme.colors.white};
 `;
 

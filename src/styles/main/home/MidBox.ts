@@ -25,20 +25,40 @@ const BeforeBox = styled.ImageBackground`
 const InProgressBox = styled.View`
   width: 100%;
   height: 330px;
-  background-color: gray;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const DoneBox = styled.View`
-  width: 100%;
-  height: 330px;
-  background-color: gray;
+  background-color: ${props => props.theme.colors.lightGray};
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export {MidBox, Camera, BeforeBox, InProgressBox, DoneBox};
+const LoadingBox = styled.Image`
+  width: 100%;
+  height: 100%;
+`;
+
+const DoneBox = styled.View`
+  width: 100%;
+  min-height: 465px;
+  background-color: ${props => props.theme.colors.lightGray};
+  color: white;
+  display: flex;
+  align-items: center;
+  position: relative;
+`;
+
+const DoneBoxImage = styled.Image`
+  width: 100%;
+  position: absolute;
+  top: 0;
+`;
+
+export {
+  MidBox,
+  Camera,
+  BeforeBox,
+  InProgressBox,
+  DoneBox,
+  LoadingBox,
+  DoneBoxImage,
+};

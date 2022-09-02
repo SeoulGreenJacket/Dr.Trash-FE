@@ -21,18 +21,14 @@ const myDummyData = {
 };
 
 const Ranking = () => {
-  const [reload, setReload] = useState(false);
   return (
     <>
       <GlobalLayout>
         <SafeAreaView style={styles.safeAreaTop} />
         <RankHeader>
           <Title>실시간 TOP 10</Title>
-          <Reloader reload={reload}>
-            {/* <Icon name="sync" size={20} /> */}
-          </Reloader>
         </RankHeader>
-        <RankBox reload={reload} setReload={setReload} />
+        <RankBox />
       </GlobalLayout>
       <MyRank>
         <MyRankingBox>
