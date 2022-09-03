@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {Button, Image, SafeAreaView, Text} from 'react-native';
+import {Button, SafeAreaView} from 'react-native';
 import {styles} from '../../App';
 import PopUpBox from '../../components/main/home/PopUp';
 import QrScanner from '../../components/main/home/QrScanner';
@@ -23,6 +23,14 @@ import {
 import {MidBox, InProgressBox, LoadingBox} from '../../styles/main/home/MidBox';
 import RootStackParamList from '../../types/RootStackParamList';
 import CustomMarker from '../../components/common/CustomMarker';
+
+interface IPopupTypes {
+  date: Date;
+  species: string;
+  accuracy: string;
+  successPoint: string;
+  originPoint: string;
+}
 
 type NavProps = NativeStackScreenProps<RootStackParamList, 'Ranking'>;
 
