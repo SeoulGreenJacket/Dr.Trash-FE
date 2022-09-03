@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CameraScreen} from 'react-native-camera-kit';
 import {BeforeBox, Camera} from '../../../styles/main/home/MidBox';
-const touch = require('../../../../assets/main/touch.png');
+const touch = require('../../../../assets/drtrash/main_touch.png');
 
 const QrScanner = ({
   setPhase,

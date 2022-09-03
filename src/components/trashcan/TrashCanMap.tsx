@@ -52,8 +52,9 @@ const TrashCanMap = () => {
       } else if (
         location.latitude.toFixed(3) === moveLocation.latitude.toFixed(3) &&
         location.longitude.toFixed(3) === moveLocation.longitude.toFixed(3)
-      )
+      ) {
         setIsCurLocation(true);
+      }
     }
   }, [moveLocation]);
 

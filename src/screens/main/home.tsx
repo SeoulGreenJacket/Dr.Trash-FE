@@ -1,10 +1,11 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {Button, SafeAreaView, Text} from 'react-native';
+import {Button, SafeAreaView, StyleSheet} from 'react-native';
 import {styles} from '../../App';
 import PopUpBox from '../../components/main/home/PopUp';
 import QrScanner from '../../components/main/home/QrScanner';
 import GlobalLayout from '../../styles/globalLayout';
+const loading = require('../../../assets/drtrash/main_load.gif');
 import {
   AlertBox,
   HelpText,
@@ -17,11 +18,20 @@ import {
   Btn,
   BtnTxt,
   BtnWrapper,
+  Icon,
   IconBox,
 } from '../../styles/main/home/bottomBtn';
-import {MidBox, InProgressBox} from '../../styles/main/home/MidBox';
+import {MidBox, InProgressBox, LoadingBox} from '../../styles/main/home/MidBox';
 import RootStackParamList from '../../types/RootStackParamList';
 import CustomMarker from '../../components/common/CustomMarker';
+
+interface IPopupTypes {
+  date: Date;
+  species: string;
+  accuracy: string;
+  successPoint: string;
+  originPoint: string;
+}
 
 type NavProps = NativeStackScreenProps<RootStackParamList, 'Ranking'>;
 
@@ -76,7 +86,7 @@ const Home = ({navigation}: NavProps) => {
           <QrScanner setPhase={setPhase} /> // 카메라 스크린
         ) : phase === 'inProgress' ? (
           <InProgressBox>
-            <Text>배출중</Text>
+            <LoadingBox source={loading} />
           </InProgressBox> // 배출중
         ) : phase === 'done' ? (
           <PopUpBox myRecord={myRecord} /> // 배출완료
@@ -91,13 +101,15 @@ const Home = ({navigation}: NavProps) => {
               }}>
               <BtnTxt>쓰레기통{'\n'}위치 찾기</BtnTxt>
               <IconBox>
-                <CustomMarker />
+                <Icon
+                  source={require('../../../assets/drtrash/trashcanMark.png')}
+                />
               </IconBox>
             </Btn>
             <Btn>
               <BtnTxt>자주 묻는{'\n'}질문</BtnTxt>
               <IconBox>
-                <CustomMarker />
+                <Icon source={require('../../../assets/drtrash/FAQMArk.png')} />
               </IconBox>
             </Btn>
           </>

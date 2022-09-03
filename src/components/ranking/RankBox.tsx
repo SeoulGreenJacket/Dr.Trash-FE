@@ -11,7 +11,6 @@ import {
   TopRanking,
   TopScore,
 } from '../../styles/ranking/rank';
-import {RefreshControl} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
@@ -20,13 +19,7 @@ interface IRankTypes {
   point: number;
 }
 
-const RankBox = ({
-  reload,
-  setReload,
-}: {
-  reload: boolean;
-  setReload: (reload: boolean) => void;
-}) => {
+const RankBox = () => {
   const [rankData, setRankData] = useState<IRankTypes[]>([]);
   const [offset, setOffset] = useState(0);
   const isClosedToBottom = async (e: any) => {
@@ -35,17 +28,7 @@ const RankBox = ({
       setOffset(offset + 10);
     }
   };
-  const onRefresh = () => {
-    setReload(true);
-    /*
-    서버 요청 후 콜백으로 setReload(false) 실행
-    */
-    setTimeout(() => {
-      setReload(false);
-    }, 1000);
-  };
   useEffect(() => {
-    console.log('offset', offset);
     (async () => {
       const access = await AsyncStorage.getItem('access_token');
       const {data, status} = await axios.get(
@@ -70,10 +53,7 @@ const RankBox = ({
     <RankScrollView
       onScroll={isClosedToBottom}
       scrollEventThrottle={400}
-      showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl refreshing={reload} onRefresh={onRefresh} />
-      }>
+      showsVerticalScrollIndicator={false}>
       {rankData?.slice(0, 3).map((person, i) => (
         <TopRank key={person.point}>
           <TopRanking>{i + 1}위</TopRanking>
@@ -95,3 +75,23 @@ const RankBox = ({
 };
 
 export default RankBox;
+
+// const onRefresh = async () => {
+//   setReload(true);
+//   const access = await AsyncStorage.getItem('access_token');
+//   const {data, status} = await axios.get('http://localhost:3000/users/rank', {
+//     params: {
+//       limit: 10,
+//       offset: 0,
+//     },
+//     headers: {
+//       Authorization: `Bearer ${access}`,
+//       'Content-Type': 'application/json',
+//     },
+//   });
+//   if (status === 200) {
+//     setRankData(data);
+//     setOffset(10);
+//     setReload(false);
+//   }
+// };

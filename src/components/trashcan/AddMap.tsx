@@ -24,7 +24,6 @@ const Map = ({
         latitudeDelta: 0.008,
         longitudeDelta: 0.008,
       };
-
       mapRef.current?.animateToRegion(userRegion, 500);
     });
   }, [curLocation]);
