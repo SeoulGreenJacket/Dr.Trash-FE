@@ -10,6 +10,7 @@ const MidBox = styled.View`
   border-radius: 35px;
   overflow: hidden;
   margin: 0 0 30px 0;
+  box-shadow: #00000029 0 3px 6px;
 `;
 
 const Camera = styled.TouchableOpacity`

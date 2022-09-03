@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {Button, SafeAreaView} from 'react-native';
+import {Button, SafeAreaView, StyleSheet} from 'react-native';
 import {styles} from '../../App';
 import PopUpBox from '../../components/main/home/PopUp';
 import QrScanner from '../../components/main/home/QrScanner';
@@ -18,6 +18,7 @@ import {
   Btn,
   BtnTxt,
   BtnWrapper,
+  Icon,
   IconBox,
 } from '../../styles/main/home/bottomBtn';
 import {MidBox, InProgressBox, LoadingBox} from '../../styles/main/home/MidBox';
@@ -100,13 +101,15 @@ const Home = ({navigation}: NavProps) => {
               }}>
               <BtnTxt>쓰레기통{'\n'}위치 찾기</BtnTxt>
               <IconBox>
-                <CustomMarker />
+                <Icon
+                  source={require('../../../assets/drtrash/trashcanMark.png')}
+                />
               </IconBox>
             </Btn>
             <Btn>
               <BtnTxt>자주 묻는{'\n'}질문</BtnTxt>
               <IconBox>
-                <CustomMarker />
+                <Icon source={require('../../../assets/drtrash/FAQMArk.png')} />
               </IconBox>
             </Btn>
           </>

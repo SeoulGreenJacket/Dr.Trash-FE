@@ -32,7 +32,12 @@ const IconBox = styled.View`
   justify-content: center;
   position: absolute;
   top: 50px;
-  right: 20px;
+  right: 15px;
+`;
+
+const Icon = styled.Image`
+  width: 110%;
+  height: 130%;
 `;
 
 const BackBtn = styled.Pressable`
@@ -50,4 +55,4 @@ const BackBtnTxt = styled.Text`
   color: ${props => props.theme.colors.white};
 `;
 
-export {BtnWrapper, Btn, BtnTxt, IconBox, BackBtn, BackBtnTxt};
+export {BtnWrapper, Btn, BtnTxt, IconBox, BackBtn, BackBtnTxt, Icon};
