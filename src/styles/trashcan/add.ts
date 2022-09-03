@@ -36,7 +36,7 @@ const MapWrapper = styled.View`
 const CurLocBtn = styled.TouchableOpacity`
   width: 41px;
   height: 41px;
-  background-color: ${props => props.theme.colors.lime};
+  background-color: ${props => props.theme.colors.black};
   position: absolute;
   bottom: 7px;
   right: 7px;
@@ -66,7 +66,7 @@ const Btn = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  background-color: ${props => props.theme.colors.lime};
+  background-color: ${props => props.theme.colors.black};
 `;
 
 const BtnTxt = styled.Text`
