@@ -1,18 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {KakaoLoginBtn, Title} from '../styles/index';
-import {Image, Button} from 'react-native';
+import {KakaoLoginBtn, LogoImage, FontImage, Background} from '../styles/index';
+import {Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import RootStackParamList from '../types/RootStackParamList';
 import SignWebView from '../components/common/SignWebView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import GlobalLayout from '../styles/globalLayout';
-let kakaoLoginImg = require('../../assets/images/kakao_login_medium_wide.png');
+import Loading from '../components/common/Loading';
+
+let kakaoLoginImg = require('../../assets/kakaologin/kakao_login_medium_wide.png');
+let MainIconImg = require('../../assets/drtrash/main_icon.png');
+let MainFontImg = require('../../assets/drtrash/drtrash_font1.png');
+let bgImg = require('../../assets/drtrash/main_background_blur.png');
 
 type MainScreenProps = NativeStackScreenProps<RootStackParamList, 'Main'>;
 
 const Start = ({navigation}: MainScreenProps) => {
   const [open, setOpen] = useState(false);
-  const [initToken, setInitToken] = useState<string | null>('');
+  const [loading, setLoading] = useState(true);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const openLoginView = () => {
     setOpen(true);
@@ -22,47 +26,41 @@ const Start = ({navigation}: MainScreenProps) => {
     setLoginSuccess(true);
   };
 
-  const init = async () => {
-    let access: string | null = await AsyncStorage.getItem('access_token');
-    setInitToken(access);
-    if (initToken) {
-      setLoginSuccess(true);
-    } else {
-      setLoginSuccess(false);
-    }
+  const init = () => {
+    AsyncStorage.getItem('access_token').then(res => {
+      if (res !== null) {
+        setLoginSuccess(true);
+      } else {
+        setLoginSuccess(false);
+        setLoading(false);
+      }
+    });
   };
   useEffect(() => {
     init();
-  });
+  }, []);
+
   useEffect(() => {
     if (loginSuccess === true) {
-      navigation.navigate('Main');
+      navigation.reset({routes: [{name: 'Main'}]});
     }
   }, [loginSuccess, navigation]);
 
-  const tokenCheck = async () => {
-    let access = await AsyncStorage.getItem('access_token');
-    let refresh = await AsyncStorage.getItem('refresh_token');
-    console.log('access', access, 'refresh', refresh);
-  };
-  const tokenDelete = async () => {
-    await AsyncStorage.removeItem('access_token');
-    await AsyncStorage.removeItem('refresh_token');
-  };
-  const toMain = () => {
-    navigation.navigate('Main');
-  };
   return (
-    <GlobalLayout>
-      <Title>Dr.TRASH</Title>
+    <Background source={bgImg}>
+      <LogoImage source={MainIconImg} />
+      <FontImage source={MainFontImg} />
       {open && <SignWebView onLoginSuccess={onLoginSuccess} />}
-      <KakaoLoginBtn onPress={openLoginView}>
-        <Image source={kakaoLoginImg} />
-      </KakaoLoginBtn>
-      <Button title="메인페이지로" onPress={toMain} />
-      <Button title="토큰확인" onPress={tokenCheck} />
-      <Button title="토큰삭제" onPress={tokenDelete} />
-    </GlobalLayout>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <KakaoLoginBtn onPress={openLoginView}>
+            <Image source={kakaoLoginImg} />
+          </KakaoLoginBtn>
+        </>
+      )}
+    </Background>
   );
 };
 

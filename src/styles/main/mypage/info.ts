@@ -5,7 +5,7 @@ export const MyPageInfoBox = styled.View`
   flex-direction: row;
   align-items: center;
   position: relative;
-  margin: 0 35px 11px 23px;
+  margin: 0 23px 11px 23px;
 `;
 
 export const MyPageInfoText = styled.View``;
@@ -14,7 +14,8 @@ export const MyPageInfoProfile = styled.View`
   width: 134px;
   height: 100%;
   border: 1px solid #ededed;
-  // margin-right: 12px;
+  justify-content: center;
+  align-items: center;
   background-color: white;
   border-radius: 100px;
   position: absolute;

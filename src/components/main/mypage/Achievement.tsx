@@ -7,38 +7,46 @@ import {
   AchievementTitle,
   BadgeDetail,
   BadgeImage,
+  BadgeDescription,
+  BadgeTitle,
+  BadgeContent,
 } from '../../../styles/main/mypage/achievment';
+let earthBadge = require('../../../../assets/badges/earthBadge.png');
+let rankBadge = require('../../../../assets/badges/rankBadge.png');
+let trashcanBadge = require('../../../../assets/badges/trashcanBadge.png');
+let warningBadge = require('../../../../assets/badges/warningBadge.png');
+let smileBadge = require('../../../../assets/badges/smileBadge.png');
 
 const achieveItem = [
   {
-    imgUri:
-      'https://media.istockphoto.com/vectors/vector-whale-vector-id943449546?k=20&m=943449546&s=612x612&w=0&h=I37aTvCtTXmTC71ITBF9vxNEVHXdiip8Z_SKEv7qP_w=',
+    imgUri: earthBadge,
+    title: '지구지키미',
     content: 'Dr.Trash 첫 이용!',
     done: true,
   },
   {
-    imgUri:
-      'https://littledeep.com/wp-content/uploads/2019/04/littledeep_whale_style1.png',
-    content: '라벨 없는 PET 버리기 성공',
-    done: false,
-  },
-  {
-    imgUri:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ855B0iIHT9XSM9z2yxpM5f-3QlRU8PfhPGQ&usqp=CAU',
-    content: '캔 버리기 성공',
+    imgUri: rankBadge,
+    title: 'Dr.Trash 랭커',
+    content: '랭킹 3등 이상 달성!',
     done: true,
   },
   {
-    imgUri:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU4xEcljsh3wQ7Mt9VFX4RN1GNqrdkmsg12A&usqp=CAU',
-    content: '종이 버리기 성공',
-    done: false,
+    imgUri: warningBadge,
+    title: '실수 맞죠..?',
+    content: '못 버림 포인트 1000점 달성!',
+    done: true,
   },
   {
-    imgUri:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1Cn_xl8YTUYBXGCeammIGJUBG0IqOltO9fQ&usqp=CAU',
-    content: '음식물 없는 컵라면 용기',
-    done: false,
+    imgUri: smileBadge,
+    title: '분리수거 달인',
+    content: '정확도 90% 이상 달성!',
+    done: true,
+  },
+  {
+    imgUri: trashcanBadge,
+    title: 'Dr.Trash 아버지',
+    content: '쓰레기통 등록 5회 달성!',
+    done: true,
   },
 ];
 
@@ -67,7 +75,7 @@ const Achievement = () => {
             <AchievementItem
               style={{marginHorizontal: 5.5, marginVertical: 5.5}}>
               <TouchableOpacity onPress={() => onPressBadge(item.content)}>
-                <ItemImage done={item.done} source={{uri: `${item.imgUri}`}} />
+                <ItemImage done={item.done} source={item.imgUri} />
               </TouchableOpacity>
             </AchievementItem>
           </View>
@@ -75,7 +83,11 @@ const Achievement = () => {
       </AchievementBox>
       {isBadgeClick && (
         <BadgeDetail>
-          <BadgeImage source={{uri: `${badges[0].imgUri}`}} />
+          <BadgeImage source={badges[0].imgUri} />
+          <BadgeDescription>
+            <BadgeTitle>{badges[0].title}</BadgeTitle>
+            <BadgeContent>{badges[0].content}</BadgeContent>
+          </BadgeDescription>
         </BadgeDetail>
       )}
     </>
