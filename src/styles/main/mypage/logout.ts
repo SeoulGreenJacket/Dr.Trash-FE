@@ -7,5 +7,5 @@ export const Logout = styled.TouchableOpacity`
   border: 2px solid #ededed;
   border-radius: 10px;
   position: absolute;
-  right: 23px;
+  right: 24px;
 `;

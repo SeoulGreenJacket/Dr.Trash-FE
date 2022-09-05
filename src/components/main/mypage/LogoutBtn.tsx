@@ -4,7 +4,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Logout} from '../../../styles/main/mypage/logout';
 
-const LogoutBtn = () => {
+const LogoutBtn = ({navigation}: any) => {
   const logout = async () => {
     let refresh = await AsyncStorage.getItem('refresh_token');
     try {
@@ -15,6 +15,7 @@ const LogoutBtn = () => {
       });
       await AsyncStorage.removeItem('access_token');
       await AsyncStorage.removeItem('refresh_token');
+      navigation.reset({routes: [{name: 'Start'}]});
     } catch (e) {
       console.error(e);
     }

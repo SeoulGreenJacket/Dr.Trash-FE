@@ -36,7 +36,7 @@ const TabNavigation = () => {
       <Tab.Screen
         name="MyPage"
         component={MyPage}
-        options={{headerShown: false}}
+        options={{headerShown: false, unmountOnBlur: true}}
       />
     </Tab.Navigator>
   );

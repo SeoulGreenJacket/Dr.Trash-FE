@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Image} from 'react-native';
 import {
   Grade,
   MyPageInfoBox,
@@ -13,19 +13,36 @@ import {
   ContentText,
 } from '../../../styles/main/mypage/info';
 
-const Info = () => {
+interface UserType {
+  user: {
+    achievement?: string[];
+    id?: number;
+    name: string;
+    point: number;
+    rank: number;
+    thumbnail: string;
+    userGrade: string;
+  };
+}
+
+const Info = ({user}: UserType) => {
   return (
     <>
       <MyPageInfoBox>
         <MyPageInfoText>
-          <Grade>Grand master</Grade>
+          <Grade>{user.userGrade}</Grade>
           <Name>
             실천하는
             {'\n'}
-            김기열님.
+            {user.name}님
           </Name>
         </MyPageInfoText>
-        <MyPageInfoProfile />
+        <MyPageInfoProfile>
+          <Image
+            source={{uri: user.thumbnail}}
+            style={{width: '100%', height: '100%', borderRadius: 100}}
+          />
+        </MyPageInfoProfile>
       </MyPageInfoBox>
       <MyPageStatus>
         <StatusTitle>
@@ -34,9 +51,9 @@ const Info = () => {
           <TitleText style={{flexGrow: 1}}>정확도</TitleText>
         </StatusTitle>
         <StatusContent>
-          <ContentText style={{flexGrow: 1}}>1등</ContentText>
-          <ContentText style={{flexGrow: 1}}>1080p</ContentText>
-          <ContentText style={{flexGrow: 1}}>99%</ContentText>
+          <ContentText style={{flexGrow: 1}}>{user.rank}등</ContentText>
+          <ContentText style={{flexGrow: 1}}>{user.point}p</ContentText>
+          <ContentText style={{flexGrow: 1}}>?%</ContentText>
         </StatusContent>
       </MyPageStatus>
     </>

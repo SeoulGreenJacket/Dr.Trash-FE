@@ -15,11 +15,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import DownArrowIcon from 'react-native-vector-icons/AntDesign';
 import RightArrowIcon from 'react-native-vector-icons/AntDesign';
 import PlusIcon from 'react-native-vector-icons/AntDesign';
-
-const Loading = () => {
-  return <Text>Loading...</Text>;
-};
-
+import Loading from '../../common/Loading';
 const monthArr = [
   {label: '1월', value: '1'},
   {label: '2월', value: '2'},
