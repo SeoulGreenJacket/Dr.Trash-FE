@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {DoneBox, DoneBoxImage} from '../../../styles/main/home/MidBox';
 import {
+  Accuracy,
+  AccuracyBar,
   Body,
   DataBox,
   Date,
@@ -25,6 +27,9 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes}) => {
   const year = myRecord.date.getFullYear().toString().padStart(2, '0');
   const month = (myRecord.date.getMonth() + 1).toString().padStart(2, '0');
   const day = myRecord.date.getDate().toString().padStart(2, '0');
+  const acuuracy =
+    (myRecord.count.success / (myRecord.count.success + myRecord.count.fail)) *
+    100;
   return (
     <DoneBox>
       <DoneBoxImage source={template} />
@@ -53,9 +58,9 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes}) => {
                 <Dot />
                 <LeftText>정확도</LeftText>
               </LeftSide>
-              <RightText>{`${myRecord.count.success}/${
-                myRecord.count.success + myRecord.count.fail
-              }`}</RightText>
+              <AccuracyBar>
+                <Accuracy accuracy={acuuracy} />
+              </AccuracyBar>
             </DataBox>
             <Sector2 />
             <DataBox>

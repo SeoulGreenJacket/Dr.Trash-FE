@@ -1,21 +1,22 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import React, {useState} from 'react';
 import {CameraScreen} from 'react-native-camera-kit';
+import Config from 'react-native-config';
 import {BeforeBox, Camera} from '../../../styles/main/home/MidBox';
 const touch = require('../../../../assets/drtrash/main_touch.png');
 
 const QrScanner = ({
   setPhase,
+  setQrCode,
+  qrCode,
+  detectQrCode,
 }: {
   setPhase: (phase: 'before' | 'inProgress' | 'done') => void;
+  setQrCode: (qrCode: boolean) => void;
+  qrCode: boolean;
+  detectQrCode: (qrCode: string) => void;
 }) => {
-  const [qrCode, setQrCode] = useState(false);
-  const detectQrCode = async (e: any) => {
-    console.log(e.nativeEvent);
-    /*
-    qrData를 서버에 전송하는 과정
-    */
-    setPhase('inProgress');
-  };
   return (
     <Camera
       onPress={() => {

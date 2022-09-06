@@ -25,6 +25,8 @@ import {
 import {MidBox, InProgressBox, LoadingBox} from '../../styles/main/home/MidBox';
 import RootStackParamList from '../../types/RootStackParamList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import Config from 'react-native-config';
 
 export interface IPopupTypes {
   date: Date;
@@ -43,38 +45,64 @@ const dummyPopUpData = {
   date: new Date(),
   type: '플라스틱',
   count: {
-    success: 10,
-    fail: 8,
+    success: 80,
+    fail: 10,
   },
   point: 120,
   totalPoint: 820,
 };
 
 const Home = ({navigation}: NavProps) => {
+  const [id, setId] = useState('');
   const [phase, setPhase] = useState<'before' | 'inProgress' | 'done'>(
     'before',
   );
-
   const [myRecord, setMyRecord] = useState<IPopupTypes>(dummyPopUpData);
-  const pressBtn = async () => {
-    if (phase === 'inProgress') {
-      /*
-      서버에 배출 중단 요청 + 배출데이터 전송
-      */
-      // setMyRecord(서버에서 받은 데이터);
-      setPhase('done');
-    }
-    if (phase === 'done') {
-      setPhase('before');
+  const [qrCode, setQrCode] = useState(false);
+
+  // qrCode를 인식하면 uuid를 보내 아두이노에게 전달
+  const detectQrCode = async (e: any) => {
+    const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
+    const access = await AsyncStorage.getItem('access_token');
+    if (uuid && access) {
+      setId(uuid);
+      setQrCode(false);
+      const {status} = await axios.post(
+        `${Config.SERVER_HOST}/trash/begin/${uuid}`,
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        },
+      );
+      if (status === 200) {
+        setPhase('inProgress');
+      }
     }
   };
-  const deleteToken = async () => {
-    await AsyncStorage.removeItem('access_token');
-    await AsyncStorage.removeItem('refresh_token');
-    const accessToken = await AsyncStorage.getItem('access_token');
-    const refreshToken = await AsyncStorage.getItem('refresh_token');
-    console.log('accessToken', accessToken);
-    console.log('refreshToken', refreshToken);
+
+  // 배출 종료 버튼을 누르면 아두이노에게 전달
+  const stop = async () => {
+    const access = await AsyncStorage.getItem('access_token');
+    if (access) {
+      const {status} = await axios.post(
+        `${Config.SERVER_HOST}/trash/end/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        },
+      );
+      if (status === 200) {
+        const {data, status: code} = await axios.get(
+          `${Config.SERVER_HOST}/trash/summary`,
+        );
+        if (code === 200) {
+          setMyRecord(data);
+          setPhase('done');
+        }
+      }
+    }
   };
   return (
     <GlobalLayout>
@@ -99,7 +127,12 @@ const Home = ({navigation}: NavProps) => {
       </AlertBox>
       <MidBox>
         {phase === 'before' ? (
-          <QrScanner setPhase={setPhase} /> // 카메라 스크린
+          <QrScanner
+            setPhase={setPhase}
+            setQrCode={setQrCode}
+            qrCode={qrCode}
+            detectQrCode={detectQrCode}
+          /> // 카메라 스크린
         ) : phase === 'inProgress' ? (
           <InProgressBox>
             <LoadingBox source={loading} />
@@ -130,7 +163,14 @@ const Home = ({navigation}: NavProps) => {
             </Btn>
           </>
         ) : (
-          <BackBtn onPress={pressBtn}>
+          <BackBtn
+            onPress={
+              phase === 'inProgress'
+                ? stop
+                : () => {
+                    setPhase('before');
+                  }
+            }>
             <BackBtnTxt>
               {phase === 'inProgress' ? '끝내기' : '홈으로'}
             </BackBtnTxt>
@@ -155,7 +195,6 @@ const Home = ({navigation}: NavProps) => {
           );
         }}
       />
-      <Button title="delete token" onPress={deleteToken} />
     </GlobalLayout>
   );
 };

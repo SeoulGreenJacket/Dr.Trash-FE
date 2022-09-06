@@ -3,7 +3,6 @@ import styled from '@emotion/native';
 const Template = styled.View`
   width: 280px;
   height: 400px;
-
   position: absolute;
   top: 55px;
 `;
@@ -97,6 +96,21 @@ const RightText = styled.Text`
   font-weight: 500;
 `;
 
+const AccuracyBar = styled.View`
+  width: 60%;
+  height: 25px;
+  display: flex;
+  align-items: flex-end;
+  background-color: #ededed;
+  border-radius: 5px;
+  overflow: hidden;
+`;
+const Accuracy = styled.View<{accuracy: number}>`
+  width: ${props => `${props.accuracy}%`};
+  height: 100%;
+  background-color: #5ac400;
+`;
+
 export {
   Template,
   Header,
@@ -112,4 +126,6 @@ export {
   Dot,
   LeftText,
   RightText,
+  AccuracyBar,
+  Accuracy,
 };
