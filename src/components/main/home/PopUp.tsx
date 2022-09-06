@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {DoneBox, DoneBoxImage} from '../../../styles/main/home/MidBox';
 import {
   Accuracy,

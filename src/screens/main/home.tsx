@@ -128,7 +128,6 @@ const Home = ({navigation}: NavProps) => {
       <MidBox>
         {phase === 'before' ? (
           <QrScanner
-            setPhase={setPhase}
             setQrCode={setQrCode}
             qrCode={qrCode}
             detectQrCode={detectQrCode}
