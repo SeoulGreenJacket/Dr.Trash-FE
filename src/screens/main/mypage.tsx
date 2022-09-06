@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../components/common/Loading';
 import RootStackParamList from '../../types/RootStackParamList';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import Config from 'react-native-config';
 
 type MainScreenProps = NativeStackScreenProps<RootStackParamList, 'Start'>;
 
@@ -29,7 +30,7 @@ const MyPage = ({navigation}: MainScreenProps) => {
     let idRes: any;
     console.log(access);
     try {
-      idRes = await axios.get('http://localhost:3000/users', {
+      idRes = await axios.get(`${Config.SERVER_HOST}/users`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
@@ -38,7 +39,7 @@ const MyPage = ({navigation}: MainScreenProps) => {
       console.error('getId', e);
     }
     try {
-      const res = await axios.get(`http://localhost:3000/users/${idRes.data}`, {
+      const res = await axios.get(`${Config.SERVER_HOST}/users/${idRes.data}`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },

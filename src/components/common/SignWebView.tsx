@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import {Modal} from 'react-native';
 import WebView from 'react-native-webview';
+import Config from 'react-native-config';
 
 interface WebViewType {
   onLoginSuccess: () => void;
@@ -21,7 +22,7 @@ const SignWebView = ({onLoginSuccess}: WebViewType) => {
     <Modal animationType="slide">
       <WebView
         originWhitelist={['*']}
-        source={{uri: 'http://localhost:3000/auth/login/kakao/'}}
+        source={{uri: `${Config.SERVER_HOST}/auth/login/kakao/`}}
         onMessage={onSuccess}
         injectedJavaScript={INJECTED_JAVASCRIPT}
         style={{marginTop: 80}}
