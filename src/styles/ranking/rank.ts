@@ -116,13 +116,6 @@ const MyRanking = styled.Text`
   font-size: 25px;
 `;
 
-const MyProfile = styled.View`
-  width: 55px;
-  height: 55px;
-  border-radius: 27.5px;
-  background-color: white;
-`;
-
 const MyName = styled.Text`
   color: white;
   font-size: 25px;
@@ -153,7 +146,6 @@ export {
   MyRankingBox,
   MyText,
   MyRanking,
-  MyProfile,
   MyName,
   MyScore,
 };

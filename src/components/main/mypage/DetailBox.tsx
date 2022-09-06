@@ -48,7 +48,7 @@ const DetailBox = () => {
     }
     setListMargin(margin);
     setLoading(false);
-  }, []);
+  }, [detailList]);
 
   return (
     <StatisticsBox>
