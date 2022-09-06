@@ -28,6 +28,11 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>seheon.email</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>k.kakaocdn.net</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>

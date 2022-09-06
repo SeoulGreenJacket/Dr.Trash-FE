@@ -3,12 +3,13 @@ import {Text, View} from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Logout} from '../../../styles/main/mypage/logout';
+import Config from 'react-native-config';
 
 const LogoutBtn = ({navigation}: any) => {
   const logout = async () => {
     let refresh = await AsyncStorage.getItem('refresh_token');
     try {
-      await axios.delete('http://localhost:3000/auth/logout', {
+      await axios.delete(`${Config.SERVER_HOST}/auth/logout`, {
         headers: {
           Authorization: `Bearer ${refresh}`,
         },

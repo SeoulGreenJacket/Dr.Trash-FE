@@ -13,6 +13,7 @@ import {
 } from '../../styles/ranking/rank';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 interface IRankTypes {
   userName: string;
@@ -32,7 +33,7 @@ const RankBox = () => {
     (async () => {
       const access = await AsyncStorage.getItem('access_token');
       const {data, status} = await axios.get(
-        'http://localhost:3000/users/rank',
+        `${Config.SERVER_HOST}/users/rank`,
         {
           params: {
             limit: 10,
