@@ -27,6 +27,7 @@ const MyPage = ({navigation}: MainScreenProps) => {
   const getUser = async () => {
     const access = await AsyncStorage.getItem('access_token');
     let idRes: any;
+    console.log(access);
     try {
       idRes = await axios.get('http://localhost:3000/users', {
         headers: {

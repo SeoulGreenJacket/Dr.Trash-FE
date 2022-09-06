@@ -39,7 +39,7 @@ const achieveItem = [
   {
     imgUri: smileBadge,
     title: '분리수거 달인',
-    content: '정확도 90% 이상 달성!',
+    content: '포인트 1000점 이상 달성!',
     done: true,
   },
   {

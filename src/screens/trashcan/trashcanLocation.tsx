@@ -29,6 +29,7 @@ const TrashCanLocation = ({navigation}: TrashCanLocationProps) => {
             <Icon
               name="plus"
               size={20}
+              color="white"
               style={{textAlign: 'center', marginTop: 10}}
             />
           </TrashCanPlusBtn>

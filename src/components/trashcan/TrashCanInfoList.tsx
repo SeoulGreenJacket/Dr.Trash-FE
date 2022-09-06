@@ -13,15 +13,15 @@ interface ListType {
   name: string;
   code: string;
   index: number;
-  len: number;
+  onDeleteTrashcan: (i: number) => void;
 }
 
-const TrashCanInfoList = ({name, code, index, len}: ListType) => {
+const TrashCanInfoList = ({name, code, index, onDeleteTrashcan}: ListType) => {
   return (
-    <TrashCanList index={index} len={len}>
+    <TrashCanList>
       <ListText>
         <TrashCanName>{name}</TrashCanName>
-        <TrashCanCode>{code}</TrashCanCode>
+        <TrashCanCode>코드명 {code}</TrashCanCode>
       </ListText>
       <TouchableOpacity>
         <EditIcon
@@ -30,7 +30,7 @@ const TrashCanInfoList = ({name, code, index, len}: ListType) => {
           style={{marginTop: 25, marginRight: 20}}
         />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => onDeleteTrashcan(index)}>
         <DelIcon name="close" size={30} style={{marginTop: 25}} />
       </TouchableOpacity>
     </TrashCanList>
