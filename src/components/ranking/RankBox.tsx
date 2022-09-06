@@ -16,6 +16,7 @@ import axios from 'axios';
 import Config from 'react-native-config';
 
 interface IRankTypes {
+  id: number;
   userName: string;
   point: number;
 }
@@ -76,23 +77,3 @@ const RankBox = () => {
 };
 
 export default RankBox;
-
-// const onRefresh = async () => {
-//   setReload(true);
-//   const access = await AsyncStorage.getItem('access_token');
-//   const {data, status} = await axios.get('http://localhost:3000/users/rank', {
-//     params: {
-//       limit: 10,
-//       offset: 0,
-//     },
-//     headers: {
-//       Authorization: `Bearer ${access}`,
-//       'Content-Type': 'application/json',
-//     },
-//   });
-//   if (status === 200) {
-//     setRankData(data);
-//     setOffset(10);
-//     setReload(false);
-//   }
-// };

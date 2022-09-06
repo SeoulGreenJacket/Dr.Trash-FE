@@ -17,10 +17,14 @@ import {
   Template,
 } from '../../../styles/main/home/template';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {IPopupTypes} from '../../../screens/main/home';
 
 const template = require('../../../../assets/drtrash/main_done_template.png');
 
-const PopUpBox = ({myRecord}: {myRecord: any}) => {
+const PopUpBox = ({myRecord}: {myRecord: IPopupTypes}) => {
+  const year = myRecord.date.getFullYear().toString().padStart(2, '0');
+  const month = (myRecord.date.getMonth() + 1).toString().padStart(2, '0');
+  const day = myRecord.date.getDate().toString().padStart(2, '0');
   return (
     <DoneBox>
       <DoneBoxImage source={template} />
@@ -33,7 +37,7 @@ const PopUpBox = ({myRecord}: {myRecord: any}) => {
         <Body>
           <Date>
             <DateText>Today</DateText>
-            <DateText>2022.08.18</DateText>
+            <DateText>{`${year}.${month}.${day}`}</DateText>
           </Date>
           <Result>
             <DataBox>
@@ -41,7 +45,7 @@ const PopUpBox = ({myRecord}: {myRecord: any}) => {
                 <Dot />
                 <LeftText>쓰레기 종류</LeftText>
               </LeftSide>
-              <RightText>플라스틱</RightText>
+              <RightText>{myRecord.type}</RightText>
             </DataBox>
             <Sector2 />
             <DataBox>
@@ -49,23 +53,25 @@ const PopUpBox = ({myRecord}: {myRecord: any}) => {
                 <Dot />
                 <LeftText>정확도</LeftText>
               </LeftSide>
-              <RightText>75%</RightText>
+              <RightText>{`${myRecord.count.success}/${
+                myRecord.count.success + myRecord.count.fail
+              }`}</RightText>
             </DataBox>
             <Sector2 />
             <DataBox>
               <LeftSide>
                 <Dot />
-                <LeftText>잘 버림 포인트</LeftText>
+                <LeftText>획득 포인트</LeftText>
               </LeftSide>
-              <RightText>+800pt</RightText>
+              <RightText>{`+${myRecord.point} Point`}</RightText>
             </DataBox>
             <Sector2 />
             <DataBox>
               <LeftSide>
                 <Dot />
-                <LeftText>원래 포인트</LeftText>
+                <LeftText>총 포인트</LeftText>
               </LeftSide>
-              <RightText>100pt</RightText>
+              <RightText>{`${myRecord.totalPoint} Point`}</RightText>
             </DataBox>
           </Result>
         </Body>

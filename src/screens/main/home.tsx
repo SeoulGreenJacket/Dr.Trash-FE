@@ -1,11 +1,11 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {Button, SafeAreaView, StyleSheet} from 'react-native';
+import {Button, SafeAreaView} from 'react-native';
 import {styles} from '../../App';
 import PopUpBox from '../../components/main/home/PopUp';
 import QrScanner from '../../components/main/home/QrScanner';
 import GlobalLayout from '../../styles/globalLayout';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const loading = require('../../../assets/drtrash/main_load.gif');
 import {
   AlertBox,
@@ -24,23 +24,30 @@ import {
 } from '../../styles/main/home/bottomBtn';
 import {MidBox, InProgressBox, LoadingBox} from '../../styles/main/home/MidBox';
 import RootStackParamList from '../../types/RootStackParamList';
-import CustomMarker from '../../components/common/CustomMarker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface IPopupTypes {
+export interface IPopupTypes {
   date: Date;
-  species: string;
-  accuracy: string;
-  successPoint: string;
-  originPoint: string;
+  type: string;
+  count: {
+    success: number;
+    fail: number;
+  };
+  point: number;
+  totalPoint: number;
 }
 
 type NavProps = NativeStackScreenProps<RootStackParamList, 'Ranking'>;
 
 const dummyPopUpData = {
   date: new Date(),
-  species: '플라스틱',
-  success: 7,
-  fail: 3,
+  type: '플라스틱',
+  count: {
+    success: 10,
+    fail: 8,
+  },
+  point: 120,
+  totalPoint: 820,
 };
 
 const Home = ({navigation}: NavProps) => {
@@ -48,7 +55,7 @@ const Home = ({navigation}: NavProps) => {
     'before',
   );
 
-  const [myRecord, setMyRecord] = useState(dummyPopUpData);
+  const [myRecord, setMyRecord] = useState<IPopupTypes>(dummyPopUpData);
   const pressBtn = async () => {
     if (phase === 'inProgress') {
       /*
@@ -60,6 +67,14 @@ const Home = ({navigation}: NavProps) => {
     if (phase === 'done') {
       setPhase('before');
     }
+  };
+  const deleteToken = async () => {
+    await AsyncStorage.removeItem('access_token');
+    await AsyncStorage.removeItem('refresh_token');
+    const accessToken = await AsyncStorage.getItem('access_token');
+    const refreshToken = await AsyncStorage.getItem('refresh_token');
+    console.log('accessToken', accessToken);
+    console.log('refreshToken', refreshToken);
   };
   return (
     <GlobalLayout>
@@ -128,13 +143,6 @@ const Home = ({navigation}: NavProps) => {
           navigation.navigate('Ranking');
         }}
       />
-      {/* <Button
-        title="토큰삭제"
-        onPress={() => {
-          AsyncStorage.removeItem('access_token');
-          AsyncStorage.removeItem('refresh_token');
-        }}
-      /> */}
       <Button
         title="mode change"
         onPress={() => {
@@ -147,6 +155,7 @@ const Home = ({navigation}: NavProps) => {
           );
         }}
       />
+      <Button title="delete token" onPress={deleteToken} />
     </GlobalLayout>
   );
 };

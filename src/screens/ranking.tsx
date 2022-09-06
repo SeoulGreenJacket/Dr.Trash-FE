@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import {styles} from '../App';
 import RankBox from '../components/ranking/RankBox';
 import GlobalLayout from '../styles/globalLayout';
-import {RankHeader, Reloader, Title} from '../styles/ranking/header';
+import {RankHeader, Title} from '../styles/ranking/header';
 import {
   MyName,
-  MyProfile,
   MyRank,
   MyRanking,
   MyRankingBox,
@@ -20,7 +21,52 @@ const myDummyData = {
   point: 354,
 };
 
+interface IMyDataType {
+  id: number;
+  name: string;
+  thumbnail: string;
+  point: number;
+  userGrade: string;
+  achievement: [
+    {
+      id: number;
+      name: string;
+      description: string;
+      imageUri: string;
+      achievedAt: Date;
+    },
+  ];
+  rank: number;
+}
+
 const Ranking = () => {
+  const [myData, setMyData] = useState<IMyDataType>();
+  useEffect(() => {
+    (async () => {
+      const access = await AsyncStorage.getItem('access_token');
+      const {data: id, status} = await axios.get(
+        'http://localhost:3000/users',
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        },
+      );
+      if (status === 200) {
+        const {data, status: code} = await axios.get(
+          `http://localhost:3000/users/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${access}`,
+            },
+          },
+        );
+        if (code === 200) {
+          setMyData(data);
+        }
+      }
+    })();
+  });
   return (
     <>
       <GlobalLayout>
@@ -33,11 +79,10 @@ const Ranking = () => {
       <MyRank>
         <MyRankingBox>
           <MyText>내 순위</MyText>
-          <MyRanking>{myDummyData.rank}위</MyRanking>
+          <MyRanking>{myData?.rank}위</MyRanking>
         </MyRankingBox>
-        <MyProfile />
-        <MyName>{myDummyData.name}님</MyName>
-        <MyScore>{myDummyData.point}P</MyScore>
+        <MyName>{myData?.name}님</MyName>
+        <MyScore>{myData?.point}P</MyScore>
       </MyRank>
       <SafeAreaView style={styles.safeAreaBottomRank} />
     </>
