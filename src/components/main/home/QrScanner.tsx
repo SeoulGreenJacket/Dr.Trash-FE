@@ -17,7 +17,10 @@ const QrScanner = ({
     setPhase('inProgress');
   };
   return (
-    <>
+    <Camera
+      onPress={() => {
+        setQrCode(true);
+      }}>
       {qrCode ? (
         <CameraScreen
           scanBarcode={qrCode}
@@ -26,14 +29,9 @@ const QrScanner = ({
           laserColor={'white'}
         />
       ) : (
-        <Camera
-          onPress={() => {
-            setQrCode(true);
-          }}>
-          <BeforeBox source={touch} resizeMode="center" />
-        </Camera>
+        <BeforeBox source={touch} resizeMode="center" />
       )}
-    </>
+    </Camera>
   );
 };
 

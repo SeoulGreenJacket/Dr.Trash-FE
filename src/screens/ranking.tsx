@@ -14,12 +14,7 @@ import {
   MyScore,
   MyText,
 } from '../styles/ranking/rank';
-
-const myDummyData = {
-  name: '박인재',
-  rank: 48,
-  point: 354,
-};
+import Config from 'react-native-config';
 
 interface IMyDataType {
   id: number;
@@ -45,7 +40,7 @@ const Ranking = () => {
     (async () => {
       const access = await AsyncStorage.getItem('access_token');
       const {data: id, status} = await axios.get(
-        'http://localhost:3000/users',
+        `${Config.SERVER_HOST}/users`,
         {
           headers: {
             Authorization: `Bearer ${access}`,
@@ -54,7 +49,7 @@ const Ranking = () => {
       );
       if (status === 200) {
         const {data, status: code} = await axios.get(
-          `http://localhost:3000/users/${id}`,
+          `${Config.SERVER_HOST}/users/${id}`,
           {
             headers: {
               Authorization: `Bearer ${access}`,
