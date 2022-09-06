@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
-import {InfoText} from '../../styles/trashcan/trashcanInfo';
+import {StyleSheet, View} from 'react-native';
+import {InfoText, ListView} from '../../styles/trashcan/trashcanInfo';
 import TrashCanInfoList from './TrashCanInfoList';
 
 const TrashCanInfoMain = () => {
@@ -17,22 +17,28 @@ const TrashCanInfoMain = () => {
     },
   ]);
   const len = trashCanList.length;
-
+  const onDeleteTrashcan = (id: number) => {
+    setTrashCanList(
+      trashCanList.filter(item => {
+        return id !== item.index;
+      }),
+    );
+  };
   return (
     <>
       <InfoText>총 2건의 쓰레기통이{'\n'}등록됐습니다.</InfoText>
       <View style={styles.list}>
-        <ScrollView style={{borderTopLeftRadius: 15, borderTopRightRadius: 15}}>
+        <ListView>
           {trashCanList.map(item => (
             <TrashCanInfoList
               key={item.index}
               name={item.name}
               code={item.code}
               index={item.index}
-              len={len}
+              onDeleteTrashcan={onDeleteTrashcan}
             />
           ))}
-        </ScrollView>
+        </ListView>
       </View>
     </>
   );

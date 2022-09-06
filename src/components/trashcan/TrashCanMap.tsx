@@ -101,11 +101,20 @@ const TrashCanMap = () => {
           setIsCurLocation(true);
         }}
         isCurLocation={isCurLocation}>
-        <GPSIcon
-          name="crosshairs-gps"
-          size={20}
-          style={{textAlign: 'center', marginTop: 10}}
-        />
+        {isCurLocation ? (
+          <GPSIcon
+            name="crosshairs-gps"
+            size={20}
+            color="white"
+            style={{textAlign: 'center', marginTop: 10}}
+          />
+        ) : (
+          <GPSIcon
+            name="crosshairs-gps"
+            size={20}
+            style={{textAlign: 'center', marginTop: 10}}
+          />
+        )}
       </GPSBtn>
     </View>
   );

@@ -5,6 +5,7 @@ import {styles} from '../../App';
 import PopUpBox from '../../components/main/home/PopUp';
 import QrScanner from '../../components/main/home/QrScanner';
 import GlobalLayout from '../../styles/globalLayout';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const loading = require('../../../assets/drtrash/main_load.gif');
 import {
   AlertBox,
@@ -127,6 +128,13 @@ const Home = ({navigation}: NavProps) => {
           navigation.navigate('Ranking');
         }}
       />
+      {/* <Button
+        title="토큰삭제"
+        onPress={() => {
+          AsyncStorage.removeItem('access_token');
+          AsyncStorage.removeItem('refresh_token');
+        }}
+      /> */}
       <Button
         title="mode change"
         onPress={() => {
