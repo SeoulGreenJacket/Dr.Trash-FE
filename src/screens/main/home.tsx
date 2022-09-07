@@ -31,10 +31,8 @@ import Config from 'react-native-config';
 export interface IPopupTypes {
   date: Date;
   type: string;
-  count: {
-    success: number;
-    fail: number;
-  };
+  success: number;
+  failure: number;
   point: number;
   totalPoint: number;
 }
@@ -44,16 +42,17 @@ type NavProps = NativeStackScreenProps<RootStackParamList, 'Ranking'>;
 const dummyPopUpData = {
   date: new Date(),
   type: '플라스틱',
-  count: {
-    success: 80,
-    fail: 10,
-  },
+  success: 80,
+  failure: 10,
   point: 120,
   totalPoint: 820,
 };
 
+const remoteHost = Config.SERVER_HOST;
+const localHost = 'http://localhost:3000';
+
 const Home = ({navigation}: NavProps) => {
-  const [id, setId] = useState('');
+  const [id, setId] = useState('efda44d1-03df-48a6-b91c-79f98b4bfb4f');
   const [phase, setPhase] = useState<'before' | 'inProgress' | 'done'>(
     'before',
   );
@@ -63,19 +62,21 @@ const Home = ({navigation}: NavProps) => {
   // qrCode를 인식하면 uuid를 보내 아두이노에게 전달
   const detectQrCode = async (e: any) => {
     const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
+    setId(uuid);
     const access = await AsyncStorage.getItem('access_token');
     if (uuid && access) {
-      setId(uuid);
       setQrCode(false);
-      const {status} = await axios.post(
-        `${Config.SERVER_HOST}/trash/begin/${uuid}`,
+      console.log('uuid', id);
+      console.log('access', access);
+      const {data, status} = await axios.post(
+        `${remoteHost}/trash/begin/${id}`,
         {
           headers: {
             Authorization: `Bearer ${access}`,
           },
         },
       );
-      if (status === 200) {
+      if (status === 201) {
         setPhase('inProgress');
       }
     }
@@ -85,22 +86,14 @@ const Home = ({navigation}: NavProps) => {
   const stop = async () => {
     const access = await AsyncStorage.getItem('access_token');
     if (access) {
-      const {status} = await axios.post(
-        `${Config.SERVER_HOST}/trash/end/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${access}`,
-          },
+      const {data, status} = await axios.post(`${remoteHost}/trash/end/${id}`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
         },
-      );
-      if (status === 200) {
-        const {data, status: code} = await axios.get(
-          `${Config.SERVER_HOST}/trash/summary`,
-        );
-        if (code === 200) {
-          setMyRecord(data);
-          setPhase('done');
-        }
+      });
+      if (status === 201) {
+        setMyRecord(data);
+        setPhase('done');
       }
     }
   };
@@ -154,7 +147,11 @@ const Home = ({navigation}: NavProps) => {
                 />
               </IconBox>
             </Btn>
-            <Btn>
+            <Btn
+              onPress={async () => {
+                await AsyncStorage.removeItem('access_token');
+                await AsyncStorage.removeItem('refresh_token');
+              }}>
               <BtnTxt>자주 묻는{'\n'}질문</BtnTxt>
               <IconBox>
                 <Icon source={require('../../../assets/drtrash/FAQMArk.png')} />
@@ -176,6 +173,7 @@ const Home = ({navigation}: NavProps) => {
           </BackBtn>
         )}
       </BtnWrapper>
+      <Button title="쓰레기통 연결" onPress={detectQrCode} />
       <Button
         title="랭킹 페이지로"
         onPress={() => {

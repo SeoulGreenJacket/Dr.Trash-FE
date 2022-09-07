@@ -28,8 +28,7 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes}) => {
   const month = (myRecord.date.getMonth() + 1).toString().padStart(2, '0');
   const day = myRecord.date.getDate().toString().padStart(2, '0');
   const acuuracy =
-    (myRecord.count.success / (myRecord.count.success + myRecord.count.fail)) *
-    100;
+    (myRecord.success / (myRecord.success + myRecord.failure)) * 100;
   return (
     <DoneBox>
       <DoneBoxImage source={template} />

@@ -97,10 +97,9 @@ const RightText = styled.Text`
 `;
 
 const AccuracyBar = styled.View`
-  width: 60%;
+  width: 40%;
   height: 25px;
   display: flex;
-  align-items: flex-end;
   background-color: #ededed;
   border-radius: 5px;
   overflow: hidden;
