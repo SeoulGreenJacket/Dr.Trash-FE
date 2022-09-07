@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Alert, SafeAreaView} from 'react-native';
 import {styles} from '../../App';
 import Map from '../../components/trashcan/AddMap';
@@ -130,10 +130,6 @@ const TrashCanInfo = ({navigation}: NavProps) => {
      */
     // navigation.push('TrashCanAdd');
   };
-  // 양식 체크
-  useEffect(() => {
-    console.log(inputs);
-  }, [inputs]);
   return (
     <>
       <GlobalLayout>

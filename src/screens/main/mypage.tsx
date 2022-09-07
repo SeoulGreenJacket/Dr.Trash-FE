@@ -28,7 +28,6 @@ const MyPage = ({navigation}: MainScreenProps) => {
   const getUser = async () => {
     const access = await AsyncStorage.getItem('access_token');
     let idRes: any;
-    console.log(access);
     try {
       idRes = await axios.get(`${Config.SERVER_HOST}/users`, {
         headers: {
@@ -53,7 +52,6 @@ const MyPage = ({navigation}: MainScreenProps) => {
   useEffect(() => {
     getUser();
   }, []);
-  console.log(user);
   return (
     <>
       {loading ? (

@@ -6,7 +6,6 @@ import RootStackParamList from '../types/RootStackParamList';
 import SignWebView from '../components/common/SignWebView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../components/common/Loading';
-import Config from 'react-native-config';
 
 let kakaoLoginImg = require('../../assets/kakaologin/kakao_login_medium_wide.png');
 let MainIconImg = require('../../assets/drtrash/main_icon.png');
