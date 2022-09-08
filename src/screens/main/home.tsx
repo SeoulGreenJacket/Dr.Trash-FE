@@ -27,6 +27,7 @@ import RootStackParamList from '../../types/RootStackParamList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Config from 'react-native-config';
+import useApi from '../../hooks/axios';
 
 export interface IPopupTypes {
   date: Date;
@@ -49,7 +50,7 @@ const dummyPopUpData = {
 };
 
 const Home = ({navigation}: NavProps) => {
-  const [id, setId] = useState('efda44d1-03df-48a6-b91c-79f98b4bfb4f');
+  const [id, setId] = useState('efda44d1-03df-48a6-b91c-79f98b4bfb4f'); // drTrash 1호
   const [phase, setPhase] = useState<'before' | 'inProgress' | 'done'>(
     'before',
   );
@@ -58,25 +59,15 @@ const Home = ({navigation}: NavProps) => {
 
   // qrCode를 인식하면 uuid를 보내 아두이노에게 전달
   const detectQrCode = async (e: any) => {
-    const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
-    setId(uuid);
-    const access = await AsyncStorage.getItem('access_token');
-    if (uuid && access) {
-      setQrCode(false);
-      console.log('uuid', id);
-      console.log('access', access);
-      const {data, status} = await axios.post(
-        `${Config.SERVER_HOST}/trash/begin/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${access}`,
-          },
-        },
-      );
-      if (status === 201) {
-        setPhase('inProgress');
-      }
-    }
+    // const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
+    // setId(uuid);
+    setQrCode(false);
+    const {data, status} = await useApi.post(`/trash/begin/${id}`);
+    console.log('data', data);
+    console.log('status', status);
+    // if (status === 201) {
+    //   setPhase('inProgress');
+    // }
   };
 
   // 배출 종료 버튼을 누르면 아두이노에게 전달
@@ -85,6 +76,7 @@ const Home = ({navigation}: NavProps) => {
     if (access) {
       const {data, status} = await axios.post(
         `${Config.SERVER_HOST}/trash/end/${id}`,
+        null,
         {
           headers: {
             Authorization: `Bearer ${access}`,
@@ -174,12 +166,12 @@ const Home = ({navigation}: NavProps) => {
         )}
       </BtnWrapper>
       <Button title="쓰레기통 연결" onPress={detectQrCode} />
-      <Button
+      {/* <Button
         title="랭킹 페이지로"
         onPress={() => {
           navigation.navigate('Ranking');
         }}
-      />
+      /> */}
       <Button
         title="mode change"
         onPress={() => {
