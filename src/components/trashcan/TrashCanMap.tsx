@@ -44,10 +44,10 @@ const TrashCanMap = () => {
   }, []);
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(location => {
+    Geolocation.getCurrentPosition(loc => {
       const curRegion = {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+        latitude: loc.coords.latitude,
+        longitude: loc.coords.longitude,
         latitudeDelta: 0.008,
         longitudeDelta: 0.008,
       };
@@ -71,7 +71,7 @@ const TrashCanMap = () => {
         setIsCurLocation(true);
       }
     }
-  }, [moveLocation]);
+  }, [moveLocation]); // ???
 
   const onChangeLocation = (e: any) => {
     setMoveLocation(e);

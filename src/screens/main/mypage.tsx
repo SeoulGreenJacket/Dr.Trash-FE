@@ -52,7 +52,6 @@ const MyPage = ({navigation}: MainScreenProps) => {
   useEffect(() => {
     getUser();
   }, []);
-  console.log(user);
   return (
     <>
       {loading ? (
