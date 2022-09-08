@@ -11,7 +11,6 @@ const useApi = axios.create({
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: '',
   },
 });
 
@@ -20,6 +19,7 @@ useApi.interceptors.request.use(
     try {
       const access_token = await AsyncStorage.getItem('access_token');
       request.headers!.Authorization = `Bearer ${access_token}`;
+      console.log('request', request);
       return request;
     } catch (error) {
       return console.log(error);
@@ -32,6 +32,7 @@ useApi.interceptors.request.use(
 
 useApi.interceptors.response.use(
   async (response: AxiosResponse) => {
+    console.log('response', response);
     if (response.status === 401) {
       try {
         const {
