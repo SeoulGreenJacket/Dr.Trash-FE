@@ -48,9 +48,6 @@ const dummyPopUpData = {
   totalPoint: 820,
 };
 
-const remoteHost = Config.SERVER_HOST;
-const localHost = 'http://localhost:3000';
-
 const Home = ({navigation}: NavProps) => {
   const [id, setId] = useState('efda44d1-03df-48a6-b91c-79f98b4bfb4f');
   const [phase, setPhase] = useState<'before' | 'inProgress' | 'done'>(
@@ -69,7 +66,7 @@ const Home = ({navigation}: NavProps) => {
       console.log('uuid', id);
       console.log('access', access);
       const {data, status} = await axios.post(
-        `${remoteHost}/trash/begin/${id}`,
+        `${Config.SERVER_HOST}/trash/begin/${id}`,
         {
           headers: {
             Authorization: `Bearer ${access}`,
@@ -86,11 +83,14 @@ const Home = ({navigation}: NavProps) => {
   const stop = async () => {
     const access = await AsyncStorage.getItem('access_token');
     if (access) {
-      const {data, status} = await axios.post(`${remoteHost}/trash/end/${id}`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
+      const {data, status} = await axios.post(
+        `${Config.SERVER_HOST}/trash/end/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
         },
-      });
+      );
       if (status === 201) {
         setMyRecord(data);
         setPhase('done');
