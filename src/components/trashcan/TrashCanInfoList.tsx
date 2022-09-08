@@ -21,7 +21,7 @@ const TrashCanInfoList = ({name, code, index, onDeleteTrashcan}: ListType) => {
     <TrashCanList>
       <ListText>
         <TrashCanName>{name}</TrashCanName>
-        <TrashCanCode>코드명 {code}</TrashCanCode>
+        {/* <TrashCanCode>코드명 {code}</TrashCanCode> */}
       </ListText>
       <TouchableOpacity>
         <EditIcon
