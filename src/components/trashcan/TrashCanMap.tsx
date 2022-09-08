@@ -5,6 +5,9 @@ import CustomMarker from '../common/CustomMarker';
 import GPSIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {GPSBtn} from '../../styles/trashcan/trashcanLocation';
 import Geolocation from '@react-native-community/geolocation';
+import axios from 'axios';
+import Config from 'react-native-config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TrashCanMap = () => {
   const [location, setLocation] = useState<any>();
@@ -15,18 +18,30 @@ const TrashCanMap = () => {
 
   const [markerList, setMarkerList] = useState([
     {
-      coordinate: {latitude: 37.629, longitude: 127.081},
-      title: 'Dr.trash 1호',
-      description: '서울과학기술대학교 미래관',
-      _id: 'first',
-    },
-    {
-      coordinate: {latitude: 36.62, longitude: 127.44},
-      title: 'Dr.trash 2호',
-      description: '청주시 흥덕구 가경동',
-      _id: 'second',
+      id: 0,
+      latitude: 0,
+      longitude: 0,
+      name: '',
+      phoneNumber: '',
     },
   ]);
+
+  const getTrashcan = async () => {
+    const access = await AsyncStorage.getItem('access_token');
+    try {
+      const res = await axios.get(`${Config.SERVER_HOST}/trashcans`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      });
+      setMarkerList(res.data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  useEffect(() => {
+    getTrashcan();
+  }, []);
 
   useEffect(() => {
     Geolocation.getCurrentPosition(location => {
@@ -62,13 +77,13 @@ const TrashCanMap = () => {
     setMoveLocation(e);
   };
 
-  const onPressMarker = (id: string) => {
+  const onPressMarker = (id: number) => {
     const pressedMarker = markerList.filter(item => {
-      return item._id === id;
+      return item.id === id;
     });
     const markerLocation = {
-      latitude: pressedMarker[0].coordinate.latitude,
-      longitude: pressedMarker[0].coordinate.longitude,
+      latitude: pressedMarker[0].latitude,
+      longitude: pressedMarker[0].longitude,
       latitudeDelta: 0.001,
       longitudeDelta: 0.001,
     };
@@ -83,14 +98,13 @@ const TrashCanMap = () => {
         userInterfaceStyle="light"
         ref={locRef}
         onRegionChange={e => onChangeLocation(e)}>
-        {markerList.map((item, index) => (
+        {markerList.map(item => (
           <Marker
-            key={index}
-            coordinate={item.coordinate}
-            title={item.title}
-            description={item.description}
-            identifier={item._id}
-            onPress={() => onPressMarker(item._id)}>
+            key={item.id}
+            coordinate={{latitude: item.latitude, longitude: item.longitude}}
+            title={item.name}
+            description={item.phoneNumber}
+            onPress={() => onPressMarker(item.id)}>
             <CustomMarker />
           </Marker>
         ))}
