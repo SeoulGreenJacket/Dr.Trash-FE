@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   RankScrollView,
   SubName,
@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Config from 'react-native-config';
 import TopRanks from './TopRanks';
+import MyRanks from './MyRank';
 
 export interface IRankTypes {
   id: number;
@@ -64,6 +65,7 @@ const RankBox = () => {
   return (
     <>
       <TopRanks top3={rankData.slice(0, 3)} />
+      <MyRanks />
       <RankScrollView
         // onScroll={isClosedToBottom}
         scrollEventThrottle={400}

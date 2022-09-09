@@ -41,7 +41,6 @@ const TopRankImage = styled.Image`
   width: 85px;
   height: 85px;
   border-radius: 42.5px;
-  background-color: black;
   margin: 0 0 2px 0;
 `;
 
@@ -92,7 +91,6 @@ const SecondaryRankImage = styled.Image`
   height: 60px;
   border-radius: 30px;
   margin: 0 0 2px 0;
-  background-color: black;
 `;
 
 const SecondaryRankName = styled.Text`
@@ -158,47 +156,45 @@ const SubScore = styled.Text`
   right: 10px;
 `;
 
-//////////////////////////////////////////
+////////////////////////////////////////////////////////////
 
 const MyRank = styled.View`
   width: 100%;
-  height: 80px;
+  height: 55px;
+  margin: 0 0 10px 0;
+  border-radius: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  position: relative;
-  background-color: black;
+  background-color: #03c700;
 `;
 
-const MyRankingBox = styled.View`
-  width: 58px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 0 0 15px;
-`;
-
-const MyText = styled.Text`
+const MyRanking = styled.Text`
+  width: 35px;
+  margin: 0 0 0 10px;
   color: white;
   font-size: 17px;
 `;
-const MyRanking = styled.Text`
-  color: white;
-  font-size: 25px;
+
+const MyProfile = styled.View`
+  width: 45px;
+  height: 45px;
+  margin: 0 0 0 10px;
+  border-radius: 22.5px;
+  background-color: white;
 `;
 
 const MyName = styled.Text`
   color: white;
-  font-size: 25px;
+  font-size: 17px;
   margin: 0 0 0 10px;
 `;
 
 const MyScore = styled.Text`
   color: white;
-  font-size: 25px;
+  font-size: 17px;
   position: absolute;
-  right: 15px;
+  right: 10px;
 `;
 
 export {
@@ -211,8 +207,6 @@ export {
   SubName,
   SubScore,
   MyRank,
-  MyRankingBox,
-  MyText,
   MyRanking,
   MyName,
   MyScore,
