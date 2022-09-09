@@ -154,13 +154,13 @@ const Home = ({navigation}: NavProps) => {
           </BackBtn>
         )}
       </BtnWrapper>
-      <Button title="쓰레기통 연결" onPress={detectQrCode} />
-      {/* <Button
+      {/* <Button title="쓰레기통 연결" onPress={detectQrCode} /> */}
+      <Button
         title="랭킹 페이지로"
         onPress={() => {
           navigation.navigate('Ranking');
         }}
-      /> */}
+      />
       <Button
         title="mode change"
         onPress={() => {

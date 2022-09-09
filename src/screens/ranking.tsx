@@ -15,6 +15,8 @@ import {
   MyText,
 } from '../styles/ranking/rank';
 import Config from 'react-native-config';
+import Icon from 'react-native-vector-icons/AntDesign';
+import TopRanks from '../components/ranking/TopRanks';
 
 interface IMyDataType {
   id: number;
@@ -67,19 +69,19 @@ const Ranking = () => {
       <GlobalLayout>
         <SafeAreaView style={styles.safeAreaTop} />
         <RankHeader>
-          <Title>실시간 TOP 10</Title>
+          <Title>실시간 랭킹 순위</Title>
+          <Icon name="exclamationcircleo" size={30} />
         </RankHeader>
         <RankBox />
       </GlobalLayout>
-      <MyRank>
+      {/* <MyRank>
         <MyRankingBox>
           <MyText>내 순위</MyText>
           <MyRanking>{myData?.rank}위</MyRanking>
         </MyRankingBox>
         <MyName>{myData?.name}님</MyName>
         <MyScore>{myData?.point}P</MyScore>
-      </MyRank>
-      <SafeAreaView style={styles.safeAreaBottomRank} />
+      </MyRank> */}
     </>
   );
 };

@@ -6,39 +6,111 @@ const RankScrollView = styled.ScrollView`
 
 const TopRank = styled.View`
   width: 100%;
-  height: 65px;
+  height: 250px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   position: relative;
-  background-color: rgba(90, 196, 0, 0.38);
+  margin: 0 0 20px 0;
 `;
 
-const TopRanking = styled.Text`
-  width: 40px;
-  margin: 0 0 0 15px;
-  font-size: 25px;
+const TopRankText = styled.Text`
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
 `;
 
-const TopProfile = styled.View`
-  width: 55px;
-  height: 55px;
-  margin: 0 0 0 10px;
-  border-radius: 27.5px;
+const TopRankBox = styled.View`
+  width: 39%;
+  height: 70%;
+`;
+
+const TopRankInnerBox = styled.View`
+  width: 100%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  padding: 10px;
   background-color: white;
 `;
 
-const TopName = styled.Text`
+const TopRankImage = styled.Image`
+  width: 85px;
+  height: 85px;
+  border-radius: 42.5px;
+  background-color: black;
+  margin: 0 0 2px 0;
+`;
+
+const TopRankName = styled.Text`
+  width: 100%;
+  height: 25px;
+  text-align: center;
   font-size: 20px;
-  margin: 0 0 0 10px;
+  font-weight: 400;
+  color: #3f3f3f;
+`;
+const TopRankScore = styled.Text`
+  width: 100%;
+  height: 25px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
 `;
 
-const TopScore = styled.Text`
-  font-size: 25px;
+////////////////////////////////////////////////////////////
+const SecondaryRank = styled.View`
+  width: 100%;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   position: absolute;
-  right: 15px;
+  bottom: 0;
 `;
 
+const SecondaryRankBox = styled.View`
+  width: 95px;
+  height: 100%;
+`;
+
+const SecondaryRankInnerBox = styled.View`
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: white;
+`;
+
+const SecondaryRankImage = styled.Image`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  margin: 0 0 2px 0;
+  background-color: black;
+`;
+
+const SecondaryRankName = styled.Text`
+  width: 100%;
+  height: 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #3f3f3f;
+`;
+
+const SecondaryRankScore = styled.Text`
+  width: 100%;
+  height: 21px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+`;
 ////////////////////////////////////////////////////////////
 
 const SubRankBox = styled.View`
@@ -134,10 +206,6 @@ export {
   TopRank,
   SubRankBox,
   SubRank,
-  TopRanking,
-  TopProfile,
-  TopName,
-  TopScore,
   SubRanking,
   SubProfile,
   SubName,
@@ -148,4 +216,16 @@ export {
   MyRanking,
   MyName,
   MyScore,
+  TopRankBox,
+  TopRankText,
+  TopRankInnerBox,
+  TopRankImage,
+  TopRankName,
+  TopRankScore,
+  SecondaryRank,
+  SecondaryRankBox,
+  SecondaryRankInnerBox,
+  SecondaryRankImage,
+  SecondaryRankName,
+  SecondaryRankScore,
 };
