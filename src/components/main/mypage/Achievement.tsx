@@ -18,39 +18,6 @@ let trashcanBadge = require('../../../../assets/badges/trashcanBadge.png');
 let warningBadge = require('../../../../assets/badges/warningBadge.png');
 let smileBadge = require('../../../../assets/badges/smileBadge.png');
 
-// const achieveItem = [
-//   {
-//     imgUri: earthBadge,
-//     title: '지구지키미',
-//     content: 'Dr.Trash 첫 이용!',
-//     done: true,
-//   },
-//   {
-//     imgUri: rankBadge,
-//     title: 'Dr.Trash 랭커',
-//     content: '랭킹 3등 이상 달성!',
-//     done: true,
-//   },
-//   {
-//     imgUri: warningBadge,
-//     title: '실수 맞죠..?',
-//     content: '못 버림 포인트 1000점 달성!',
-//     done: true,
-//   },
-//   {
-//     imgUri: smileBadge,
-//     title: '분리수거 달인',
-//     content: '포인트 1000점 이상 달성!',
-//     done: true,
-//   },
-//   {
-//     imgUri: trashcanBadge,
-//     title: 'Dr.Trash 아버지',
-//     content: '쓰레기통 등록 5회 달성!',
-//     done: true,
-//   },
-// ];
-
 interface BadgeProps {
   achievement: any;
 }
