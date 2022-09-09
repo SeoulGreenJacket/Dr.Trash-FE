@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   RankScrollView,
   SubName,
@@ -34,45 +34,49 @@ const dummyRankProducer = [
 
 const RankBox = () => {
   const [rankData, setRankData] = useState<IRankTypes[]>(dummyRankProducer);
-  // const [offset, setOffset] = useState(0);
-  // const isClosedToBottom = async (e: any) => {
-  //   const {layoutMeasurement, contentOffset, contentSize} = e.nativeEvent;
-  //   if (layoutMeasurement.height + contentOffset.y === contentSize.height) {
-  //     setOffset(offset + 10);
-  //   }
-  // };
-  // useEffect(() => {
-  //   (async () => {
-  //     const access = await AsyncStorage.getItem('access_token');
-  //     const {data, status} = await axios.get(
-  //       `${Config.SERVER_HOST}/users/rank`,
-  //       {
-  //         params: {
-  //           limit: 10,
-  //           offset,
-  //         },
-  //         headers: {
-  //           Authorization: `Bearer ${access}`,
-  //           'Content-Type': 'application/json',
-  //         },
-  //       },
-  //     );
-  //     if (status === 200) {
-  //       setRankData((prev: any) => [...prev, ...data]);
-  //     }
-  //   })();
-  // }, [offset]);
+  const [offset, setOffset] = useState(0);
+  const isClosedToBottom = async (e: any) => {
+    const {layoutMeasurement, contentOffset, contentSize} = e.nativeEvent;
+    if (layoutMeasurement.height + contentOffset.y === contentSize.height) {
+      console.log('end', offset);
+      setOffset(offset + 10);
+    }
+  };
+  useEffect(() => {
+    console.log('offset', offset);
+
+    (async () => {
+      const access = await AsyncStorage.getItem('access_token');
+      const {data, status} = await axios.get(
+        `${Config.SERVER_HOST}/users/rank`,
+        {
+          params: {
+            limit: 10,
+            offset,
+          },
+          headers: {
+            Authorization: `Bearer ${access}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      if (status === 200) {
+        setRankData((prev: any) => [...prev, ...data]);
+      }
+    })();
+  }, [offset]);
   return (
     <>
       <TopRanks top3={rankData.slice(0, 3)} />
       <MyRanks />
       <RankScrollView
-        // onScroll={isClosedToBottom}
+        onScroll={isClosedToBottom}
         scrollEventThrottle={400}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+        style={{borderRadius: 20}}>
         <SubRankBox>
           {rankData?.slice(3).map((person, i) => (
-            <SubRank key={person.id}>
+            <SubRank key={person.id * Math.floor(Math.random())}>
               <SubRanking>{i + 4}위</SubRanking>
               <SubName>{person.userName}님</SubName>
               <SubScore>{person.point}P</SubScore>
