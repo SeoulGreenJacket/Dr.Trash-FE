@@ -12,9 +12,9 @@ import MyRanks from './MyRank';
 import useApi from '../../hooks/axios';
 
 export interface IRankTypes {
-  id: number;
-  userName: string;
+  userId: number;
   point: number;
+  userName: string;
 }
 
 const dummyRankProducer = [
@@ -31,7 +31,7 @@ const dummyRankProducer = [
 ];
 
 const RankBox = () => {
-  const [rankData, setRankData] = useState<IRankTypes[]>(dummyRankProducer);
+  const [rankData, setRankData] = useState<IRankTypes[]>([]);
   const [offset, setOffset] = useState(0);
   const isClosedToBottom = async (e: any) => {
     const {layoutMeasurement, contentOffset, contentSize} = e.nativeEvent;
@@ -48,6 +48,7 @@ const RankBox = () => {
         },
       });
       if (status === 200) {
+        console.log(data);
         setRankData((prev: any) => [...prev, ...data]);
       }
     })();
@@ -63,7 +64,7 @@ const RankBox = () => {
         style={{borderRadius: 20}}>
         <SubRankBox>
           {rankData?.slice(3).map((person, i) => (
-            <SubRank key={person.id * Math.floor(Math.random())}>
+            <SubRank key={person.userId}>
               <SubRanking>{i + 4}위</SubRanking>
               <SubName>{person.userName}님</SubName>
               <SubScore>{person.point}P</SubScore>

@@ -27,27 +27,23 @@ const TopRanks = ({top3}: {top3: IRankTypes[]}) => {
         <TopRankText>1</TopRankText>
         <TopRankInnerBox>
           <TopRankImage source={earth} />
-          <TopRankName>{top3[0].userName}님</TopRankName>
-          <TopRankScore>{top3[0].point}p</TopRankScore>
+          <TopRankName>{top3[0]?.userName}님</TopRankName>
+          <TopRankScore>{top3[0]?.point}p</TopRankScore>
         </TopRankInnerBox>
       </TopRankBox>
       <SecondaryRank>
-        <SecondaryRankBox>
-          <TopRankText>2</TopRankText>
-          <SecondaryRankInnerBox>
-            <SecondaryRankImage source={rainbow} />
-            <SecondaryRankName>{top3[1].userName}님</SecondaryRankName>
-            <SecondaryRankScore>{top3[1].point}p</SecondaryRankScore>
-          </SecondaryRankInnerBox>
-        </SecondaryRankBox>
-        <SecondaryRankBox>
-          <TopRankText>3</TopRankText>
-          <SecondaryRankInnerBox>
-            <SecondaryRankImage source={smile} />
-            <SecondaryRankName>{top3[2].userName}님</SecondaryRankName>
-            <SecondaryRankScore>{top3[2].point}p</SecondaryRankScore>
-          </SecondaryRankInnerBox>
-        </SecondaryRankBox>
+        {top3.slice(1, 2).map(data => {
+          return (
+            <SecondaryRankBox>
+              <TopRankText>2</TopRankText>
+              <SecondaryRankInnerBox>
+                <SecondaryRankImage source={rainbow} />
+                <SecondaryRankName>{data?.userName}님</SecondaryRankName>
+                <SecondaryRankScore>{data?.point}p</SecondaryRankScore>
+              </SecondaryRankInnerBox>
+            </SecondaryRankBox>
+          );
+        })}
       </SecondaryRank>
     </TopRank>
   );
