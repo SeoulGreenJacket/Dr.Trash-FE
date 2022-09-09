@@ -32,7 +32,7 @@ useApi.interceptors.request.use(
 
 useApi.interceptors.response.use(
   (response: AxiosResponse) => {
-    console.log('response', response);
+    // console.log('response', response);
     return response;
   },
   async e => {

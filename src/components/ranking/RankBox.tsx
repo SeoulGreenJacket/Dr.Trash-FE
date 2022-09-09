@@ -7,11 +7,9 @@ import {
   SubRanking,
   SubScore,
 } from '../../styles/ranking/rank';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import Config from 'react-native-config';
 import TopRanks from './TopRanks';
 import MyRanks from './MyRank';
+import useApi from '../../hooks/axios';
 
 export interface IRankTypes {
   id: number;
@@ -38,28 +36,17 @@ const RankBox = () => {
   const isClosedToBottom = async (e: any) => {
     const {layoutMeasurement, contentOffset, contentSize} = e.nativeEvent;
     if (layoutMeasurement.height + contentOffset.y === contentSize.height) {
-      console.log('end', offset);
       setOffset(offset + 10);
     }
   };
   useEffect(() => {
-    console.log('offset', offset);
-
     (async () => {
-      const access = await AsyncStorage.getItem('access_token');
-      const {data, status} = await axios.get(
-        `${Config.SERVER_HOST}/users/rank`,
-        {
-          params: {
-            limit: 10,
-            offset,
-          },
-          headers: {
-            Authorization: `Bearer ${access}`,
-            'Content-Type': 'application/json',
-          },
+      const {data, status} = await useApi.get('/users/rank', {
+        params: {
+          limit: 10,
+          offset,
         },
-      );
+      });
       if (status === 200) {
         setRankData((prev: any) => [...prev, ...data]);
       }
