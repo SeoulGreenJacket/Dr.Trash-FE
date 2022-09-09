@@ -34,7 +34,8 @@ const Map = ({
     setIsMoving(false);
     setInputs({
       ...inputs,
-      location: {latitude: e.latitude, longitude: e.longitude},
+      latitude: e.latitude,
+      longitude: e.longitude,
     });
   };
   return (

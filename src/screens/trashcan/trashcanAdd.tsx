@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {Alert, SafeAreaView} from 'react-native';
 import {styles} from '../../App';
 import Map from '../../components/trashcan/AddMap';
+import useApi from '../../hooks/axios';
 import GlobalLayout from '../../styles/globalLayout';
 import {
   AlertBox,
@@ -24,10 +25,6 @@ export interface IInputsType {
   code: string;
   name: string;
   number: string;
-  location: IMapType;
-}
-
-export interface IMapType {
   latitude: number;
   longitude: number;
 }
@@ -105,30 +102,37 @@ const TrashCanInfo = ({navigation}: NavProps) => {
     code: '',
     name: '',
     number: '',
-    location: {
-      latitude: 0,
-      longitude: 0,
-    },
+    latitude: 0,
+    longitude: 0,
   });
-  const {
-    code,
-    name,
-    number,
-    location: {latitude, longitude},
-  } = inputs;
+  const {code, name, number, latitude, longitude} = inputs;
   const input = [code, name, number, latitude, longitude];
-  const onRegister = () => {
+  const onRegister = async () => {
     for (let i = 0; i < input.length; i++) {
       if (input[i] === '') {
         Alert.alert('모든 정보를 입력해주세요.');
         return;
       }
     }
-    navigation.navigate('TrashCanInfo');
-    /**
-     * 데이터 전송
-     */
-    // navigation.push('TrashCanAdd');
+    const {head, body, tail} = {
+      head: number.slice(0, 3),
+      body: number.slice(3, 7),
+      tail: number.slice(7, 11),
+    };
+    const phone = `${head}-${body}-${tail}`;
+    const req = {
+      code,
+      name,
+      phone,
+      latitude,
+      longitude,
+    };
+    const {status} = await useApi.post('/trashcans', req); // 404 Here
+    console.log(status);
+    if (status === 201) {
+      Alert.alert('쓰레기통 등록이 완료되었습니다.');
+      navigation.navigate('TrashCanInfo');
+    }
   };
   return (
     <>
