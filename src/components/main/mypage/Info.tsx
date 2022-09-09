@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
 import {
   Grade,
   MyPageInfoBox,
@@ -7,12 +7,14 @@ import {
   MyPageInfoText,
   MyPageStatus,
   Name,
-  StatusContent,
-  StatusTitle,
   TitleText,
   ContentText,
+  RankSection,
+  PointSection,
+  AccuracySection,
 } from '../../../styles/main/mypage/info';
-
+import Icon from 'react-native-vector-icons/AntDesign';
+import {useNavigation} from '@react-navigation/native';
 interface UserType {
   user: {
     achievement?: string[];
@@ -23,9 +25,13 @@ interface UserType {
     thumbnail: string;
     userGrade: string;
   };
+  navigation: any;
 }
 
-const Info = ({user}: UserType) => {
+const Info = ({user, navigation}: UserType) => {
+  const toRankPage = () => {
+    navigation.navigate('Ranking');
+  };
   return (
     <>
       <MyPageInfoBox>
@@ -45,16 +51,22 @@ const Info = ({user}: UserType) => {
         </MyPageInfoProfile>
       </MyPageInfoBox>
       <MyPageStatus>
-        <StatusTitle>
-          <TitleText style={{flexGrow: 1}}>랭킹</TitleText>
+        <RankSection>
+          <TouchableOpacity onPress={toRankPage} style={{height: '100%'}}>
+            <TitleText style={{flexGrow: 1}}>
+              랭킹 <Icon name="pluscircle" />
+            </TitleText>
+            <ContentText style={{flexGrow: 1}}>{user.rank}등</ContentText>
+          </TouchableOpacity>
+        </RankSection>
+        <PointSection>
           <TitleText style={{flexGrow: 1}}>포인트</TitleText>
-          <TitleText style={{flexGrow: 1}}>정확도</TitleText>
-        </StatusTitle>
-        <StatusContent>
-          <ContentText style={{flexGrow: 1}}>{user.rank}등</ContentText>
           <ContentText style={{flexGrow: 1}}>{user.point}p</ContentText>
+        </PointSection>
+        <AccuracySection>
+          <TitleText style={{flexGrow: 1}}>정확도</TitleText>
           <ContentText style={{flexGrow: 1}}>?%</ContentText>
-        </StatusContent>
+        </AccuracySection>
       </MyPageStatus>
     </>
   );

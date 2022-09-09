@@ -44,7 +44,7 @@ const MyPage = ({navigation}: MainScreenProps) => {
         },
       });
       setUser(res.data);
-      setTimeout(() => setLoading(false), 1000);
+      setLoading(false);
     } catch (e) {
       console.error('getInfo', e);
     }
@@ -60,7 +60,7 @@ const MyPage = ({navigation}: MainScreenProps) => {
         <View style={{backgroundColor: '#f7f7f7', flex: 1}}>
           <SafeAreaView style={styles.safeAreaTop} />
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Info user={user} />
+            <Info user={user} navigation={navigation} />
             <View
               style={{
                 width: '100%',
@@ -70,7 +70,7 @@ const MyPage = ({navigation}: MainScreenProps) => {
               }}
             />
             <Statistics />
-            <Achievement />
+            <Achievement achievement={user.achievement} />
             <LogoutBtn navigation={navigation} />
           </ScrollView>
         </View>

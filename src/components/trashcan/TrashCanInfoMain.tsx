@@ -33,21 +33,22 @@ const TrashCanInfoMain = () => {
         },
       });
       setTrashCanList(res.data);
+      console.log(res.data);
     } catch (e) {
       console.error(e);
     }
   };
   useEffect(() => {
     getTrashcanInfo();
-  }, [trashCanList]);
+  }, []);
 
   const len = trashCanList.length;
   const onDeleteTrashcan = async (id: number) => {
-    // setTrashCanList(
-    //   trashCanList.filter(item => {
-    //     return id !== item.id;
-    //   }),
-    // );
+    setTrashCanList(
+      trashCanList.filter(item => {
+        return id !== item.id;
+      }),
+    );
     const access = await AsyncStorage.getItem('access_token');
     try {
       const res = await axios.delete(`${Config.SERVER_HOST}/trashcans/${id}`, {
@@ -62,7 +63,7 @@ const TrashCanInfoMain = () => {
   return (
     <>
       <InfoText>
-        총 {trashCanList.length}건의 쓰레기통이{'\n'}등록됐습니다.
+        총 {len}건의 쓰레기통이{'\n'}등록됐습니다.
       </InfoText>
       <View style={styles.list}>
         <ListView>

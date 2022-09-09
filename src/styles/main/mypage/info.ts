@@ -38,22 +38,26 @@ export const MyPageStatus = styled.View`
   border: 1px solid #ededed;
   padding: 18px 23px;
   margin: 0 23px 19px 23px;
-`;
-export const StatusTitle = styled.View`
-  flex-direction: row;
-  margin-bottom: 20px;
-`;
-export const StatusContent = styled.View`
   flex-direction: row;
 `;
 
-export const TitleText = styled.Text`
+export const RankSection = styled.View`
   flex-grow: 1;
+`;
+
+export const PointSection = styled.View`
+  flex-grow: 1;
+`;
+
+export const AccuracySection = styled.View`
+  flex-grow: 1;
+`;
+
+export const TitleText = styled.Text`
   font-weight: 300;
 `;
 
 export const ContentText = styled.Text`
-  flex-grow: 1;
   font-weight: 500;
   font-size: 20px;
   color: ${props => props.theme.colors.lime};
