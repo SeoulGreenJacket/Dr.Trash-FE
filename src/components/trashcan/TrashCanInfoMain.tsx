@@ -33,7 +33,6 @@ const TrashCanInfoMain = () => {
         },
       });
       setTrashCanList(res.data);
-      console.log(res.data);
     } catch (e) {
       console.error(e);
     }
