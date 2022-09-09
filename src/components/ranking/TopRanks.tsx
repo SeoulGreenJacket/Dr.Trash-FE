@@ -32,12 +32,12 @@ const TopRanks = ({top3}: {top3: IRankTypes[]}) => {
         </TopRankInnerBox>
       </TopRankBox>
       <SecondaryRank>
-        {top3.slice(1, 2).map(data => {
+        {top3.slice(1, 2).map((data, index) => {
           return (
-            <SecondaryRankBox>
+            <SecondaryRankBox key={data.userId}>
               <TopRankText>2</TopRankText>
               <SecondaryRankInnerBox>
-                <SecondaryRankImage source={rainbow} />
+                <SecondaryRankImage source={index === 0 ? rainbow : smile} />
                 <SecondaryRankName>{data?.userName}님</SecondaryRankName>
                 <SecondaryRankScore>{data?.point}p</SecondaryRankScore>
               </SecondaryRankInnerBox>
