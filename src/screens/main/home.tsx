@@ -25,8 +25,7 @@ import {
 import {MidBox, InProgressBox, LoadingBox} from '../../styles/main/home/MidBox';
 import RootStackParamList from '../../types/RootStackParamList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import Config from 'react-native-config';
+import useApi from '../../hooks/axios';
 import Loading from '../../components/common/Loading';
 
 export interface IPopupTypes {
@@ -40,84 +39,47 @@ export interface IPopupTypes {
 
 type NavProps = NativeStackScreenProps<RootStackParamList, 'Ranking'>;
 
-const dummyPopUpData = {
-  date: new Date(),
-  type: '플라스틱',
-  success: 80,
-  failure: 10,
-  point: 120,
-  totalPoint: 820,
-};
-
-const remoteHost = Config.SERVER_HOST;
-const localHost = 'http://localhost:3000';
-
 const Home = ({navigation}: NavProps) => {
-  const [id, setId] = useState('efda44d1-03df-48a6-b91c-79f98b4bfb4f');
+  const [id, setId] = useState('');
   const [phase, setPhase] = useState<'before' | 'inProgress' | 'done'>(
     'before',
   );
-  const [myRecord, setMyRecord] = useState<IPopupTypes>(dummyPopUpData);
+  const [myRecord, setMyRecord] = useState<IPopupTypes>();
   const [qrCode, setQrCode] = useState(false);
   const [userName, setUserName] = useState('');
   const [initLoad, setInitLoad] = useState(true);
+
   // qrCode를 인식하면 uuid를 보내 아두이노에게 전달
   const detectQrCode = async (e: any) => {
     const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
     setId(uuid);
-    const access = await AsyncStorage.getItem('access_token');
-    if (uuid && access) {
-      setQrCode(false);
-      console.log('uuid', id);
-      console.log('access', access);
-      const {data, status} = await axios.post(
-        `${remoteHost}/trash/begin/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${access}`,
-          },
-        },
-      );
-      if (status === 201) {
-        setPhase('inProgress');
-      }
+    setQrCode(false);
+    const {data, status} = await useApi.post(`/trash/begin/${id}`);
+    if (status === 201 && data) {
+      setPhase('inProgress');
     }
   };
 
   // 배출 종료 버튼을 누르면 아두이노에게 전달
   const stop = async () => {
-    const access = await AsyncStorage.getItem('access_token');
-    if (access) {
-      const {data, status} = await axios.post(`${remoteHost}/trash/end/${id}`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      });
-      if (status === 201) {
-        setMyRecord(data);
-        setPhase('done');
-      }
+    const {data, status} = await useApi.post(`/trash/end/${id}`);
+    console.log('data', data);
+    console.log('status', status);
+    if (status === 201) {
+      setMyRecord(data);
+      setPhase('done');
     }
   };
   //유저 이름과 횟수 가져오기
   const getUserNameAndCount = async () => {
-    const access = await AsyncStorage.getItem('access_token');
     let idRes: any;
     try {
-      idRes = await axios.get(`${Config.SERVER_HOST}/users`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      });
+      idRes = await useApi.get('/users');
     } catch (e) {
       console.error('getId', e);
     }
     try {
-      const res = await axios.get(`${Config.SERVER_HOST}/users/${idRes.data}`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      });
+      const res = await useApi.get(`/users/${idRes.data}`);
       setUserName(res.data.name);
       setInitLoad(false);
     } catch (e) {
@@ -127,7 +89,6 @@ const Home = ({navigation}: NavProps) => {
   useEffect(() => {
     getUserNameAndCount();
   }, []);
-
   return (
     <GlobalLayout>
       <SafeAreaView style={styles.safeAreaTop} />
@@ -210,7 +171,6 @@ const Home = ({navigation}: NavProps) => {
               </BackBtn>
             )}
           </BtnWrapper>
-          <Button title="쓰레기통 연결" onPress={detectQrCode} />
           <Button
             title="mode change"
             onPress={() => {

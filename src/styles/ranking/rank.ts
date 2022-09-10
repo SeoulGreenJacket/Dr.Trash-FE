@@ -6,39 +6,109 @@ const RankScrollView = styled.ScrollView`
 
 const TopRank = styled.View`
   width: 100%;
-  height: 65px;
+  height: 250px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   position: relative;
-  background-color: rgba(90, 196, 0, 0.38);
+  margin: 0 0 20px 0;
 `;
 
-const TopRanking = styled.Text`
-  width: 40px;
-  margin: 0 0 0 15px;
-  font-size: 25px;
+const TopRankText = styled.Text`
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
 `;
 
-const TopProfile = styled.View`
-  width: 55px;
-  height: 55px;
-  margin: 0 0 0 10px;
-  border-radius: 27.5px;
+const TopRankBox = styled.View`
+  width: 39%;
+  height: 70%;
+`;
+
+const TopRankInnerBox = styled.View`
+  width: 100%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  padding: 10px;
   background-color: white;
 `;
 
-const TopName = styled.Text`
+const TopRankImage = styled.Image`
+  width: 85px;
+  height: 85px;
+  border-radius: 42.5px;
+  margin: 0 0 2px 0;
+`;
+
+const TopRankName = styled.Text`
+  width: 100%;
+  height: 25px;
+  text-align: center;
   font-size: 20px;
-  margin: 0 0 0 10px;
+  font-weight: 400;
+  color: #3f3f3f;
+`;
+const TopRankScore = styled.Text`
+  width: 100%;
+  height: 25px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
 `;
 
-const TopScore = styled.Text`
-  font-size: 25px;
+////////////////////////////////////////////////////////////
+const SecondaryRank = styled.View`
+  width: 100%;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   position: absolute;
-  right: 15px;
+  bottom: 0;
 `;
 
+const SecondaryRankBox = styled.View`
+  width: 95px;
+  height: 100%;
+`;
+
+const SecondaryRankInnerBox = styled.View`
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: white;
+`;
+
+const SecondaryRankImage = styled.Image`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  margin: 0 0 2px 0;
+`;
+
+const SecondaryRankName = styled.Text`
+  width: 100%;
+  height: 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #3f3f3f;
+`;
+
+const SecondaryRankScore = styled.Text`
+  width: 100%;
+  height: 21px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+`;
 ////////////////////////////////////////////////////////////
 
 const SubRankBox = styled.View`
@@ -86,47 +156,45 @@ const SubScore = styled.Text`
   right: 10px;
 `;
 
-//////////////////////////////////////////
+////////////////////////////////////////////////////////////
 
 const MyRank = styled.View`
   width: 100%;
-  height: 80px;
+  height: 55px;
+  margin: 0 0 10px 0;
+  border-radius: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  position: relative;
-  background-color: black;
+  background-color: #03c700;
 `;
 
-const MyRankingBox = styled.View`
-  width: 58px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 0 0 15px;
-`;
-
-const MyText = styled.Text`
+const MyRanking = styled.Text`
+  width: 35px;
+  margin: 0 0 0 10px;
   color: white;
   font-size: 17px;
 `;
-const MyRanking = styled.Text`
-  color: white;
-  font-size: 25px;
+
+const MyProfile = styled.View`
+  width: 45px;
+  height: 45px;
+  margin: 0 0 0 10px;
+  border-radius: 22.5px;
+  background-color: white;
 `;
 
 const MyName = styled.Text`
   color: white;
-  font-size: 25px;
+  font-size: 17px;
   margin: 0 0 0 10px;
 `;
 
 const MyScore = styled.Text`
   color: white;
-  font-size: 25px;
+  font-size: 17px;
   position: absolute;
-  right: 15px;
+  right: 10px;
 `;
 
 export {
@@ -134,18 +202,24 @@ export {
   TopRank,
   SubRankBox,
   SubRank,
-  TopRanking,
-  TopProfile,
-  TopName,
-  TopScore,
   SubRanking,
   SubProfile,
   SubName,
   SubScore,
   MyRank,
-  MyRankingBox,
-  MyText,
   MyRanking,
   MyName,
   MyScore,
+  TopRankBox,
+  TopRankText,
+  TopRankInnerBox,
+  TopRankImage,
+  TopRankName,
+  TopRankScore,
+  SecondaryRank,
+  SecondaryRankBox,
+  SecondaryRankInnerBox,
+  SecondaryRankImage,
+  SecondaryRankName,
+  SecondaryRankScore,
 };
