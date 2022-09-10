@@ -6,7 +6,7 @@ import {
   TrashCanList,
   ListText,
   TrashCanName,
-  // TrashCanCode,
+  TrashCanCode,
 } from '../../styles/trashcan/trashcanInfo';
 import ReviseInfoModal from './ReviseInfo';
 
