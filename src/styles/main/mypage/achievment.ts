@@ -24,10 +24,10 @@ export const AchievementItem = styled.View`
   align-items: center;
 `;
 
-export const ItemImage = styled.Image<{done: boolean}>`
-  height: 120px;
-  width: 120px;
-  opacity: ${props => (props.done ? '1' : '0.2')};
+export const ItemImage = styled.Image<{done: string}>`
+  height: 79px;
+  width: 79px;
+  opacity: ${props => (props.done === null ? '0.2' : '1')};
 `;
 
 export const BadgeDetail = styled.View`
@@ -42,9 +42,10 @@ export const BadgeDetail = styled.View`
   align-items: center;
 `;
 export const BadgeImage = styled.Image`
-  width: 131px;
-  height: 131px;
+  width: 81px;
+  height: 81px;
   overflow: hidden;
+  margin: 0 30px 0 20px;
   border-radius: 100px;
 `;
 export const BadgeDescription = styled.View`

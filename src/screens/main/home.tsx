@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, SafeAreaView} from 'react-native';
 import {styles} from '../../App';
 import PopUpBox from '../../components/main/home/PopUp';
@@ -27,6 +27,7 @@ import RootStackParamList from '../../types/RootStackParamList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import useApi from '../../hooks/axios';
+import Loading from '../../components/common/Loading';
 
 export interface IPopupTypes {
   date: Date;
@@ -55,7 +56,8 @@ const Home = ({navigation}: NavProps) => {
   );
   const [myRecord, setMyRecord] = useState<IPopupTypes>(dummyPopUpData);
   const [qrCode, setQrCode] = useState(false);
-
+  const [userName, setUserName] = useState('');
+  const [initLoad, setInitLoad] = useState(true);
   // qrCode를 인식하면 uuid를 보내 아두이노에게 전달
   const detectQrCode = async (e: any) => {
     const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
@@ -69,110 +71,128 @@ const Home = ({navigation}: NavProps) => {
 
   // 배출 종료 버튼을 누르면 아두이노에게 전달
   const stop = async () => {
-    const access = await AsyncStorage.getItem('access_token');
-    if (access) {
-      const {data, status} = await axios.post(`/trash/end/${id}`);
-      if (status === 201 && data) {
-        setMyRecord(data);
-        setPhase('done');
-      }
+    const {data, status} = await useApi.post(`/trash/end/${id}`);
+    if (status === 201 && data) {
+      setMyRecord(data);
+      setPhase('done');
     }
   };
+  //유저 이름과 횟수 가져오기
+  const getUserNameAndCount = async () => {
+    let idRes: any;
+    try {
+      idRes = await useApi.get('/users');
+    } catch (e) {
+      console.error('getId', e);
+    }
+    try {
+      const res = await useApi.get(`/users/${idRes.data}`);
+      setUserName(res.data.name);
+      setInitLoad(false);
+    } catch (e) {
+      console.error('getInfo', e);
+    }
+  };
+  useEffect(() => {
+    getUserNameAndCount();
+  }, []);
   return (
     <GlobalLayout>
       <SafeAreaView style={styles.safeAreaTop} />
-      <AlertBox>
-        <TitleBox>
-          <Title>
-            {phase === 'before'
-              ? `${'CWCTBOY'}님,${'\n'}${12}번째 비움이에요!`
-              : phase === 'inProgress'
-              ? '배출 중 입니다...'
-              : '분리배출이 완료되었습니다.'}
-          </Title>
-        </TitleBox>
-        <HelpText>
-          {phase === 'before'
-            ? '아래의 카메라를 이용해 QR코드를 스캔해주세요.'
-            : phase === 'inProgress'
-            ? '배출이 끝나면 종료하기를 눌러주새요.'
-            : '포인트가 적립되었습니다.'}
-        </HelpText>
-      </AlertBox>
-      <MidBox>
-        {phase === 'before' ? (
-          <QrScanner
-            setQrCode={setQrCode}
-            qrCode={qrCode}
-            detectQrCode={detectQrCode}
-          /> // 카메라 스크린
-        ) : phase === 'inProgress' ? (
-          <InProgressBox>
-            <LoadingBox source={loading} />
-          </InProgressBox> // 배출중
-        ) : phase === 'done' ? (
-          <PopUpBox myRecord={myRecord} /> // 배출완료
-        ) : null}
-      </MidBox>
-      <BtnWrapper phase={phase}>
-        {phase === 'before' ? (
-          <>
-            <Btn
-              onPress={() => {
-                navigation.navigate('TrashCanLocation');
-              }}>
-              <BtnTxt>쓰레기통{'\n'}위치 찾기</BtnTxt>
-              <IconBox>
-                <Icon
-                  source={require('../../../assets/drtrash/trashcanMark.png')}
-                />
-              </IconBox>
-            </Btn>
-            <Btn
-              onPress={async () => {
-                await AsyncStorage.removeItem('access_token');
-                await AsyncStorage.removeItem('refresh_token');
-              }}>
-              <BtnTxt>자주 묻는{'\n'}질문</BtnTxt>
-              <IconBox>
-                <Icon source={require('../../../assets/drtrash/FAQMArk.png')} />
-              </IconBox>
-            </Btn>
-          </>
-        ) : (
-          <BackBtn
-            onPress={
-              phase === 'inProgress'
-                ? stop
-                : () => {
-                    setPhase('before');
-                  }
-            }>
-            <BackBtnTxt>
-              {phase === 'inProgress' ? '끝내기' : '홈으로'}
-            </BackBtnTxt>
-          </BackBtn>
-        )}
-      </BtnWrapper>
-      {/* <Button title="쓰레기통 연결" onPress={detectQrCode} /> */}
-      <Button
-        title="랭킹 페이지로"
-        onPress={() => {
-          navigation.navigate('Ranking');
-        }}
-      />
-      <Button
-        title="mode change"
-        onPress={() => {
-          setPhase(
-            phase === 'before'
-              ? 'inProgress'
-              : phase === 'inProgress'
-              ? 'done'
-              : 'before',
-          );
-        }}
-      />
+      {initLoad ? (
+        <Loading />
+      ) : (
+        <>
+          <AlertBox>
+            <TitleBox>
+              <Title>
+                {phase === 'before'
+                  ? `${userName}님,${'\n'}${0}번째 비움이에요!`
+                  : phase === 'inProgress'
+                  ? '배출 중 입니다...'
+                  : '분리배출이 완료되었습니다.'}
+              </Title>
+            </TitleBox>
+            <HelpText>
+              {phase === 'before'
+                ? '아래의 카메라를 이용해 QR코드를 스캔해주세요.'
+                : phase === 'inProgress'
+                ? '배출이 끝나면 종료하기를 눌러주새요.'
+                : '포인트가 적립되었습니다.'}
+            </HelpText>
+          </AlertBox>
+          <MidBox>
+            {phase === 'before' ? (
+              <QrScanner
+                setQrCode={setQrCode}
+                qrCode={qrCode}
+                detectQrCode={detectQrCode}
+              /> // 카메라 스크린
+            ) : phase === 'inProgress' ? (
+              <InProgressBox>
+                <LoadingBox source={loading} />
+              </InProgressBox> // 배출중
+            ) : phase === 'done' ? (
+              <PopUpBox myRecord={myRecord} /> // 배출완료
+            ) : null}
+          </MidBox>
+          <BtnWrapper phase={phase}>
+            {phase === 'before' ? (
+              <>
+                <Btn
+                  onPress={() => {
+                    navigation.navigate('TrashCanLocation');
+                  }}>
+                  <BtnTxt>쓰레기통{'\n'}위치 찾기</BtnTxt>
+                  <IconBox>
+                    <Icon
+                      source={require('../../../assets/drtrash/trashcanMark.png')}
+                    />
+                  </IconBox>
+                </Btn>
+                <Btn
+                  onPress={async () => {
+                    await AsyncStorage.removeItem('access_token');
+                    await AsyncStorage.removeItem('refresh_token');
+                  }}>
+                  <BtnTxt>자주 묻는{'\n'}질문</BtnTxt>
+                  <IconBox>
+                    <Icon
+                      source={require('../../../assets/drtrash/FAQMArk.png')}
+                    />
+                  </IconBox>
+                </Btn>
+              </>
+            ) : (
+              <BackBtn
+                onPress={
+                  phase === 'inProgress'
+                    ? stop
+                    : () => {
+                        setPhase('before');
+                      }
+                }>
+                <BackBtnTxt>
+                  {phase === 'inProgress' ? '끝내기' : '홈으로'}
+                </BackBtnTxt>
+              </BackBtn>
+            )}
+          </BtnWrapper>
+          <Button title="쓰레기통 연결" onPress={detectQrCode} />
+          <Button
+            title="mode change"
+            onPress={() => {
+              setPhase(
+                phase === 'before'
+                  ? 'inProgress'
+                  : phase === 'inProgress'
+                  ? 'done'
+                  : 'before',
+              );
+            }}
+          />
+        </>
+      )}
     </GlobalLayout>
   );
 };

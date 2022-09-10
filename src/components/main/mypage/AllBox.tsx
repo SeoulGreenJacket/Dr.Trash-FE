@@ -9,9 +9,10 @@ import {
 } from '../../../styles/main/mypage/statistics';
 
 const trashData = [
-  {title: '페트', point: 1000},
   {title: '캔', point: 500},
+  {title: '페트', point: 1000},
   {title: '종이', point: 250},
+  {title: '플라스틱', point: 750},
 ];
 
 const AllBox = () => {

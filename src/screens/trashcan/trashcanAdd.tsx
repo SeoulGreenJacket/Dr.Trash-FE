@@ -113,6 +113,10 @@ const TrashCanInfo = ({navigation}: NavProps) => {
         Alert.alert('모든 정보를 입력해주세요.');
         return;
       }
+      if (latitude === 0 || longitude === 0) {
+        Alert.alert('쓰레기통 위치를 선택해주세요.');
+        return;
+      }
     }
     const {head, body, tail} = {
       head: number.slice(0, 3),
@@ -127,12 +131,13 @@ const TrashCanInfo = ({navigation}: NavProps) => {
       latitude,
       longitude,
     };
+    console.log(req);
     const {status} = await useApi.post('/trashcans', req); // 404 Here
     console.log(status);
-    if (status === 201) {
-      Alert.alert('쓰레기통 등록이 완료되었습니다.');
-      navigation.navigate('TrashCanInfo');
-    }
+    // if (status === 201) {
+    //   Alert.alert('쓰레기통 등록이 완료되었습니다.');
+    //   navigation.navigate('TrashCanInfo');
+    // }
   };
   return (
     <>
