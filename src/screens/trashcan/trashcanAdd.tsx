@@ -134,10 +134,10 @@ const TrashCanInfo = ({navigation}: NavProps) => {
     console.log(req);
     const {status} = await useApi.post('/trashcans', req); // 404 Here
     console.log(status);
-    // if (status === 201) {
-    //   Alert.alert('쓰레기통 등록이 완료되었습니다.');
-    //   navigation.navigate('TrashCanInfo');
-    // }
+    if (status === 201) {
+      Alert.alert('쓰레기통 등록이 완료되었습니다.');
+      navigation.navigate('TrashCanInfo');
+    }
   };
   return (
     <>

@@ -19,7 +19,7 @@ useApi.interceptors.request.use(
     try {
       const access_token = await AsyncStorage.getItem('access_token');
       request.headers!.Authorization = `Bearer ${access_token}`;
-      console.log('request', request);
+      // console.log('request', request);
       return request;
     } catch (error) {
       return console.log(error);
@@ -32,7 +32,7 @@ useApi.interceptors.request.use(
 
 useApi.interceptors.response.use(
   (response: AxiosResponse) => {
-    console.log('response', response);
+    // console.log('response', response);
     return response;
   },
   async e => {
@@ -40,8 +40,8 @@ useApi.interceptors.response.use(
       response: {status},
       config,
     } = e;
-    console.log('status', status);
-    console.log('config', config);
+    // console.log('status', status);
+    // console.log('config', config);
     if (status === 401) {
       try {
         const {

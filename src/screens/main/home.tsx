@@ -25,7 +25,6 @@ import {
 import {MidBox, InProgressBox, LoadingBox} from '../../styles/main/home/MidBox';
 import RootStackParamList from '../../types/RootStackParamList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 import useApi from '../../hooks/axios';
 import Loading from '../../components/common/Loading';
 
@@ -40,24 +39,16 @@ export interface IPopupTypes {
 
 type NavProps = NativeStackScreenProps<RootStackParamList, 'Ranking'>;
 
-const dummyPopUpData = {
-  date: new Date(),
-  type: '플라스틱',
-  success: 80,
-  failure: 10,
-  point: 120,
-  totalPoint: 820,
-};
-
 const Home = ({navigation}: NavProps) => {
-  const [id, setId] = useState('ddcd8c24-4fe4-4f87-b197-da65ab63f17f'); // drTrash 1호
+  const [id, setId] = useState('');
   const [phase, setPhase] = useState<'before' | 'inProgress' | 'done'>(
     'before',
   );
-  const [myRecord, setMyRecord] = useState<IPopupTypes>(dummyPopUpData);
+  const [myRecord, setMyRecord] = useState<IPopupTypes>();
   const [qrCode, setQrCode] = useState(false);
   const [userName, setUserName] = useState('');
   const [initLoad, setInitLoad] = useState(true);
+
   // qrCode를 인식하면 uuid를 보내 아두이노에게 전달
   const detectQrCode = async (e: any) => {
     const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
@@ -72,7 +63,9 @@ const Home = ({navigation}: NavProps) => {
   // 배출 종료 버튼을 누르면 아두이노에게 전달
   const stop = async () => {
     const {data, status} = await useApi.post(`/trash/end/${id}`);
-    if (status === 201 && data) {
+    console.log('data', data);
+    console.log('status', status);
+    if (status === 201) {
       setMyRecord(data);
       setPhase('done');
     }
@@ -178,7 +171,6 @@ const Home = ({navigation}: NavProps) => {
               </BackBtn>
             )}
           </BtnWrapper>
-          <Button title="쓰레기통 연결" onPress={detectQrCode} />
           <Button
             title="mode change"
             onPress={() => {
