@@ -22,18 +22,19 @@ import {
 import RootStackParamList from '../../types/RootStackParamList';
 
 export interface IInputsType {
-  code: string;
+  code?: string;
   name: string;
   number: string;
   latitude: number;
   longitude: number;
 }
 
-const TextInput = ({
+export const TextInput = ({
   name,
   inputs,
   setInputs,
 }: {
+  placeholder?: string;
   name: 'code' | 'name' | 'number';
   inputs: IInputsType;
   setInputs: (prev: any) => void;
@@ -132,7 +133,7 @@ const TrashCanInfo = ({navigation}: NavProps) => {
       longitude,
     };
     console.log(req);
-    const {status} = await useApi.post('/trashcans', req); // 404 Here
+    const {status} = await useApi.post('/trashcans', req);
     console.log(status);
     if (status === 201) {
       Alert.alert('쓰레기통 등록이 완료되었습니다.');
