@@ -29,47 +29,45 @@ import useApi from '../../hooks/axios';
 import Loading from '../../components/common/Loading';
 
 export interface IPopupTypes {
-  date: Date;
+  Date: string;
   type: string;
   success: number;
   failure: number;
-  point: number;
   totalPoint: number;
 }
 
 type NavProps = NativeStackScreenProps<RootStackParamList, 'Ranking'>;
 
 const Home = ({navigation}: NavProps) => {
-  const [id, setId] = useState('');
+  const [id, setId] = useState(0);
   const [phase, setPhase] = useState<'before' | 'inProgress' | 'done'>(
     'before',
   );
   const [myRecord, setMyRecord] = useState<IPopupTypes>();
   const [qrCode, setQrCode] = useState(false);
   const [userName, setUserName] = useState('');
-  const [initLoad, setInitLoad] = useState(true);
+  const [initLoad, setInitLoad] = useState(false);
 
   // qrCode를 인식하면 uuid를 보내 아두이노에게 전달
   const detectQrCode = async (e: any) => {
     const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
-    setId(uuid);
     setQrCode(false);
-    const {data, status} = await useApi.post(`/trash/begin/${id}`);
-    if (status === 201 && data) {
+    const {data: ident, status} = await useApi.post(`/trash/begin/${uuid}`);
+    if (status === 201) {
+      setId(ident);
       setPhase('inProgress');
     }
   };
 
   // 배출 종료 버튼을 누르면 아두이노에게 전달
   const stop = async () => {
-    const {data, status} = await useApi.post(`/trash/end/${id}`);
-    console.log('data', data);
-    console.log('status', status);
+    const {data, status} = await useApi.post(`/trash/end?usageId=${id}`);
     if (status === 201) {
       setMyRecord(data);
       setPhase('done');
     }
   };
+
   //유저 이름과 횟수 가져오기
   const getUserNameAndCount = async () => {
     let idRes: any;
@@ -171,6 +169,7 @@ const Home = ({navigation}: NavProps) => {
               </BackBtn>
             )}
           </BtnWrapper>
+          <Button title="연결하기" onPress={detectQrCode} />
           <Button
             title="mode change"
             onPress={() => {

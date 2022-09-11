@@ -24,12 +24,13 @@ import {IPopupTypes} from '../../../screens/main/home';
 const template = require('../../../../assets/drtrash/main_done_template.png');
 
 const PopUpBox = ({myRecord}: {myRecord: IPopupTypes | undefined}) => {
-  const date = new Date(myRecord!.date);
-  const year = date.getFullYear().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
+  const date = myRecord?.Date.split('-');
+  const year = date![0];
+  const month = date![1];
+  const day = date![2].split('T')[0];
   const acuuracy =
     (myRecord!.success / (myRecord!.success + myRecord!.failure)) * 100;
+  const addPoint = myRecord!.success * 20;
   return (
     <DoneBox>
       <DoneBoxImage source={template} />
@@ -50,7 +51,7 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes | undefined}) => {
                 <Dot />
                 <LeftText>쓰레기 종류</LeftText>
               </LeftSide>
-              <RightText>{myRecord!.type}</RightText>
+              <RightText>{myRecord?.type}</RightText>
             </DataBox>
             <Sector2 />
             <DataBox>
@@ -68,7 +69,7 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes | undefined}) => {
                 <Dot />
                 <LeftText>획득 포인트</LeftText>
               </LeftSide>
-              <RightText>{`+${myRecord!.point} Point`}</RightText>
+              <RightText>{`+${addPoint} Point`}</RightText>
             </DataBox>
             <Sector2 />
             <DataBox>
@@ -76,7 +77,9 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes | undefined}) => {
                 <Dot />
                 <LeftText>총 포인트</LeftText>
               </LeftSide>
-              <RightText>{`${myRecord!.totalPoint} Point`}</RightText>
+              <RightText>{`${
+                myRecord!.totalPoint + addPoint
+              } Point`}</RightText>
             </DataBox>
           </Result>
         </Body>
