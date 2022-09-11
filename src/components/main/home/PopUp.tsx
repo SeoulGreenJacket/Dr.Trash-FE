@@ -77,7 +77,9 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes | undefined}) => {
                 <Dot />
                 <LeftText>총 포인트</LeftText>
               </LeftSide>
-              <RightText>{`${myRecord?.totalPoint} Point`}</RightText>
+              <RightText>{`${
+                myRecord!.totalPoint + addPoint
+              } Point`}</RightText>
             </DataBox>
           </Result>
         </Body>
