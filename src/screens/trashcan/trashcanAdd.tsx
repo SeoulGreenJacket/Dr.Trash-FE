@@ -132,7 +132,6 @@ const TrashCanInfo = ({navigation}: NavProps) => {
       latitude,
       longitude,
     };
-    console.log(req);
     const {status} = await useApi.post('/trashcans', req);
     console.log(status);
     if (status === 201) {

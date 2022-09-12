@@ -56,11 +56,8 @@ const ReviseInfoModal = ({
       latitude,
       longitude,
     };
-    const {
-      status,
-      data: {message},
-    } = await useApi.patch(`trashcans/${id}`, req);
-    if (status === 200 && message === 'success') {
+    const {status} = await useApi.patch(`trashcans/${id}`, req);
+    if (status === 200) {
       Alert.alert('쓰레기통 정보가 수정되었습니다.');
       setModal(false);
     }
