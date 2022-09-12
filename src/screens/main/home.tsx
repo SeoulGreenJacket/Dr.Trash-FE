@@ -52,16 +52,18 @@ const Home = ({navigation}: NavProps) => {
   const detectQrCode = async (e: any) => {
     const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
     setQrCode(false);
-    const {
-      data: {data: ident},
-      status,
-    } = await useApi.post(
-      `/trash/begin/${uuid}`,
-      // 'ddcd8c24-4fe4-4f87-b197-da65ab63f17f'
-    );
-    if (status === 201) {
+    try {
+      const {
+        data: {data: ident},
+        status,
+      } = await useApi.post(
+        `/trash/begin/${uuid}`,
+        // 'ddcd8c24-4fe4-4f87-b197-da65ab63f17f'
+      );
       setId(ident);
       setPhase('inProgress');
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -89,13 +91,13 @@ const Home = ({navigation}: NavProps) => {
       const res = await useApi.get(`/users/${idRes.data.data}`);
       setUserName(res.data.data.name);
       setInitLoad(false);
+      console.log(idRes.data.data);
     } catch (e) {
       console.error('getInfo', e);
     }
     try {
       const res = await useApi.get(`/users/count`);
       setThrowCount(res.data.data);
-      setUserName(res.data.data.name);
       setInitLoad(false);
     } catch (e) {
       console.error('throwCount', e);

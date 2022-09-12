@@ -65,7 +65,7 @@ const MyPage = ({navigation}: MainScreenProps) => {
       console.error('getId', e);
     }
     try {
-      const res = await useApi.get(`/users/${idRes.data}`);
+      const res = await useApi.get(`/users/${idRes.data.data}`);
       setUser(res.data.data);
       setLoading(false);
     } catch (e) {

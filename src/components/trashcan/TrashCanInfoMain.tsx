@@ -17,7 +17,7 @@ const TrashCanInfoMain = () => {
     try {
       const res = await useApi.get('/trashcans', {
         params: {
-          user: idRes.data,
+          manager: idRes.data.data,
         },
       });
       setTrashCanList(res.data.data);
