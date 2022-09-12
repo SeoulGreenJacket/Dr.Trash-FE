@@ -13,9 +13,11 @@ const INJECTED_JAVASCRIPT =
 
 const SignWebView = ({onLoginSuccess}: WebViewType) => {
   const onSuccess = async (e: any) => {
-    let token = JSON.parse(e.nativeEvent.data);
-    await AsyncStorage.setItem('access_token', token.data.accessToken);
-    await AsyncStorage.setItem('refresh_token', token.data.refreshToken);
+    const {
+      data: {accessToken, refreshToken},
+    } = JSON.parse(e.nativeEvent.data);
+    await AsyncStorage.setItem('access_token', accessToken);
+    await AsyncStorage.setItem('refresh_token', refreshToken);
     onLoginSuccess();
   };
   return (
