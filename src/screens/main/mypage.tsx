@@ -5,12 +5,10 @@ import Info from '../../components/main/mypage/Info';
 import LogoutBtn from '../../components/main/mypage/LogoutBtn';
 import Statistics from '../../components/main/mypage/Statistics';
 import {styles} from '../../App';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../components/common/Loading';
 import RootStackParamList from '../../types/RootStackParamList';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import Config from 'react-native-config';
+import useApi from '../../hooks/axios';
 
 type MainScreenProps = NativeStackScreenProps<RootStackParamList, 'Start'>;
 
@@ -60,26 +58,14 @@ const MyPage = ({navigation}: MainScreenProps) => {
 
   //유저 정보 가져오기
   const getUser = async () => {
-    const access = await AsyncStorage.getItem('access_token');
     let idRes: any;
     try {
-      idRes = await axios.get(`${Config.SERVER_HOST}/users`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      });
+      idRes = await useApi.get('/users');
     } catch (e) {
       console.error('getId', e);
     }
     try {
-      const res = await axios.get(
-        `${Config.SERVER_HOST}/users/${idRes.data.data}`,
-        {
-          headers: {
-            Authorization: `Bearer ${access}`,
-          },
-        },
-      );
+      const res = await useApi.get(`/users/${idRes.data}`);
       setUser(res.data.data);
       setLoading(false);
     } catch (e) {
@@ -88,13 +74,8 @@ const MyPage = ({navigation}: MainScreenProps) => {
   };
   //전체 통계 가져오기
   const getAllStatistics = async () => {
-    const access = await AsyncStorage.getItem('access_token');
     try {
-      const res = await axios.get(`${Config.SERVER_HOST}/trash/summary/all`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      });
+      const res = await useApi.get(`/trash/summary/all`);
       setTrashDataAll(res.data.data);
     } catch (e) {
       console.error('통계', e);

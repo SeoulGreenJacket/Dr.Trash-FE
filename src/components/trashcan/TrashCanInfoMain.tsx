@@ -1,33 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {InfoText, ListView} from '../../styles/trashcan/trashcanInfo';
-import TrashCanInfoList from './TrashCanInfoList';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Config from 'react-native-config';
+import TrashCanInfoList, {IListType} from './TrashCanInfoList';
+import useApi from '../../hooks/axios';
 
 const TrashCanInfoMain = () => {
-  const [trashCanList, setTrashCanList] = useState([
-    {id: 0, name: '', code: ''},
-  ]);
-
+  const [modal, setModal] = useState(false);
+  const [trashCanList, setTrashCanList] = useState<IListType[]>([]);
   const getTrashcanInfo = async () => {
-    const access = await AsyncStorage.getItem('access_token');
     let idRes: any;
     try {
-      idRes = await axios.get(`${Config.SERVER_HOST}/users`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      });
+      idRes = await useApi.get('/users');
     } catch (e) {
       console.error('getId', e);
     }
     try {
-      const res = await axios.get(`${Config.SERVER_HOST}/trashcans`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
+      const res = await useApi.get('/trashcans', {
         params: {
           user: idRes.data,
         },
@@ -39,7 +27,7 @@ const TrashCanInfoMain = () => {
   };
   useEffect(() => {
     getTrashcanInfo();
-  }, []);
+  }, [modal]);
 
   const len = trashCanList.length;
   const onDeleteTrashcan = async (id: number) => {
@@ -48,13 +36,8 @@ const TrashCanInfoMain = () => {
         return id !== item.id;
       }),
     );
-    const access = await AsyncStorage.getItem('access_token');
     try {
-      await axios.delete(`${Config.SERVER_HOST}/trashcans/${id}`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      });
+      await useApi.delete(`/trashcans/${id}`);
     } catch (e) {
       console.error(e);
     }
@@ -69,10 +52,10 @@ const TrashCanInfoMain = () => {
           {trashCanList.map(item => (
             <TrashCanInfoList
               key={item.id}
-              name={item.name}
-              code={item.code}
-              index={item.id}
+              trashcanInfo={item}
               onDeleteTrashcan={onDeleteTrashcan}
+              modal={modal}
+              setModal={setModal}
             />
           ))}
         </ListView>

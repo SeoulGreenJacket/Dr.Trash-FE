@@ -8,29 +8,52 @@ import {
   TrashCanName,
   TrashCanCode,
 } from '../../styles/trashcan/trashcanInfo';
+import ReviseInfoModal from './ReviseInfo';
 
-interface ListType {
+export interface IListType {
+  id: number;
   name: string;
-  code: string;
-  index: number;
-  onDeleteTrashcan: (i: number) => void;
+  phoneNumber: string;
+  latitude: number;
+  longitude: number;
 }
 
-const TrashCanInfoList = ({name, code, index, onDeleteTrashcan}: ListType) => {
+const TrashCanInfoList = ({
+  trashcanInfo: {id, name, phoneNumber: phone, latitude, longitude},
+  onDeleteTrashcan,
+  modal,
+  setModal,
+}: {
+  trashcanInfo: IListType;
+  onDeleteTrashcan: (i: number) => void;
+  modal: boolean;
+  setModal: (prev: boolean) => void;
+}) => {
+  const input = {
+    id,
+    name,
+    phoneNumber: phone,
+    latitude,
+    longitude,
+  };
   return (
     <TrashCanList>
+      <ReviseInfoModal modal={modal} setModal={setModal} id={input.id} />
       <ListText>
         <TrashCanName>{name}</TrashCanName>
         {/* <TrashCanCode>코드명 {code}</TrashCanCode> */}
       </ListText>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          setModal(true);
+        }}>
         <EditIcon
           name="edit"
           size={30}
           style={{marginTop: 25, marginRight: 20}}
         />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => onDeleteTrashcan(index)}>
+      <TouchableOpacity onPress={() => onDeleteTrashcan(id)}>
         <DelIcon name="close" size={30} style={{marginTop: 25}} />
       </TouchableOpacity>
     </TrashCanList>

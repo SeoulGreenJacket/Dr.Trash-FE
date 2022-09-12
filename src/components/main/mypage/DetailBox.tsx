@@ -17,9 +17,7 @@ import DownArrowIcon from 'react-native-vector-icons/AntDesign';
 import RightArrowIcon from 'react-native-vector-icons/AntDesign';
 import PlusIcon from 'react-native-vector-icons/AntDesign';
 import Loading from '../../common/Loading';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import Config from 'react-native-config';
+import useApi from '../../../hooks/axios';
 
 const monthArr = [
   {label: '1월', value: 1},
@@ -46,43 +44,18 @@ const DetailBox = () => {
   useEffect(() => {
     setDetailList([]);
   }, []);
-  //일 별로 간격 띄우기
-  // useEffect(() => {
-  // let margin = [0];
-
-  // let date = detailList[0].Date.toString();
-  // setTimeout(() => {
-  //   console.log(date);
-  //   for (let i = 1; i < detailList.length; i++) {
-  //     console.log(date);
-  //     margin[i] = detailList[i].Date - detailList[i - 1].Date;
-  //   }
-  // }, 1000);
-
-  // setListMargin(margin);
-  //   setLoading(false);
-  // }, [detailList]);
-  // const date = new Date();
-  // console.log(date.toString().slice(8, 10));
 
   //월 API요청 보내기
   const sendMonth = async (value: number) => {
     setMonth(value);
-    const access = await AsyncStorage.getItem('access_token');
     if (value !== null) {
       try {
-        const res = await axios.get(
-          `${Config.SERVER_HOST}/trash/summary/detail`,
-          {
-            headers: {
-              Authorization: `Bearer ${access}`,
-            },
-            params: {
-              year: 2022,
-              month: value,
-            },
+        const res = await useApi.get(`/trash/summary/detail`, {
+          params: {
+            year: 2022,
+            month: value,
           },
-        );
+        });
         setDetailList(res.data.data);
         setLoading(false);
       } catch (e) {
@@ -90,7 +63,7 @@ const DetailBox = () => {
       }
     }
   };
-
+  //일 별로 간격 띄우기
   useEffect(() => {
     let margin = [0];
     for (let i = 1; i < detailList.length; i++) {

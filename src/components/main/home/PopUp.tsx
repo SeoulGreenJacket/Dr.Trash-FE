@@ -5,7 +5,7 @@ import {
   AccuracyBar,
   Body,
   DataBox,
-  Date,
+  Date as DateBox,
   DateText,
   Dot,
   Header,
@@ -23,12 +23,14 @@ import {IPopupTypes} from '../../../screens/main/home';
 
 const template = require('../../../../assets/drtrash/main_done_template.png');
 
-const PopUpBox = ({myRecord}: {myRecord: IPopupTypes}) => {
-  const year = myRecord.date.getFullYear().toString().padStart(2, '0');
-  const month = (myRecord.date.getMonth() + 1).toString().padStart(2, '0');
-  const day = myRecord.date.getDate().toString().padStart(2, '0');
+const PopUpBox = ({myRecord}: {myRecord: IPopupTypes | undefined}) => {
+  const date = myRecord?.Date.split('-');
+  const year = date![0];
+  const month = date![1];
+  const day = date![2].split('T')[0];
   const acuuracy =
-    (myRecord.success / (myRecord.success + myRecord.failure)) * 100;
+    (myRecord!.success / (myRecord!.success + myRecord!.failure)) * 100;
+  const addPoint = myRecord!.success * 20;
   return (
     <DoneBox>
       <DoneBoxImage source={template} />
@@ -39,17 +41,17 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes}) => {
         </Header>
         <Sector />
         <Body>
-          <Date>
+          <DateBox>
             <DateText>Today</DateText>
             <DateText>{`${year}.${month}.${day}`}</DateText>
-          </Date>
+          </DateBox>
           <Result>
             <DataBox>
               <LeftSide>
                 <Dot />
                 <LeftText>쓰레기 종류</LeftText>
               </LeftSide>
-              <RightText>{myRecord.type}</RightText>
+              <RightText>{myRecord?.type}</RightText>
             </DataBox>
             <Sector2 />
             <DataBox>
@@ -67,7 +69,7 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes}) => {
                 <Dot />
                 <LeftText>획득 포인트</LeftText>
               </LeftSide>
-              <RightText>{`+${myRecord.point} Point`}</RightText>
+              <RightText>{`+${addPoint} Point`}</RightText>
             </DataBox>
             <Sector2 />
             <DataBox>
@@ -75,7 +77,9 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes}) => {
                 <Dot />
                 <LeftText>총 포인트</LeftText>
               </LeftSide>
-              <RightText>{`${myRecord.totalPoint} Point`}</RightText>
+              <RightText>{`${
+                myRecord!.totalPoint + addPoint
+              } Point`}</RightText>
             </DataBox>
           </Result>
         </Body>
