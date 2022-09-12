@@ -25,6 +25,40 @@ const MyPage = ({navigation}: MainScreenProps) => {
     thumbnail: '',
     userGrade: '',
   });
+  const [trashDataAll, setTrashDataAll] = useState<any>({
+    can: {
+      success: 0,
+      failure: 0,
+    },
+    pet: {
+      success: 0,
+      failure: 0,
+    },
+    paper: {
+      success: 0,
+      failure: 0,
+    },
+    plastic: {
+      success: 0,
+      failure: 0,
+    },
+  });
+  const [totalSuccess, setTotalSuccess] = useState(0);
+  const [totalFailure, setTotalFailure] = useState(0);
+
+  //총 정확도 구하기
+  useEffect(() => {
+    let success = 0;
+    let failure = 0;
+    for (const key in trashDataAll) {
+      success += trashDataAll[key].success;
+      failure += trashDataAll[key].failure;
+      setTotalSuccess(success);
+      setTotalFailure(failure);
+    }
+  }, [trashDataAll]);
+
+  //유저 정보 가져오기
   const getUser = async () => {
     const access = await AsyncStorage.getItem('access_token');
     let idRes: any;
@@ -38,19 +72,38 @@ const MyPage = ({navigation}: MainScreenProps) => {
       console.error('getId', e);
     }
     try {
-      const res = await axios.get(`${Config.SERVER_HOST}/users/${idRes.data}`, {
-        headers: {
-          Authorization: `Bearer ${access}`,
+      const res = await axios.get(
+        `${Config.SERVER_HOST}/users/${idRes.data.data}`,
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
         },
-      });
-      setUser(res.data);
+      );
+      setUser(res.data.data);
       setLoading(false);
     } catch (e) {
       console.error('getInfo', e);
     }
   };
+  //전체 통계 가져오기
+  const getAllStatistics = async () => {
+    const access = await AsyncStorage.getItem('access_token');
+    try {
+      const res = await axios.get(`${Config.SERVER_HOST}/trash/summary/all`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      });
+      setTrashDataAll(res.data.data);
+    } catch (e) {
+      console.error('통계', e);
+    }
+  };
+
   useEffect(() => {
     getUser();
+    getAllStatistics();
   }, []);
   return (
     <>
@@ -60,7 +113,12 @@ const MyPage = ({navigation}: MainScreenProps) => {
         <View style={{backgroundColor: '#f7f7f7', flex: 1}}>
           <SafeAreaView style={styles.safeAreaTop} />
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Info user={user} navigation={navigation} />
+            <Info
+              user={user}
+              navigation={navigation}
+              totalSuccess={totalSuccess}
+              totalFailure={totalFailure}
+            />
             <View
               style={{
                 width: '100%',
@@ -69,7 +127,10 @@ const MyPage = ({navigation}: MainScreenProps) => {
                 marginBottom: 36,
               }}
             />
-            <Statistics />
+            <Statistics
+              trashDataAll={trashDataAll}
+              totalSuccess={totalSuccess}
+            />
             <Achievement achievement={user.achievement} />
             <LogoutBtn navigation={navigation} />
           </ScrollView>

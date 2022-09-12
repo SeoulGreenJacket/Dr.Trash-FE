@@ -61,6 +61,7 @@ const Home = ({navigation}: NavProps) => {
   const [qrCode, setQrCode] = useState(false);
   const [userName, setUserName] = useState('');
   const [initLoad, setInitLoad] = useState(true);
+  const [throwCount, setThrowCount] = useState(0);
   // qrCode를 인식하면 uuid를 보내 아두이노에게 전달
   const detectQrCode = async (e: any) => {
     const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
@@ -109,19 +110,33 @@ const Home = ({navigation}: NavProps) => {
           Authorization: `Bearer ${access}`,
         },
       });
+      console.log(idRes.data);
     } catch (e) {
       console.error('getId', e);
     }
     try {
-      const res = await axios.get(`${Config.SERVER_HOST}/users/${idRes.data}`, {
+      const res = await axios.get(
+        `${Config.SERVER_HOST}/users/${idRes.data.data}`,
+        {
+          headers: {
+            Authorization: `Bearer ${access}`,
+          },
+        },
+      );
+      setUserName(res.data.data.name);
+      setInitLoad(false);
+    } catch (e) {
+      console.error('getInfo', e);
+    }
+    try {
+      const res = await axios.get(`${Config.SERVER_HOST}/users/count`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },
       });
-      setUserName(res.data.name);
-      setInitLoad(false);
+      setThrowCount(res.data.data);
     } catch (e) {
-      console.error('getInfo', e);
+      console.error('throwCount', e);
     }
   };
   useEffect(() => {
@@ -139,7 +154,7 @@ const Home = ({navigation}: NavProps) => {
             <TitleBox>
               <Title>
                 {phase === 'before'
-                  ? `${userName}님,${'\n'}${0}번째 비움이에요!`
+                  ? `${userName}님,${'\n'}${throwCount}번째 비움이에요!`
                   : phase === 'inProgress'
                   ? '배출 중 입니다...'
                   : '분리배출이 완료되었습니다.'}

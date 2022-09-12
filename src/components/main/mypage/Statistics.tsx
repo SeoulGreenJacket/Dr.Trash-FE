@@ -17,7 +17,7 @@ const typeDetail = {
   value: 'detail',
 };
 
-const Statistics = () => {
+const Statistics = ({trashDataAll, totalSuccess}: any) => {
   const [type, setType] = useState('all');
   const onPressType = (value: string) => {
     setType(value);
@@ -45,7 +45,11 @@ const Statistics = () => {
           </TypeDetail>
         </StatisticsType>
       </StatisticsInfoBox>
-      {type === 'all' ? <AllBox /> : <DetailBox />}
+      {type === 'all' ? (
+        <AllBox trashDataAll={trashDataAll} totalSuccess={totalSuccess} />
+      ) : (
+        <DetailBox />
+      )}
     </>
   );
 };

@@ -34,7 +34,7 @@ const TrashCanMap = () => {
           Authorization: `Bearer ${access}`,
         },
       });
-      setMarkerList(res.data);
+      setMarkerList(res.data.data);
     } catch (e) {
       console.error(e);
     }

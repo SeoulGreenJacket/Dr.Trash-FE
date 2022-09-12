@@ -43,6 +43,7 @@ const Achievement = ({achievement}: any) => {
     setIsBadgeClick(true);
     setLoading(false);
   };
+  console.log(badges);
   return (
     <>
       <AchievementTitle>나의 뱃지함</AchievementTitle>
@@ -53,7 +54,7 @@ const Achievement = ({achievement}: any) => {
               style={{marginHorizontal: 5.5, marginVertical: 5.5}}>
               <TouchableOpacity onPress={() => onPressBadge(item.description)}>
                 {loading ? (
-                  <Loading />
+                  <></>
                 ) : (
                   <ItemImage
                     done={item.achievedAt}

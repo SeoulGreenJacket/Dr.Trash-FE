@@ -32,8 +32,7 @@ const TrashCanInfoMain = () => {
           user: idRes.data,
         },
       });
-      setTrashCanList(res.data);
-      console.log(res.data);
+      setTrashCanList(res.data.data);
     } catch (e) {
       console.error(e);
     }
@@ -51,7 +50,7 @@ const TrashCanInfoMain = () => {
     );
     const access = await AsyncStorage.getItem('access_token');
     try {
-      const res = await axios.delete(`${Config.SERVER_HOST}/trashcans/${id}`, {
+      await axios.delete(`${Config.SERVER_HOST}/trashcans/${id}`, {
         headers: {
           Authorization: `Bearer ${access}`,
         },

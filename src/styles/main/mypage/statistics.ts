@@ -61,7 +61,29 @@ export const TrashItem = styled.View`
   align-items: center;
   margin-bottom: 12px;
 `;
-
+export const CanStatic = styled.View`
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 12px;
+`;
+export const PetStatic = styled.View`
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 12px;
+`;
+export const PaperStatic = styled.View`
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 12px;
+`;
+export const PlasticStatic = styled.View`
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+`;
 export const PointInfo = styled.View`
   width: 65px;
   height: 53px;
@@ -78,8 +100,12 @@ export const PointBar = styled.View`
   border-radius: 4px;
 `;
 
-export const PointFillBar = styled.View<{maxPoint: number; point: number}>`
-  width: ${props => `${(props.point / props.maxPoint) * 100}`}%;
+export const PointFillBar = styled.View<{
+  totalSuccess: number;
+  success: number;
+}>`
+  width: ${props =>
+    `${((props.success / props.totalSuccess) * 100).toFixed(0)}`}%;
   height: 100%;
   background: ${props => props.theme.colors.lime};
   border-radius: 4px;
@@ -89,6 +115,13 @@ export const DetailHeader = styled.View`
   height: 30px;
   margin: 0px -4px 30px;
   flex-direction: row;
+`;
+export const NoneListText = styled.Text`
+  color: ${props => props.theme.colors.lime};
+  font-size: 18px;
+  text-align: center;
+  font-weight: 500;
+  margin-top: 100px;
 `;
 export const DetailMain = styled.View``;
 export const DetailList = styled.View<{index: number; listMargin: number}>`
@@ -127,7 +160,7 @@ export const ThrowGetPoint = styled.View``;
 
 export const VerticalLine = styled.View`
   border: 0.5px solid #707070;
-  height: 90%;
+  height: 80%;
   top: 10px;
   position: absolute;
   left: 28px;
