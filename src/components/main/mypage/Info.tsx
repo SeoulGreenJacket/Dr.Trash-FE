@@ -14,6 +14,7 @@ import {
   AccuracySection,
 } from '../../../styles/main/mypage/info';
 import Icon from 'react-native-vector-icons/AntDesign';
+import AccuracyIcon from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 interface UserType {
   user: {
@@ -26,9 +27,11 @@ interface UserType {
     userGrade: string;
   };
   navigation: any;
+  totalSuccess: number;
+  totalFailure: number;
 }
 
-const Info = ({user, navigation}: UserType) => {
+const Info = ({user, navigation, totalSuccess, totalFailure}: UserType) => {
   const toRankPage = () => {
     navigation.navigate('Ranking');
   };
@@ -65,7 +68,15 @@ const Info = ({user, navigation}: UserType) => {
         </PointSection>
         <AccuracySection>
           <TitleText style={{flexGrow: 1}}>정확도</TitleText>
-          <ContentText style={{flexGrow: 1}}>?%</ContentText>
+          <ContentText style={{flexGrow: 1}}>
+            {totalSuccess + totalFailure === 0 ? (
+              <AccuracyIcon name="minus" size={30} />
+            ) : (
+              `${((totalSuccess / (totalSuccess + totalFailure)) * 100).toFixed(
+                0,
+              )}%`
+            )}
+          </ContentText>
         </AccuracySection>
       </MyPageStatus>
     </>

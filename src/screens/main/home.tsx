@@ -46,8 +46,8 @@ const Home = ({navigation}: NavProps) => {
   const [myRecord, setMyRecord] = useState<IPopupTypes>();
   const [qrCode, setQrCode] = useState(false);
   const [userName, setUserName] = useState('');
-  const [initLoad, setInitLoad] = useState(false);
-
+  const [initLoad, setInitLoad] = useState(true);
+  const [throwCount, setThrowCount] = useState(0);
   // qrCode를 인식하면 uuid를 보내 아두이노에게 전달
   const detectQrCode = async (e: any) => {
     const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
@@ -92,6 +92,14 @@ const Home = ({navigation}: NavProps) => {
     } catch (e) {
       console.error('getInfo', e);
     }
+    try {
+      const res = await useApi.get(`/users/count`);
+      setThrowCount(res.data.data);
+      setUserName(res.data.data.name);
+      setInitLoad(false);
+    } catch (e) {
+      console.error('throwCount', e);
+    }
   };
   useEffect(() => {
     getUserNameAndCount();
@@ -107,7 +115,7 @@ const Home = ({navigation}: NavProps) => {
             <TitleBox>
               <Title>
                 {phase === 'before'
-                  ? `${userName}님,${'\n'}${0}번째 비움이에요!`
+                  ? `${userName}님,${'\n'}${throwCount}번째 비움이에요!`
                   : phase === 'inProgress'
                   ? '배출 중 입니다...'
                   : '분리배출이 완료되었습니다.'}

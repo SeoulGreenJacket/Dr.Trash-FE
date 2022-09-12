@@ -20,7 +20,7 @@ const TrashCanInfoMain = () => {
           user: idRes.data,
         },
       });
-      setTrashCanList(res.data);
+      setTrashCanList(res.data.data);
     } catch (e) {
       console.error(e);
     }
@@ -37,7 +37,7 @@ const TrashCanInfoMain = () => {
       }),
     );
     try {
-      const {data, status} = await useApi.delete(`/trashcans/${id}`);
+      await useApi.delete(`/trashcans/${id}`);
     } catch (e) {
       console.error(e);
     }
