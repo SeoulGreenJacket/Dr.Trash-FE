@@ -50,12 +50,15 @@ const Home = ({navigation}: NavProps) => {
 
   // qrCode를 인식하면 uuid를 보내 아두이노에게 전달
   const detectQrCode = async (e: any) => {
-    // const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
-    // setQrCode(false);
-    const {data: ident, status} = await useApi.post(
-      `/trash/begin/${'ddcd8c24-4fe4-4f87-b197-da65ab63f17f'}`,
+    const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
+    setQrCode(false);
+    const {
+      data: {data: ident},
+      status,
+    } = await useApi.post(
+      `/trash/begin/${uuid}`,
+      // 'ddcd8c24-4fe4-4f87-b197-da65ab63f17f'
     );
-    console.log(ident);
     if (status === 201) {
       setId(ident);
       setPhase('inProgress');
@@ -64,9 +67,10 @@ const Home = ({navigation}: NavProps) => {
 
   // 배출 종료 버튼을 누르면 아두이노에게 전달
   const stop = async () => {
-    const {data, status} = await useApi.post(`/trash/end?usageId=${id}`);
-    console.log('data', data);
-    console.log('status', status);
+    const {
+      data: {achievement, data},
+      status,
+    } = await useApi.post(`/trash/end?usageId=${id}`);
     if (status === 201) {
       setMyRecord(data);
       setPhase('done');
@@ -82,8 +86,8 @@ const Home = ({navigation}: NavProps) => {
       console.error('getId', e);
     }
     try {
-      const res = await useApi.get(`/users/${idRes.data}`);
-      setUserName(res.data.name);
+      const res = await useApi.get(`/users/${idRes.data.data}`);
+      setUserName(res.data.data.name);
       setInitLoad(false);
     } catch (e) {
       console.error('getInfo', e);
@@ -146,11 +150,7 @@ const Home = ({navigation}: NavProps) => {
                     />
                   </IconBox>
                 </Btn>
-                <Btn
-                  onPress={async () => {
-                    await AsyncStorage.removeItem('access_token');
-                    await AsyncStorage.removeItem('refresh_token');
-                  }}>
+                <Btn>
                   <BtnTxt>자주 묻는{'\n'}질문</BtnTxt>
                   <IconBox>
                     <Icon
