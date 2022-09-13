@@ -65,7 +65,7 @@ const MyPage = ({navigation}: MainScreenProps) => {
       console.error('getId', e);
     }
     try {
-      const res = await useApi.get(`/users/${idRes.data}`);
+      const res = await useApi.get(`/users/${idRes.data.data}`);
       setUser(res.data.data);
       setLoading(false);
     } catch (e) {
@@ -75,7 +75,7 @@ const MyPage = ({navigation}: MainScreenProps) => {
   //전체 통계 가져오기
   const getAllStatistics = async () => {
     try {
-      const res = await useApi.get(`/trash/summary/all`);
+      const res = await useApi.get('/trash/summary/all');
       setTrashDataAll(res.data.data);
     } catch (e) {
       console.error('통계', e);

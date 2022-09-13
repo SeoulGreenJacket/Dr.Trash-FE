@@ -50,7 +50,7 @@ const DetailBox = () => {
     setMonth(value);
     if (value !== null) {
       try {
-        const res = await useApi.get(`/trash/summary/detail`, {
+        const res = await useApi.get('/trash/summary/detail', {
           params: {
             year: 2022,
             month: value,
@@ -74,8 +74,6 @@ const DetailBox = () => {
     }
     setListMargin(margin);
     setLoading(false);
-    console.log(detailList);
-    console.log(listMargin);
   }, [detailList]);
 
   return (

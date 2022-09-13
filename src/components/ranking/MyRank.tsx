@@ -25,11 +25,18 @@ const MyRanks = () => {
   const [myData, setMyData] = useState<IMyDataType>();
   useEffect(() => {
     (async () => {
-      const {data: id, status} = await useApi.get('/users');
+      const {
+        data: {data: id},
+        status,
+      } = await useApi.get('/users');
       if (status === 200) {
-        const {data, status: code} = await useApi.get(`/users/${id}`);
+        const {
+          data: {data},
+          status: code,
+        } = await useApi.get(`/users/${id}`);
         if (code === 200) {
           setMyData(data);
+          console.log(data);
         }
       }
     })();
