@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
-import {Button, SafeAreaView} from 'react-native';
+import {Alert, Button, SafeAreaView} from 'react-native';
 import {styles} from '../../App';
 import PopUpBox from '../../components/main/home/PopUp';
 import QrScanner from '../../components/main/home/QrScanner';
@@ -24,22 +24,31 @@ import {
 } from '../../styles/main/home/bottomBtn';
 import {MidBox, InProgressBox, LoadingBox} from '../../styles/main/home/MidBox';
 import RootStackParamList from '../../types/RootStackParamList';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import useApi from '../../hooks/axios';
 import Loading from '../../components/common/Loading';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface IPopupTypes {
-  Date: string;
-  type: string;
-  success: number;
-  failure: number;
-  totalPoint: number;
+  achievement: {
+    id: number;
+    name: string;
+    description: string;
+    imageUri: string;
+  }[];
+  data: {
+    date: Date;
+    type: string;
+    success: number;
+    failure: number;
+    beforePoint: number;
+  };
 }
 
 type NavProps = NativeStackScreenProps<RootStackParamList, 'Ranking'>;
 
 const Home = ({navigation}: NavProps) => {
   const [id, setId] = useState(0);
+  const [types, setTypes] = useState('');
   const [phase, setPhase] = useState<'before' | 'inProgress' | 'done'>(
     'before',
   );
@@ -50,29 +59,46 @@ const Home = ({navigation}: NavProps) => {
   const [throwCount, setThrowCount] = useState(0);
   // qrCode를 인식하면 uuid를 보내 아두이노에게 전달
   const detectQrCode = async (e: any) => {
-    const {uuid} = JSON.parse(e.nativeEvent.codeStringValue);
+    const {uuid, type} = JSON.parse(e.nativeEvent.codeStringValue);
     setQrCode(false);
+    setTypes(type);
+    try {
+      const {
+        data: {data: ident},
+        status,
+      } = await useApi.post(`/trash/begin/${uuid}`);
+      if (status === 201) {
+        setId(ident);
+        setPhase('inProgress');
+      }
+    } catch (error) {
+      Alert.alert('등록되지 않은 쓰레기통입니다.');
+    }
+  };
+
+  const connectArduinoByClick = async () => {
     try {
       const {
         data: {data: ident},
         status,
       } = await useApi.post(
-        `/trash/begin/${uuid}`,
-        // 'ddcd8c24-4fe4-4f87-b197-da65ab63f17f'
+        '/trash/begin/ddcd8c24-4fe4-4f87-b197-da65ab63f17f',
       );
-      setId(ident);
-      setPhase('inProgress');
-    } catch (e) {
-      console.error(e);
+      if (status === 201) {
+        setId(ident);
+        setPhase('inProgress');
+      }
+    } catch (error) {
+      Alert.alert('등록되지 않은 쓰레기통입니다.');
     }
   };
 
   // 배출 종료 버튼을 누르면 아두이노에게 전달
   const stop = async () => {
-    const {
-      data: {achievement, data},
-      status,
-    } = await useApi.post(`/trash/end?usageId=${id}`);
+    const {data, status} = await useApi.post(`/trash/end?usageId=${id}`, {
+      type: types,
+    });
+    console.log('data', data);
     if (status === 201) {
       setMyRecord(data);
       setPhase('done');
@@ -96,7 +122,7 @@ const Home = ({navigation}: NavProps) => {
       console.error('getInfo', e);
     }
     try {
-      const res = await useApi.get(`/users/count`);
+      const res = await useApi.get('/users/count');
       setThrowCount(res.data.data);
       setInitLoad(false);
     } catch (e) {
@@ -187,19 +213,6 @@ const Home = ({navigation}: NavProps) => {
               </BackBtn>
             )}
           </BtnWrapper>
-          <Button title="연결하기" onPress={detectQrCode} />
-          <Button
-            title="mode change"
-            onPress={() => {
-              setPhase(
-                phase === 'before'
-                  ? 'inProgress'
-                  : phase === 'inProgress'
-                  ? 'done'
-                  : 'before',
-              );
-            }}
-          />
         </>
       )}
     </GlobalLayout>

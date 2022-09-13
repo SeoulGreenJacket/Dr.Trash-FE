@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {ScrollView, StyleSheet, Text} from 'react-native';
 import {
   DetailHeader,
   StatisticsBox,
@@ -50,7 +50,7 @@ const DetailBox = () => {
     setMonth(value);
     if (value !== null) {
       try {
-        const res = await useApi.get(`/trash/summary/detail`, {
+        const res = await useApi.get('/trash/summary/detail', {
           params: {
             year: 2022,
             month: value,
@@ -74,8 +74,6 @@ const DetailBox = () => {
     }
     setListMargin(margin);
     setLoading(false);
-    console.log(detailList);
-    console.log(listMargin);
   }, [detailList]);
 
   return (
@@ -101,7 +99,7 @@ const DetailBox = () => {
           ) : detailList.length === 0 ? (
             <NoneListText>해당 월의 기록이 없습니다.</NoneListText>
           ) : (
-            <DetailMain>
+            <ScrollView>
               <VerticalLine />
               {detailList.map((item, index) => (
                 <DetailList
@@ -148,7 +146,7 @@ const DetailBox = () => {
                   </ThrowSummary>
                 </DetailList>
               ))}
-            </DetailMain>
+            </ScrollView>
           )}
         </>
       )}

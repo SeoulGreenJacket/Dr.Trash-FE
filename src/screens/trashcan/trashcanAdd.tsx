@@ -133,7 +133,6 @@ const TrashCanInfo = ({navigation}: NavProps) => {
       longitude,
     };
     const {status} = await useApi.post('/trashcans', req);
-    console.log(status);
     if (status === 201) {
       Alert.alert('쓰레기통 등록이 완료되었습니다.');
       navigation.navigate('TrashCanInfo');

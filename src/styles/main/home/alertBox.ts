@@ -13,13 +13,13 @@ const TitleBox = styled.Text`
 `;
 const Title = styled.Text`
   color: ${props => props.theme.colors.black};
-  font-size: 30px;
+  font-size: 29px;
   font-weight: 600;
 `;
 const HelpText = styled.Text`
   width: 100%;
   height: auto;
-  margin-top: 10px;
+  //margin-top: 10px;
   color: ${props => props.theme.colors.darkGray};
   font-size: 17px;
 `;

@@ -11,16 +11,6 @@ import {
   BadgeTitle,
   BadgeContent,
 } from '../../../styles/main/mypage/achievment';
-import Loading from '../../common/Loading';
-let earthBadge = require('../../../../assets/badges/earthBadge.png');
-let rankBadge = require('../../../../assets/badges/rankBadge.png');
-let trashcanBadge = require('../../../../assets/badges/trashcanBadge.png');
-let warningBadge = require('../../../../assets/badges/warningBadge.png');
-let smileBadge = require('../../../../assets/badges/smileBadge.png');
-
-interface BadgeProps {
-  achievement: any;
-}
 
 const Achievement = ({achievement}: any) => {
   const [isBadgeClick, setIsBadgeClick] = useState(false);
@@ -43,7 +33,6 @@ const Achievement = ({achievement}: any) => {
     setIsBadgeClick(true);
     setLoading(false);
   };
-  console.log(badges);
   return (
     <>
       <AchievementTitle>나의 뱃지함</AchievementTitle>
