@@ -134,7 +134,6 @@ export const DetailList = styled.View<{index: number; listMargin: number}>`
 export const DateCircle = styled.View`
   width: 32px;
   height: 32px;
-  margin-left: 12px;
   border-radius: 32px;
   margin-right: 26px;
   background-color: ${props => props.theme.colors.lime};
@@ -160,8 +159,8 @@ export const ThrowGetPoint = styled.View``;
 
 export const VerticalLine = styled.View`
   border: 0.5px solid #707070;
-  height: 80%;
+  height: 60%;
   top: 10px;
   position: absolute;
-  left: 28px;
+  left: 16px;
 `;

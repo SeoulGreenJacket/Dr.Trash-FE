@@ -160,7 +160,10 @@ const Home = ({navigation}: NavProps) => {
                     />
                   </IconBox>
                 </Btn>
-                <Btn>
+                <Btn
+                  onPress={() => {
+                    navigation.navigate('FAQ');
+                  }}>
                   <BtnTxt>자주 묻는{'\n'}질문</BtnTxt>
                   <IconBox>
                     <Icon
