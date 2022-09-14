@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {DoneBox, DoneBoxImage} from '../../../styles/main/home/MidBox';
 import {
   Accuracy,
@@ -23,21 +23,6 @@ import {IPopupTypes} from '../../../screens/main/home';
 import AchieveModal from './AchieveModal';
 const template = require('../../../../assets/drtrash/main_done_template.png');
 
-const dummyAchievement = [
-  {
-    description: 'Dr.Trash 첫 이용!',
-    id: 1,
-    imageUri: 'http://seheon.email:3500/images/badges/earth-saver.png',
-    name: '지구지키미',
-  },
-  {
-    description: '랭킹 3등 이상 달성!',
-    id: 2,
-    imageUri: 'http://seheon.email:3500/images/badges/ranker.png',
-    name: 'Dr.Trash 랭커',
-  },
-];
-
 const PopUpBox = ({myRecord}: {myRecord: IPopupTypes | undefined}) => {
   const date = new Date(myRecord!.data.date);
   const year = date.getFullYear().toString().padStart(2, '0');
@@ -51,7 +36,7 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes | undefined}) => {
 
   return (
     <>
-      {dummyAchievement.map(achievement => (
+      {myRecord?.achievement.map(achievement => (
         <AchieveModal key={achievement.id} achievement={achievement} />
       ))}
       <DoneBox>

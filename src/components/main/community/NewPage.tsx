@@ -53,7 +53,6 @@ const NewPage = ({
               <Page>4</Page>
               <Page>5</Page>
               <Icon name="arrow-forward-ios" size={15} color="#EDEDED" />
-              {/* 나중에 컴포넌트로 만들어서 기능추가! */}
             </NumberBox>
           </PageBox>
         </ListBox>

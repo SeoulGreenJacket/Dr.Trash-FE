@@ -9,7 +9,6 @@ import {
   ThrowType,
   ThrowGetPoint,
   VerticalLine,
-  DetailMain,
   NoneListText,
 } from '../../../styles/main/mypage/statistics';
 import RNPickerSelect from 'react-native-picker-select';

@@ -36,7 +36,6 @@ const MyRanks = () => {
         } = await useApi.get(`/users/${id}`);
         if (code === 200) {
           setMyData(data);
-          console.log(data);
         }
       }
     })();
