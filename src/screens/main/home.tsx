@@ -117,6 +117,7 @@ const Home = ({navigation}: NavProps) => {
       const res = await useApi.get(`/users/${idRes.data.data}`);
       setUserName(res.data.data.name);
       setInitLoad(false);
+      console.log(idRes.data.data);
     } catch (e) {
       console.error('getInfo', e);
     }
@@ -186,9 +187,8 @@ const Home = ({navigation}: NavProps) => {
                   </IconBox>
                 </Btn>
                 <Btn
-                  onPress={async () => {
-                    await AsyncStorage.removeItem('access_token');
-                    await AsyncStorage.removeItem('refresh_token');
+                  onPress={() => {
+                    navigation.navigate('FAQ');
                   }}>
                   <BtnTxt>자주 묻는{'\n'}질문</BtnTxt>
                   <IconBox>
@@ -213,7 +213,6 @@ const Home = ({navigation}: NavProps) => {
               </BackBtn>
             )}
           </BtnWrapper>
-          <Button title="쓰레기통 수동연결" onPress={connectArduinoByClick} />
         </>
       )}
     </GlobalLayout>

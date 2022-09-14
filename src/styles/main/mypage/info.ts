@@ -36,21 +36,24 @@ export const MyPageStatus = styled.View`
   background: white;
   border-radius: 15px;
   border: 1px solid #ededed;
-  padding: 18px 23px;
+  padding: 18px 0;
   margin: 0 23px 19px 23px;
   flex-direction: row;
 `;
 
 export const RankSection = styled.View`
   flex-grow: 1;
+  align-items: center;
 `;
 
 export const PointSection = styled.View`
   flex-grow: 1;
+  align-items: center;
 `;
 
 export const AccuracySection = styled.View`
   flex-grow: 1;
+  align-items: center;
 `;
 
 export const TitleText = styled.Text`

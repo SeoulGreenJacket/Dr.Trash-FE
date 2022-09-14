@@ -15,8 +15,8 @@ export const AchievementBox = styled.View`
 `;
 
 export const AchievementItem = styled.View`
-  width: 79px;
-  height: 79px;
+  width: 76px;
+  height: 76px;
   border-radius: 79px;
   overflow: hidden;
   background: white;
@@ -25,8 +25,8 @@ export const AchievementItem = styled.View`
 `;
 
 export const ItemImage = styled.Image<{done: string}>`
-  height: 79px;
-  width: 79px;
+  height: 76px;
+  width: 76px;
   opacity: ${props => (props.done === null ? '0.2' : '1')};
 `;
 

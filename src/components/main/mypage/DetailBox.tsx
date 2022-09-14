@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {ScrollView, StyleSheet, Text} from 'react-native';
 import {
   DetailHeader,
   StatisticsBox,
@@ -99,7 +99,7 @@ const DetailBox = () => {
           ) : detailList.length === 0 ? (
             <NoneListText>해당 월의 기록이 없습니다.</NoneListText>
           ) : (
-            <DetailMain>
+            <ScrollView>
               <VerticalLine />
               {detailList.map((item, index) => (
                 <DetailList
@@ -146,7 +146,7 @@ const DetailBox = () => {
                   </ThrowSummary>
                 </DetailList>
               ))}
-            </DetailMain>
+            </ScrollView>
           )}
         </>
       )}

@@ -36,11 +36,10 @@ const Achievement = ({achievement}: any) => {
   return (
     <>
       <AchievementTitle>나의 뱃지함</AchievementTitle>
-      <AchievementBox style={{marginHorizontal: -11, marginVertical: -11}}>
+      <AchievementBox style={{marginHorizontal: -13, marginVertical: -13}}>
         {badges.map(item => (
           <View key={item.id}>
-            <AchievementItem
-              style={{marginHorizontal: 5.5, marginVertical: 5.5}}>
+            <AchievementItem style={{marginHorizontal: 5, marginVertical: 5}}>
               <TouchableOpacity onPress={() => onPressBadge(item.description)}>
                 {loading ? (
                   <></>
