@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
-import {Alert, Button, SafeAreaView} from 'react-native';
+import {Alert, SafeAreaView} from 'react-native';
 import {styles} from '../../App';
 import PopUpBox from '../../components/main/home/PopUp';
 import QrScanner from '../../components/main/home/QrScanner';
@@ -26,7 +26,6 @@ import {MidBox, InProgressBox, LoadingBox} from '../../styles/main/home/MidBox';
 import RootStackParamList from '../../types/RootStackParamList';
 import useApi from '../../hooks/axios';
 import Loading from '../../components/common/Loading';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface IPopupTypes {
   achievement: {
@@ -117,7 +116,6 @@ const Home = ({navigation}: NavProps) => {
       const res = await useApi.get(`/users/${idRes.data.data}`);
       setUserName(res.data.data.name);
       setInitLoad(false);
-      console.log(idRes.data.data);
     } catch (e) {
       console.error('getInfo', e);
     }
@@ -143,7 +141,7 @@ const Home = ({navigation}: NavProps) => {
             <TitleBox>
               <Title>
                 {phase === 'before'
-                  ? `${userName}님,${'\n'}${throwCount}번째 비움이에요!`
+                  ? `${userName}님,${'\n'}${0}번째 비움이에요!`
                   : phase === 'inProgress'
                   ? '배출 중 입니다...'
                   : '분리배출이 완료되었습니다.'}

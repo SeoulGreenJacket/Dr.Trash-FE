@@ -18,19 +18,6 @@ export interface IRankTypes {
   userName: string;
 }
 
-// const dummyRankProducer = [
-//   {userId: 1, userName: '김철수', point: 100},
-//   {userId: 2, userName: '김영희', point: 90},
-//   {userId: 3, userName: '김민수', point: 80},
-//   {userId: 4, userName: '김영수', point: 70},
-//   {userId: 5, userName: '김민희', point: 60},
-//   {userId: 6, userName: '김철희', point: 50},
-//   {userId: 7, userName: '김민영', point: 40},
-//   {userId: 8, userName: '김영철', point: 30},
-//   {userId: 9, userName: '김철영', point: 20},
-//   {userId: 10, userName: '김수민', point: 10},
-// ];
-
 const RankBox = () => {
   const [rankData, setRankData] = useState<IRankTypes[]>([]);
   const [offset, setOffset] = useState(0);

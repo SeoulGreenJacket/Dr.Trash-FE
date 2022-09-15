@@ -6,7 +6,6 @@ import {
   TrashCanList,
   ListText,
   TrashCanName,
-  TrashCanCode,
 } from '../../styles/trashcan/trashcanInfo';
 import ReviseInfoModal from './ReviseInfo';
 
@@ -41,7 +40,6 @@ const TrashCanInfoList = ({
       <ReviseInfoModal modal={modal} setModal={setModal} id={input.id} />
       <ListText>
         <TrashCanName>{name}</TrashCanName>
-        {/* <TrashCanCode>코드명 {code}</TrashCanCode> */}
       </ListText>
       <TouchableOpacity
         onPress={() => {

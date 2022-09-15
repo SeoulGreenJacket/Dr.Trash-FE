@@ -15,7 +15,7 @@ import {
 } from '../../../styles/main/mypage/info';
 import Icon from 'react-native-vector-icons/AntDesign';
 import AccuracyIcon from 'react-native-vector-icons/AntDesign';
-import {useNavigation} from '@react-navigation/native';
+
 interface UserType {
   user: {
     achievement?: string[];

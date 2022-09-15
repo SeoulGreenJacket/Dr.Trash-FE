@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {View} from 'react-native';
-import MapView, {Circle, Marker} from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import CustomMarker from '../common/CustomMarker';
 import GPSIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {GPSBtn} from '../../styles/trashcan/trashcanLocation';
@@ -71,7 +71,7 @@ const TrashCanMap = () => {
         setIsCurLocation(true);
       }
     }
-  }, [moveLocation]); // ???
+  }, [moveLocation]);
 
   const onChangeLocation = (e: any) => {
     setMoveLocation(e);
