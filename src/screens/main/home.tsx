@@ -7,6 +7,7 @@ import QrScanner from '../../components/main/home/QrScanner';
 import GlobalLayout from '../../styles/globalLayout';
 
 const loading = require('../../../assets/drtrash/main_load.gif');
+
 import {
   AlertBox,
   HelpText,
@@ -94,9 +95,7 @@ const Home = ({navigation}: NavProps) => {
 
   // 배출 종료 버튼을 누르면 아두이노에게 전달
   const stop = async () => {
-    const {data, status} = await useApi.post(`/trash/end?usageId=${id}`, {
-      type: types,
-    });
+    const {data, status} = await useApi.post(`/trash/end`);
     console.log('data', data);
     if (status === 201) {
       setMyRecord(data);
@@ -141,7 +140,7 @@ const Home = ({navigation}: NavProps) => {
             <TitleBox>
               <Title>
                 {phase === 'before'
-                  ? `${userName}님,${'\n'}${0}번째 비움이에요!`
+                  ? `${userName}님,${'\n'}${throwCount}번째 비움이에요!`
                   : phase === 'inProgress'
                   ? '배출 중 입니다...'
                   : '분리배출이 완료되었습니다.'}

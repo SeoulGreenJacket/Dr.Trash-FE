@@ -43,7 +43,7 @@ const AllBox = ({trashDataAll, totalSuccess}: any) => {
           />
         </PointBar>
       </PetStatic>
-      <PaperStatic>
+      {/* <PaperStatic>
         <PointInfo>
           <Text style={{fontSize: 10, fontWeight: '200'}}>종이</Text>
           <Text style={{fontSize: 20, fontWeight: '400'}}>
@@ -56,7 +56,7 @@ const AllBox = ({trashDataAll, totalSuccess}: any) => {
             success={trashDataAll.paper.success}
           />
         </PointBar>
-      </PaperStatic>
+      </PaperStatic> */}
       <PlasticStatic>
         <PointInfo>
           <Text style={{fontSize: 10, fontWeight: '200'}}>플라스틱</Text>
