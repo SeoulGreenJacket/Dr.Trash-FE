@@ -6,6 +6,7 @@ type RootStackParamList = {
   TrashCanInfo: undefined;
   TrashCanAdd: undefined;
   FAQ: undefined;
+  Register: undefined;
 };
 
 export default RootStackParamList;

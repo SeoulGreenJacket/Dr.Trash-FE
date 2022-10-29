@@ -9,6 +9,7 @@ import TrashCanLocation from '../screens/trashcan/trashcanLocation';
 import TrashCanInfo from '../screens/trashcan/trashcanInfo';
 import TrashCanAdd from '../screens/trashcan/trashcanAdd';
 import Faq from '../screens/faq';
+import Register from '../screens/main/community/register';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -49,6 +50,11 @@ const Navigator = () => {
         <Stack.Screen
           name="FAQ"
           component={Faq}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

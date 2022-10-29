@@ -36,9 +36,9 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes | undefined}) => {
 
   return (
     <>
-      {myRecord?.achievement.map(achievement => (
+      {/* {myRecord?.achievement.map(achievement => (
         <AchieveModal key={achievement.id} achievement={achievement} />
-      ))}
+      ))} */}
       <DoneBox>
         <DoneBoxImage source={template} />
         <Template>

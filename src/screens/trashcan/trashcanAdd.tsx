@@ -20,6 +20,7 @@ import {
   Label,
 } from '../../styles/trashcan/add';
 import RootStackParamList from '../../types/RootStackParamList';
+import RNPickerSelect from 'react-native-picker-select';
 
 export interface IInputsType {
   code?: string;
@@ -105,9 +106,10 @@ const TrashCanInfo = ({navigation}: NavProps) => {
     number: '',
     latitude: 0,
     longitude: 0,
+    type: '',
   });
-  const {code, name, number, latitude, longitude} = inputs;
-  const input = [code, name, number, latitude, longitude];
+  const {code, name, number, latitude, longitude, type} = inputs;
+  const input = [code, name, number, latitude, longitude, type];
   const onRegister = async () => {
     for (let i = 0; i < input.length; i++) {
       if (input[i] === '') {

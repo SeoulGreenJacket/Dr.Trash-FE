@@ -13,7 +13,7 @@ export const StatisticsTitle = styled.Text`
 `;
 
 export const StatisticsBox = styled.View`
-  min-height: 365px;
+  min-height: 305px;
   margin: 0 23px;
   background: white;
   border: 1px solid #ededed;
@@ -139,7 +139,7 @@ export const DateCircle = styled.View`
   background-color: ${props => props.theme.colors.lime};
 `;
 
-export const ThrowSummary = styled.View`
+export const ThrowSummary = styled.TouchableOpacity`
   width: 215px;
   height: 37px;
   border-radius: 15px;

@@ -31,7 +31,7 @@ const TabNavigation = () => {
       <Tab.Screen
         name="Community"
         component={Community}
-        options={{headerShown: false}}
+        options={{headerShown: false, unmountOnBlur: true}}
       />
       <Tab.Screen
         name="MyPage"

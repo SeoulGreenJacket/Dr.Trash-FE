@@ -27,7 +27,7 @@ const TrashCanInfoMain = () => {
   };
   useEffect(() => {
     getTrashcanInfo();
-  }, [modal]);
+  }, [modal, trashCanList]);
 
   const len = trashCanList.length;
   const onDeleteTrashcan = async (id: number) => {

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text} from 'react-native';
+import {Modal, ScrollView, StyleSheet, Text} from 'react-native';
 import {
   DetailHeader,
   StatisticsBox,
@@ -17,6 +17,7 @@ import RightArrowIcon from 'react-native-vector-icons/AntDesign';
 import PlusIcon from 'react-native-vector-icons/AntDesign';
 import Loading from '../../common/Loading';
 import useApi from '../../../hooks/axios';
+import DetailPopUp from './DetailPopUp';
 
 const monthArr = [
   {label: '1월', value: 1},
@@ -34,7 +35,7 @@ const monthArr = [
 ];
 
 const DetailBox = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [month, setMonth] = useState(0);
   const [listMargin, setListMargin] = useState<any>([0]);
   const [detailList, setDetailList] = useState([
@@ -49,13 +50,20 @@ const DetailBox = () => {
     setMonth(value);
     if (value !== null) {
       try {
-        const res = await useApi.get('/trash/summary/detail', {
+        const res = await useApi.get('/trash/log', {
           params: {
-            year: 2022,
-            month: value,
+            from: new Date(2022, value - 1, 1).toISOString(),
+            to: new Date(2022, value, 1).toISOString(),
           },
         });
-        setDetailList(res.data.data);
+
+        let sorted = res.data.data.sort(function (a: any, b: any) {
+          if (a.date > b.date) return 1;
+          if (a.date === b.date) return 0;
+          if (a.date < b.date) return -1;
+        });
+        console.log(sorted);
+        setDetailList(sorted);
         setLoading(false);
       } catch (e) {
         console.error(e);
@@ -75,6 +83,16 @@ const DetailBox = () => {
     setLoading(false);
   }, [detailList]);
 
+  //모달 띄우기
+  const [isModal, setIsModal] = useState(false);
+  const [detailPopUpData, setDetailPopUpData] = useState<any>();
+  const onClickDetail = (item: any) => {
+    console.log(item);
+    let data = {data: item};
+    console.log(data);
+    setIsModal(true);
+    setDetailPopUpData(data);
+  };
   return (
     <StatisticsBox>
       {loading ? (
@@ -100,6 +118,12 @@ const DetailBox = () => {
           ) : (
             <ScrollView>
               <VerticalLine />
+              <Modal animationType="slide" visible={isModal}>
+                <DetailPopUp
+                  setIsModal={setIsModal}
+                  detailPopUpData={detailPopUpData}
+                />
+              </Modal>
               {detailList.map((item, index) => (
                 <DetailList
                   key={index}
@@ -117,7 +141,7 @@ const DetailBox = () => {
                       {item.date.toString().slice(8, 10)}
                     </Text>
                   </DateCircle>
-                  <ThrowSummary>
+                  <ThrowSummary onPress={() => onClickDetail(item)}>
                     <ThrowType>
                       <Text
                         style={{
