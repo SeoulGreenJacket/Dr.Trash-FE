@@ -1,48 +1,80 @@
 import styled from '@emotion/native';
 
-export const FaqHeader = styled.Text`
+const FaqScroller = styled.ScrollView`
+  flex: 1;
+  background-color: #f7f7f7;
+  padding: 24px;
+`;
+
+const FaqHeader = styled.Text`
   font-size: 30px;
   font-weight: 600;
-  margin-left: 30px;
+  margin: 70px 0 30px 0;
 `;
 
-export const Faq1 = styled.View``;
-
-export const Faq2 = styled.View`
-  position: absolute;
-  top: 360px;
-  right: 0;
+const FaqContainer = styled.View`
+  width: 100%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
 `;
 
-export const Faq3 = styled.View`
-  position: absolute;
-  top: 570px;
-  left: 0;
+const ContainerTop = styled.View`
+  width: 100%;
+  height: 38px;
 `;
 
-export const Faq1Image = styled.Image`
-  width: 256px;
-  margin-top: 34px;
-  height: 130px;
+const ContentContainer = styled.View`
+  width: 100%;
+  border-top-width: 2px;
+  border-top-color: #5ac300;
+  padding: 20px 0 0 0;
 `;
 
-export const Faq1Text = styled.Text`
-  padding: 10px 0 0 10px;
-`;
-export const Faq2Image = styled.Image`
-  width: 256px;
-  height: 130px;
+const ContentTitle = styled.Text`
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 20px;
 `;
 
-export const Faq2Text = styled.Text`
-  padding: 10px 0 0 10px;
+const ContentInnerContainer = styled.View`
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #f7f7f7;
 `;
 
-export const Faq3Image = styled.Image`
-  width: 256px;
-  height: 130px;
+const InnerTitle = styled.Text`
+  font-size: 14px;
+  color: #848484;
+  margin-bottom: 20px;
 `;
 
-export const Faq3Text = styled.Text`
-  padding: 10px 0 0 10px;
+const InnerContent = styled.View`
+  width: 100%;
+  margin-bottom: 30px;
 `;
+
+const InnerCategory = styled.Text`
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 15px;
+`;
+
+const InnerImage = styled.Image`
+  width: 100%;
+`;
+
+export {
+  FaqHeader,
+  FaqContainer,
+  FaqScroller,
+  ContainerTop,
+  ContentContainer,
+  ContentTitle,
+  InnerContent,
+  ContentInnerContainer,
+  InnerTitle,
+  InnerCategory,
+  InnerImage,
+};
