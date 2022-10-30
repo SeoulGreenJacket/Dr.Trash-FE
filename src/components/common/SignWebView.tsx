@@ -24,7 +24,7 @@ const SignWebView = ({onLoginSuccess}: WebViewType) => {
     <Modal animationType="slide">
       <WebView
         originWhitelist={['*']}
-        source={{uri: `${Config.SERVER_HOST}/auth/login/kakao/`}}
+        source={{uri: `${Config.SERVER_HOST}/auth/login/kakao`}}
         onMessage={onSuccess}
         injectedJavaScript={INJECTED_JAVASCRIPT}
         style={{marginTop: 80}}
