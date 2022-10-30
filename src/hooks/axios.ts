@@ -8,7 +8,7 @@ import Config from 'react-native-config';
 
 const useApi = axios.create({
   baseURL: Config.SERVER_HOST,
-  timeout: 5000,
+  timeout: 7000,
   headers: {
     'Content-Type': 'application/json',
   },

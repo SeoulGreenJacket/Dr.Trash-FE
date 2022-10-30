@@ -7,13 +7,16 @@ const QrScanner = ({
   setQrCode,
   qrCode,
   detectQrCode,
+  connectArduinoByClick,
 }: {
   setQrCode: (qrCode: boolean) => void;
   qrCode: boolean;
   detectQrCode: (qrCode: string) => void;
+  connectArduinoByClick: () => void;
 }) => {
   return (
     <Camera
+      // onPress={connectArduinoByClick}
       onPress={() => {
         setQrCode(true);
       }}>

@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, SafeAreaView} from 'react-native';
 import {styles} from '../../App';
 import Map from '../../components/trashcan/AddMap';
@@ -20,12 +20,12 @@ import {
   Label,
 } from '../../styles/trashcan/add';
 import RootStackParamList from '../../types/RootStackParamList';
-import RNPickerSelect from 'react-native-picker-select';
 
 export interface IInputsType {
-  code?: string;
+  code: string;
   name: string;
   number: string;
+  type: string;
   latitude: number;
   longitude: number;
 }
@@ -36,7 +36,7 @@ export const TextInput = ({
   setInputs,
 }: {
   placeholder?: string;
-  name: 'code' | 'name' | 'number';
+  name: 'code' | 'name' | 'number' | 'type';
   inputs: IInputsType;
   setInputs: (prev: any) => void;
 }) => {
@@ -46,6 +46,7 @@ export const TextInput = ({
     code: false,
     name: false,
     number: false,
+    type: false,
   });
   const onChange = (e: any) => {
     setValue(e.nativeEvent.text);
@@ -71,6 +72,8 @@ export const TextInput = ({
           ? '쓰레기통 이름'
           : name === 'number'
           ? '관리자 전화번호'
+          : name === 'type'
+          ? '쓰레기통 타입'
           : '등록 위치'}
       </Label>
       <Input
@@ -104,9 +107,9 @@ const TrashCanInfo = ({navigation}: NavProps) => {
     code: '',
     name: '',
     number: '',
+    type: '',
     latitude: 0,
     longitude: 0,
-    type: '',
   });
   const {code, name, number, latitude, longitude, type} = inputs;
   const input = [code, name, number, latitude, longitude, type];
@@ -130,6 +133,7 @@ const TrashCanInfo = ({navigation}: NavProps) => {
     const req = {
       code,
       name,
+      type,
       phone,
       latitude,
       longitude,
@@ -140,6 +144,9 @@ const TrashCanInfo = ({navigation}: NavProps) => {
       navigation.navigate('TrashCanInfo');
     }
   };
+  useEffect(() => {
+    console.log(inputs);
+  });
   return (
     <>
       <GlobalLayout>
@@ -153,6 +160,7 @@ const TrashCanInfo = ({navigation}: NavProps) => {
         <TextInput name="code" inputs={inputs} setInputs={setInputs} />
         <TextInput name="name" inputs={inputs} setInputs={setInputs} />
         <TextInput name="number" inputs={inputs} setInputs={setInputs} />
+        <TextInput name="type" inputs={inputs} setInputs={setInputs} />
         <Label>위치 등록</Label>
         <Map inputs={inputs} setInputs={setInputs} />
         <BtnWrapper>

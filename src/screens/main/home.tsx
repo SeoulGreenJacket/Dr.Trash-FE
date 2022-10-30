@@ -95,8 +95,7 @@ const Home = ({navigation}: NavProps) => {
 
   // 배출 종료 버튼을 누르면 아두이노에게 전달
   const stop = async () => {
-    const {data, status} = await useApi.post(`/trash/end`);
-    console.log('data', data);
+    const {data, status} = await useApi.post('/trash/end');
     if (status === 201) {
       setMyRecord(data);
       setPhase('done');
@@ -128,7 +127,8 @@ const Home = ({navigation}: NavProps) => {
   };
   useEffect(() => {
     getUserNameAndCount();
-  }, []);
+    console.log(phase);
+  });
   return (
     <GlobalLayout>
       <SafeAreaView style={styles.safeAreaTop} />
@@ -160,6 +160,7 @@ const Home = ({navigation}: NavProps) => {
                 setQrCode={setQrCode}
                 qrCode={qrCode}
                 detectQrCode={detectQrCode}
+                connectArduinoByClick={connectArduinoByClick}
               /> // 카메라 스크린
             ) : phase === 'inProgress' ? (
               <InProgressBox>

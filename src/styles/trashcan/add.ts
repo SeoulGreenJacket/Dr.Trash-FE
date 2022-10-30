@@ -3,7 +3,6 @@ import styled from '@emotion/native';
 const InputBox = styled.View`
   width: 100%;
   height: 80px;
-  margin: 0 0 10px 0;
 `;
 
 const Label = styled.Text`
@@ -14,7 +13,7 @@ const Label = styled.Text`
 
 const Input = styled.TextInput<{isFocused: boolean}>`
   width: 100%;
-  height: 55px;
+  height: 50px;
   border: 1px solid;
   border-color: ${props =>
     props.isFocused ? props.theme.colors.lime : props.theme.colors.white};
@@ -26,7 +25,7 @@ const Input = styled.TextInput<{isFocused: boolean}>`
 
 const MapWrapper = styled.View`
   width: 100%;
-  height: 250px;
+  height: 210px;
   position: relative;
   border: 1px solid ${props => props.theme.secondary.middleGray};
   border-radius: 10px;
