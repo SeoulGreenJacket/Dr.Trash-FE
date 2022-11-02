@@ -16,6 +16,7 @@ export interface IRankTypes {
   userId: number;
   point: number;
   userName: string;
+  thumbnail: string;
 }
 
 const RankBox = () => {
@@ -40,6 +41,7 @@ const RankBox = () => {
         },
       });
       if (status === 200) {
+        console.log(data);
         setRankData((prev: any) => [...prev, ...data]);
         setLoading(false);
       }

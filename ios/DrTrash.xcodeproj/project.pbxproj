@@ -514,7 +514,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sgj.DrTrash;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sg.DrTrash;
 				PRODUCT_NAME = DrTrash;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -547,7 +547,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sgj.DrTrash;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sg.DrTrash;
 				PRODUCT_NAME = DrTrash;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

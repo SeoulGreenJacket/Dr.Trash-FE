@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Modal} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {styles} from '../../../App';
+import {styles} from '../../App';
 import {
   AchievementModal,
   AchievementModalImage,
@@ -11,7 +11,7 @@ import {
   Description,
   OkButton,
   OkButtonText,
-} from '../../../styles/main/home/achievment';
+} from '../../styles/main/home/achievment';
 
 interface IAchievementType {
   id: number;
@@ -20,24 +20,34 @@ interface IAchievementType {
   imageUri: string;
 }
 
-const AchieveModal = ({achievement}: {achievement: IAchievementType}) => {
+const TrashAchieveModal = ({
+  achievement,
+  navigation,
+}: {
+  achievement?: IAchievementType;
+  navigation: any;
+}) => {
   const [name, setName] = useState('');
   console.log(achievement);
   return (
     <Modal
       animated={true}
       animationType="fade"
-      visible={name !== achievement.name}>
+      visible={name !== achievement?.name}>
       <AchievementModal>
         <SafeAreaView style={styles.safeAreaTop} />
         <AchievementModalImageBox>
           <AchieveText>새로운 업적 달성!</AchieveText>
-          <AchievementModalImage source={{uri: achievement.imageUri}} />
-          <Description>{achievement.description}</Description>
-          <BagdeName>{achievement.name} 뱃지</BagdeName>
+          <AchievementModalImage source={{uri: achievement?.imageUri}} />
+          <Description>{achievement?.description}</Description>
+          <BagdeName>
+            {achievement?.name}
+            {'  '}뱃지
+          </BagdeName>
           <OkButton
             onPress={() => {
-              setName(achievement.name);
+              setName(achievement?.name || '');
+              navigation.goBack();
             }}>
             <OkButtonText>확인</OkButtonText>
           </OkButton>
@@ -47,4 +57,4 @@ const AchieveModal = ({achievement}: {achievement: IAchievementType}) => {
   );
 };
 
-export default AchieveModal;
+export default TrashAchieveModal;

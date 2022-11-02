@@ -27,6 +27,7 @@ import {MidBox, InProgressBox, LoadingBox} from '../../styles/main/home/MidBox';
 import RootStackParamList from '../../types/RootStackParamList';
 import useApi from '../../hooks/axios';
 import Loading from '../../components/common/Loading';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface IPopupTypes {
   achievement: {
@@ -187,6 +188,8 @@ const Home = ({navigation}: NavProps) => {
                 <Btn
                   onPress={() => {
                     navigation.navigate('FAQ');
+                    // AsyncStorage.removeItem('access_token');
+                    // AsyncStorage.removeItem('refresh_item');
                   }}>
                   <BtnTxt>자주 묻는{'\n'}질문</BtnTxt>
                   <IconBox>
