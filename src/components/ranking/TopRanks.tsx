@@ -21,12 +21,13 @@ const rainbow = require('../../../assets/badges/rainbowBadge.png');
 const smile = require('../../../assets/badges/smileBadge.png');
 
 const TopRanks = ({top3}: {top3: IRankTypes[]}) => {
+  console.log(top3);
   return (
     <TopRank>
       <TopRankBox>
         <TopRankText>1</TopRankText>
         <TopRankInnerBox>
-          <TopRankImage source={earth} />
+          <TopRankImage source={{uri: top3[0]?.thumbnail}} />
           <TopRankName>{top3[0]?.userName}님</TopRankName>
           <TopRankScore>{top3[0]?.point}p</TopRankScore>
         </TopRankInnerBox>
@@ -37,7 +38,9 @@ const TopRanks = ({top3}: {top3: IRankTypes[]}) => {
             <SecondaryRankBox key={data.userId}>
               <TopRankText>{index + 2}</TopRankText>
               <SecondaryRankInnerBox>
-                <SecondaryRankImage source={index === 0 ? rainbow : smile} />
+                <SecondaryRankImage
+                  source={{uri: top3[index + 1]?.thumbnail}}
+                />
                 <SecondaryRankName>{data?.userName}님</SecondaryRankName>
                 <SecondaryRankScore>{data?.point}p</SecondaryRankScore>
               </SecondaryRankInnerBox>

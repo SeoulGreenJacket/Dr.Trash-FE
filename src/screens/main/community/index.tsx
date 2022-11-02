@@ -62,15 +62,10 @@ const Community = ({navigation}: NavProps) => {
     title: '',
     content: '',
     viewCount: 0,
+    name: '',
   });
-  const [userName, setUserName] = useState('');
-  const getEachArticle = async (id: number, userId: number) => {
-    try {
-      const res = await useApi.get(`/users/${userId}`);
-      setUserName(res.data.data.name);
-    } catch (e) {
-      console.error('uid', e);
-    }
+
+  const getEachArticle = async (id: number) => {
     try {
       const res = await useApi.get(`/articles/${id}`);
       setEachArticle(res.data.data);
@@ -89,21 +84,17 @@ const Community = ({navigation}: NavProps) => {
           <Alert />
           <Popular
             popList={popList}
-            getEachArticle={(id: number, uid: number) =>
-              getEachArticle(id, uid)
-            }
+            getEachArticle={(id: number) => getEachArticle(id)}
           />
           <All
             allList={allList}
-            getEachArticle={(id: number, uid: number) =>
-              getEachArticle(id, uid)
-            }
+            getEachArticle={(id: number) => getEachArticle(id)}
           />
           <EachArticle
             modalOpen={modalOpen}
             setModalOpen={setModalOpen}
             eachArticle={eachArticle}
-            userName={userName}
+            userName={eachArticle.name}
             navigation={navigation}
           />
           <RegiBtnBox

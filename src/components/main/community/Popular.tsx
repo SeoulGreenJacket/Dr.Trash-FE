@@ -16,6 +16,7 @@ interface PopularType {
   popList: any;
   getEachArticle: any;
 }
+
 const Popular = ({popList, getEachArticle}: PopularType) => {
   return (
     <PopluarBox>

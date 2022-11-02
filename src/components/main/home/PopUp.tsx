@@ -33,12 +33,14 @@ const PopUpBox = ({myRecord}: {myRecord: IPopupTypes | undefined}) => {
       (myRecord!.data.success + myRecord!.data.failure)) *
     100;
   const addPoint = myRecord!.data.success * 10;
-
+  console.log(myRecord?.achievement);
   return (
     <>
-      {/* {myRecord?.achievement.map(achievement => (
-        <AchieveModal key={achievement.id} achievement={achievement} />
-      ))} */}
+      {myRecord?.achievement === undefined
+        ? null
+        : myRecord?.achievement.map(achievement => (
+            <AchieveModal key={achievement.id} achievement={achievement} />
+          ))}
       <DoneBox>
         <DoneBoxImage source={template} />
         <Template>

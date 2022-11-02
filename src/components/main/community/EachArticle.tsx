@@ -37,7 +37,7 @@ const EachArticle = ({
       setModalOpen(false);
     } catch (e) {
       Alert.alert('해당 글의 삭제 권한이 없습니다.');
-      console.error(e);
+      // console.error(e);
     }
   };
   return (

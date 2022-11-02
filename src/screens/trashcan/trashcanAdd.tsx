@@ -2,6 +2,8 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
 import {Alert, SafeAreaView} from 'react-native';
 import {styles} from '../../App';
+import Loading from '../../components/common/Loading';
+import TrashAchieveModal from '../../components/trashcan/TrashAchieve';
 import Map from '../../components/trashcan/AddMap';
 import useApi from '../../hooks/axios';
 import GlobalLayout from '../../styles/globalLayout';
@@ -22,10 +24,10 @@ import {
 import RootStackParamList from '../../types/RootStackParamList';
 
 export interface IInputsType {
-  code: string;
+  code?: string;
   name: string;
   number: string;
-  type: string;
+  type?: string;
   latitude: number;
   longitude: number;
 }
@@ -48,6 +50,7 @@ export const TextInput = ({
     number: false,
     type: false,
   });
+
   const onChange = (e: any) => {
     setValue(e.nativeEvent.text);
     setInputs({
@@ -63,6 +66,7 @@ export const TextInput = ({
       [name]: e.nativeEvent.text,
     });
   };
+
   return (
     <InputBox>
       <Label>
@@ -113,6 +117,7 @@ const TrashCanInfo = ({navigation}: NavProps) => {
   });
   const {code, name, number, latitude, longitude, type} = inputs;
   const input = [code, name, number, latitude, longitude, type];
+  const [achive, setAchive] = useState<any>([]);
   const onRegister = async () => {
     for (let i = 0; i < input.length; i++) {
       if (input[i] === '') {
@@ -138,17 +143,32 @@ const TrashCanInfo = ({navigation}: NavProps) => {
       latitude,
       longitude,
     };
-    const {status} = await useApi.post('/trashcans', req);
-    if (status === 201) {
+    const res = await useApi.post('/trashcans', req);
+    if (res.status === 201) {
       Alert.alert('쓰레기통 등록이 완료되었습니다.');
+      // setAchive(res.data.achievement);
+      // setLoading(false);
       navigation.navigate('TrashCanInfo');
+    } else {
+      Alert.alert('다시 한번 시도해주세요.');
     }
   };
-  useEffect(() => {
-    console.log(inputs);
-  });
+  const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   console.log(inputs);
+  // });
   return (
     <>
+      {/* {achive?.map((item: any) => ( */}
+      {/* {loading ? null : (
+        <TrashAchieveModal
+          key={achive[0]?.id}
+          achievement={achive[0]}
+          navigation={navigation}
+        />
+      )} */}
+
       <GlobalLayout>
         <SafeAreaView style={styles.safeAreaTop} />
         <AlertBox>

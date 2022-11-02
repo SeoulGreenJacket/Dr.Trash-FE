@@ -57,9 +57,12 @@ const ReviseInfoModal = ({
       longitude,
     };
     const {status} = await useApi.patch(`trashcans/${id}`, req);
+
     if (status === 200) {
       Alert.alert('쓰레기통 정보가 수정되었습니다.');
       setModal(false);
+    } else {
+      Alert.alert('다시 한번 시도해주세요.');
     }
   };
   return (
